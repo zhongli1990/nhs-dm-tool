@@ -1,0 +1,5 @@
+source_value,target_value,description
+1,1,Discharged on clinical advice
+2,2,Discharged by own request
+3,3,Died
+4,4,Transferred

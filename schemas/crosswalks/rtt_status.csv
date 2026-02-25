@@ -1,0 +1,7 @@
+source_value,target_value,description
+P,P,Clock ticking
+S,S,Clock stopped
+R,R,Clock reset
+ACTIVE,P,Mapped active to ticking
+CLOSED,S,Mapped closed to stopped
+SUSPENDED,R,Mapped suspended to reset

@@ -1,0 +1,26 @@
+{
+  "development": {
+    "max_errors": 0,
+    "max_warnings": 60,
+    "max_unresolved": 40,
+    "max_crosswalk_rejects": 5,
+    "min_population_ratio": 0.30,
+    "min_tables_written": 38
+  },
+  "pre_production": {
+    "max_errors": 0,
+    "max_warnings": 20,
+    "max_unresolved": 10,
+    "max_crosswalk_rejects": 0,
+    "min_population_ratio": 0.55,
+    "min_tables_written": 38
+  },
+  "cutover_ready": {
+    "max_errors": 0,
+    "max_warnings": 10,
+    "max_unresolved": 5,
+    "max_crosswalk_rejects": 0,
+    "min_population_ratio": 0.60,
+    "min_tables_written": 38
+  }
+}

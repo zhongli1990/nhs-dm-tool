@@ -1,0 +1,920 @@
+target_table,target_field,mapping_class,primary_source_table,primary_source_field,mapping_rule,confidence,notes
+LOAD_ADT_ADMISSIONS,ward,DIRECT_SOURCE,ADMITDISCH,AdmWard,ADMITDISCH.AdmWard -> LOAD_ADT_ADMISSIONS.ward,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,tci_outcome,LOOKUP_TRANSLATION,AEDIARY,Outcome,AEDIARY.Outcome -> LOAD_ADT_ADMISSIONS.tci_outcome,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ADMISSIONS,cancelled_date,DIRECT_SOURCE,OCCANCEL,DateCancelled,OCCANCEL.DateCancelled -> LOAD_ADT_ADMISSIONS.cancelled_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_ADMISSIONS,loadiwl_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_ADMISSIONS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_ADMISSIONS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_ADMISSIONS,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_ADT_ADMISSIONS.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ADMISSIONS,main_crn,DIRECT_SOURCE,ADMITDISCH,InternalPatientNumber,ADMITDISCH.InternalPatientNumber -> LOAD_ADT_ADMISSIONS.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,ref_gp_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ADMISSIONS.ref_gp_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ADMISSIONS,ref_practice_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ADMISSIONS.ref_practice_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ADMISSIONS,ref_practice_postcode,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ADMISSIONS.ref_practice_postcode,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ADMISSIONS,intended_management,DERIVED,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_ADT_ADMISSIONS.intended_management,MEDIUM,Derived/constructed field from source clinical context.
+LOAD_ADT_ADMISSIONS,wl_date,DIRECT_SOURCE,ADMITDISCH,WlDateCcyy,ADMITDISCH.WlDateCcyy -> LOAD_ADT_ADMISSIONS.wl_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,admit_date,DIRECT_SOURCE,ADMITDISCH,AdmissionDate,ADMITDISCH.AdmissionDate -> LOAD_ADT_ADMISSIONS.admit_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,estimated_discharge_date,DIRECT_SOURCE,ADMITDISCH,DischargeDate,ADMITDISCH.DischargeDate -> LOAD_ADT_ADMISSIONS.estimated_discharge_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,ge_date,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_ADMISSIONS,admit_from,DIRECT_SOURCE,ADMITDISCH,SourceOfAdm,ADMITDISCH.SourceOfAdm -> LOAD_ADT_ADMISSIONS.admit_from,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,admitted_by,DIRECT_SOURCE,ADMITDISCH,Consultant,ADMITDISCH.Consultant -> LOAD_ADT_ADMISSIONS.admitted_by,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,discharge_date,DIRECT_SOURCE,ADMITDISCH,DischargeDate,ADMITDISCH.DischargeDate -> LOAD_ADT_ADMISSIONS.discharge_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,ge_typee,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_ADMISSIONS,ged,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_ADMISSIONS,ge_toe,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_ADMISSIONS,discharged_by,DIRECT_SOURCE,ADMITDISCH,Consultant,ADMITDISCH.Consultant -> LOAD_ADT_ADMISSIONS.discharged_by,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,ged_by_staff_id,DIRECT_SOURCE,CPFCLINEFFDATA,Id,CPFCLINEFFDATA.Id -> LOAD_ADT_ADMISSIONS.ged_by_staff_id,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,source_of_admission,DIRECT_SOURCE,ADMITDISCH,SourceOfAdm,ADMITDISCH.SourceOfAdm -> LOAD_ADT_ADMISSIONS.source_of_admission,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,method_of_admission,DIRECT_SOURCE,ADMITDISCH,MethodOfAdmission,ADMITDISCH.MethodOfAdmission -> LOAD_ADT_ADMISSIONS.method_of_admission,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,method_of_discharge,DIRECT_SOURCE,ADMITDISCH,MethodOfDischarge,ADMITDISCH.MethodOfDischarge -> LOAD_ADT_ADMISSIONS.method_of_discharge,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,destination_on_discharge,DIRECT_SOURCE,ADMITDISCH,DestinationOnDischarge,ADMITDISCH.DestinationOnDischarge -> LOAD_ADT_ADMISSIONS.destination_on_discharge,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,admission_outcome,LOOKUP_TRANSLATION,AEDIARY,Outcome,AEDIARY.Outcome -> LOAD_ADT_ADMISSIONS.admission_outcome,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ADMISSIONS,admission_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_ADT_ADMISSIONS.admission_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ADMISSIONS,physical_discharge_date,DIRECT_SOURCE,ADMITDISCH,DischargeDate,ADMITDISCH.DischargeDate -> LOAD_ADT_ADMISSIONS.physical_discharge_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ADMISSIONS,admit_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_ADT_ADMISSIONS.admit_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ADMISSIONS,consultant_code,LOOKUP_TRANSLATION,ADMITDISCH,Consultant,ADMITDISCH.Consultant -> LOAD_ADT_ADMISSIONS.consultant_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_ADMISSIONS,consultant_name,DIRECT_SOURCE,ADMITDISCH,Consultant,ADMITDISCH.Consultant -> LOAD_ADT_ADMISSIONS.consultant_name,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_ARCHIVE,procedure_10_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_10_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,comments,DERIVED,ADMITDISCH,Comment,ADMITDISCH.Comment -> LOAD_ADT_ARCHIVE.comments,HIGH,Derived/constructed field from source clinical context.
+LOAD_ADT_ARCHIVE,encounter_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_ADT_ARCHIVE.encounter_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,crn,DERIVED,CANCERREGLINK,CrnCancerRegPatientCodingMraNumber,CANCERREGLINK.CrnCancerRegPatientCodingMraNumber -> LOAD_ADT_ARCHIVE.crn,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,of_birth,DERIVED,PATDATA,InternalDateOfBirth,PATDATA.InternalDateOfBirth -> LOAD_ADT_ARCHIVE.of_birth,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,sex,DERIVED,FCEEXT,Sex,FCEEXT.Sex -> LOAD_ADT_ARCHIVE.sex,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,pat_name_1,DERIVED,FCEEXT,Forenames,FCEEXT.Forenames -> LOAD_ADT_ARCHIVE.pat_name_1,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,pat_name_family,DERIVED,FCEEXT,Surname,FCEEXT.Surname -> LOAD_ADT_ARCHIVE.pat_name_family,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,address_1,DERIVED,AEATYPEINC,EdEstAddress1,AEATYPEINC.EdEstAddress1 -> LOAD_ADT_ARCHIVE.address_1,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,address_2,DERIVED,AEATYPEINC,EdEstAddress2,AEATYPEINC.EdEstAddress2 -> LOAD_ADT_ARCHIVE.address_2,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,address_3,DERIVED,AEATYPEINC,EdEstAddress3,AEATYPEINC.EdEstAddress3 -> LOAD_ADT_ARCHIVE.address_3,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,address_4,DERIVED,AEATYPEINC,EdEstAddress4,AEATYPEINC.EdEstAddress4 -> LOAD_ADT_ARCHIVE.address_4,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,address_5,DERIVED,GDP,Address,GDP.Address -> LOAD_ADT_ARCHIVE.address_5,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,post_code,LOOKUP_TRANSLATION,FCEEXT,Postcode,FCEEXT.Postcode -> LOAD_ADT_ARCHIVE.post_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,district,DERIVED,ADMITDISCH,DistrictNumber,ADMITDISCH.DistrictNumber -> LOAD_ADT_ARCHIVE.district,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,pct_codepct,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.pct_codepct,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,contract_number,DERIVED,,,Assemble from multi-table joins (transactional + lookup + historical contexts).,MEDIUM,Explicit archive synthesis mapping required.
+LOAD_ADT_ARCHIVE,purchaser_ref,DERIVED,ALLOCATEDCONTRACT,PurchaserRef,ALLOCATEDCONTRACT.PurchaserRef -> LOAD_ADT_ARCHIVE.purchaser_ref,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,provider_code,LOOKUP_TRANSLATION,FCEEXT,ProviderCode,FCEEXT.ProviderCode -> LOAD_ADT_ARCHIVE.provider_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,purchaser_code,LOOKUP_TRANSLATION,FCEEXT,PurchaserCode,FCEEXT.PurchaserCode -> LOAD_ADT_ARCHIVE.purchaser_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,waiting_list_name,DERIVED,CONSMAST,Name,CONSMAST.Name -> LOAD_ADT_ARCHIVE.waiting_list_name,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,decided_to_admit_date,DERIVED,CPFCLINEFFDATA,Id,CPFCLINEFFDATA.Id -> LOAD_ADT_ARCHIVE.decided_to_admit_date,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,inpatient_wait_days,DERIVED,WARD,Days,WARD.Days -> LOAD_ADT_ARCHIVE.inpatient_wait_days,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,operation_date,DERIVED,ADMITDISCH,Operation,ADMITDISCH.Operation -> LOAD_ADT_ARCHIVE.operation_date,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,ref_source,DERIVED,CPSGREFERRAL,Source,CPSGREFERRAL.Source -> LOAD_ADT_ARCHIVE.ref_source,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,gp_registration_codegp,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.gp_registration_codegp,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,gp_namegp,DERIVED,CONSMAST,Name,CONSMAST.Name -> LOAD_ADT_ARCHIVE.gp_namegp,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,gp_fundholder_codegp,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.gp_fundholder_codegp,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,gp_practice_code,LOOKUP_TRANSLATION,ADMITDISCH,EpiGPPracticeCode,ADMITDISCH.EpiGPPracticeCode -> LOAD_ADT_ARCHIVE.gp_practice_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,practice_name,DERIVED,CONSMAST,Name,CONSMAST.Name -> LOAD_ADT_ARCHIVE.practice_name,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,patient_category,DERIVED,ADMITDISCH,Category,ADMITDISCH.Category -> LOAD_ADT_ARCHIVE.patient_category,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,intended_management,DERIVED,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_ADT_ARCHIVE.intended_management,MEDIUM,Derived/constructed field from source clinical context.
+LOAD_ADT_ARCHIVE,admit_date,DERIVED,ADMITDISCH,AdmissionDate,ADMITDISCH.AdmissionDate -> LOAD_ADT_ARCHIVE.admit_date,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,est_discharge_date,DERIVED,ADMITDISCH,DischargeDate,ADMITDISCH.DischargeDate -> LOAD_ADT_ARCHIVE.est_discharge_date,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,ge_date,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_ARCHIVE,admitting_specialty,LOOKUP_TRANSLATION,ADMITDISCH,Specialty,ADMITDISCH.Specialty -> LOAD_ADT_ARCHIVE.admitting_specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,admitting_consultant_gmc,DERIVED,ADMITDISCH,Consultant,ADMITDISCH.Consultant -> LOAD_ADT_ARCHIVE.admitting_consultant_gmc,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,admitting_consultant_name,DERIVED,ADMITDISCH,Consultant,ADMITDISCH.Consultant -> LOAD_ADT_ARCHIVE.admitting_consultant_name,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,discharge_method,DERIVED,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_ADT_ARCHIVE.discharge_method,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,ge_methode,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_ARCHIVE,ged,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_ARCHIVE,ge_toe,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_ARCHIVE,discharging_specialty,LOOKUP_TRANSLATION,ADMITDISCH,Specialty,ADMITDISCH.Specialty -> LOAD_ADT_ARCHIVE.discharging_specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,ge_specialty,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_ARCHIVE,ge_consultant,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_ARCHIVE,admission_outcome,LOOKUP_TRANSLATION,AEDIARY,Outcome,AEDIARY.Outcome -> LOAD_ADT_ARCHIVE.admission_outcome,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,episode_order,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.episode_order,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,age_at_start_of_episode,DERIVED,FCEEXT,AgeAtStartOfEpisode,FCEEXT.AgeAtStartOfEpisode -> LOAD_ADT_ARCHIVE.age_at_start_of_episode,HIGH,Derived/constructed field from source clinical context.
+LOAD_ADT_ARCHIVE,episode_start,DERIVED,CONSEPISODE,EpisodeStartDate,CONSEPISODE.EpisodeStartDate -> LOAD_ADT_ARCHIVE.episode_start,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,episode_end,DERIVED,CONSEPISODE,ConsultantEpisodeEndDttm,CONSEPISODE.ConsultantEpisodeEndDttm -> LOAD_ADT_ARCHIVE.episode_end,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,duration_of_episode,DERIVED,AECLINICMF,Duration,AECLINICMF.Duration -> LOAD_ADT_ARCHIVE.duration_of_episode,MEDIUM,Derived/constructed field from source clinical context.
+LOAD_ADT_ARCHIVE,specialty,LOOKUP_TRANSLATION,ADMITDISCH,Specialty,ADMITDISCH.Specialty -> LOAD_ADT_ARCHIVE.specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,consultant_gmc,DERIVED,ADMITDISCH,Consultant,ADMITDISCH.Consultant -> LOAD_ADT_ARCHIVE.consultant_gmc,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,consultant_name,DERIVED,ADMITDISCH,Consultant,ADMITDISCH.Consultant -> LOAD_ADT_ARCHIVE.consultant_name,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,ward_name,DERIVED,WARD,WardName,WARD.WardName -> LOAD_ADT_ARCHIVE.ward_name,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,diagnosis_scheme,DERIVED,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_ADT_ARCHIVE.diagnosis_scheme,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,primary_diagnosis_code,LOOKUP_TRANSLATION,FCEEXT,KornerEpisodePrimaryDiagnosisCode,FCEEXT.KornerEpisodePrimaryDiagnosisCode -> LOAD_ADT_ARCHIVE.primary_diagnosis_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,primary_diagnosis_desc,DERIVED,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_ADT_ARCHIVE.primary_diagnosis_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,diagnosis_1_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.diagnosis_1_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,diagnosis,DERIVED,FCEEXT,KornerEpisodePrimaryDiagnosisCode,FCEEXT.KornerEpisodePrimaryDiagnosisCode -> LOAD_ADT_ARCHIVE.diagnosis,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,diagnosis_2_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.diagnosis_2_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,diagnosis_3_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.diagnosis_3_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,diagnosis_4_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.diagnosis_4_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,diagnosis_5_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.diagnosis_5_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,diagnosis_6_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.diagnosis_6_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,diagnosis_7_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.diagnosis_7_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,diagnosis_8_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.diagnosis_8_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,diagnosis_9_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.diagnosis_9_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,diagnosis_10_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.diagnosis_10_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,procedure_scheme,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_scheme,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,primary_procedure_code,LOOKUP_TRANSLATION,FCEEXT,KornerEpisodePrimaryProcedureCode,FCEEXT.KornerEpisodePrimaryProcedureCode -> LOAD_ADT_ARCHIVE.primary_procedure_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,primary_procedure_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.primary_procedure_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,procedure_1_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.procedure_1_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,procedure_1_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_1_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,procedure_2_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.procedure_2_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,procedure_2_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_2_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,procedure_3_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.procedure_3_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,procedure_3_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_3_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,procedure_4_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.procedure_4_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,procedure_4_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_4_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,procedure_5_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.procedure_5_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,procedure_5_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_5_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,procedure_6_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.procedure_6_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,procedure_6_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_6_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,procedure_7_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.procedure_7_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,procedure_7_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_7_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,procedure_8_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.procedure_8_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,procedure_8_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_8_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,procedure_9_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.procedure_9_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,procedure_9_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_ARCHIVE.procedure_9_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_ARCHIVE,procedure_10_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_ARCHIVE.procedure_10_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_ARCHIVE,hrghrg,DERIVED,AEHRG,Hrg,AEHRG.Hrg -> LOAD_ADT_ARCHIVE.hrghrg,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_ADT_CODING,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_CODING,adt_eps_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_CODING,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_CODING,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_CODING,diagnosis_division,DIRECT_SOURCE,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_ADT_CODING.diagnosis_division,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_CODING,note_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_ADT_CODING.note_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_CODING,diagnosis,DIRECT_SOURCE,FCEEXT,KornerEpisodePrimaryDiagnosisCode,FCEEXT.KornerEpisodePrimaryDiagnosisCode -> LOAD_ADT_CODING.diagnosis,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_CODING,diagnosis_scheme,DIRECT_SOURCE,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_ADT_CODING.diagnosis_scheme,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_CODING,primary_diagnosis_code,LOOKUP_TRANSLATION,FCEEXT,KornerEpisodePrimaryDiagnosisCode,FCEEXT.KornerEpisodePrimaryDiagnosisCode -> LOAD_ADT_CODING.primary_diagnosis_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_CODING,primary_diagnosis_desc,DIRECT_SOURCE,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_ADT_CODING.primary_diagnosis_desc,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_CODING,diagnosis_1_code,LOOKUP_TRANSLATION,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_ADT_CODING.diagnosis_1_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_CODING,diagnosis_1_desc,DIRECT_SOURCE,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_ADT_CODING.diagnosis_1_desc,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_CODING,diagnosis_2_code,LOOKUP_TRANSLATION,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_ADT_CODING.diagnosis_2_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_CODING,diagnosis_2_desc,DIRECT_SOURCE,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_ADT_CODING.diagnosis_2_desc,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_CODING,procedure_scheme,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_CODING.procedure_scheme,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_CODING,primary_procedure_code,LOOKUP_TRANSLATION,FCEEXT,KornerEpisodePrimaryProcedureCode,FCEEXT.KornerEpisodePrimaryProcedureCode -> LOAD_ADT_CODING.primary_procedure_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_CODING,primary_procedure_desc,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_CODING.primary_procedure_desc,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_CODING,procedure_1_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_CODING.procedure_1_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_CODING,procedure_1_desc,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_CODING.procedure_1_desc,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_CODING,hrg,DIRECT_SOURCE,FCEEXT,HrgCode,FCEEXT.HrgCode -> LOAD_ADT_CODING.hrg,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_CODING,comments,DERIVED,ADMITDISCH,Comment,ADMITDISCH.Comment -> LOAD_ADT_CODING.comments,MEDIUM,Derived/constructed field from source clinical context.
+LOAD_ADT_EPISODES,indicates,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_EPISODES,must,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_EPISODES,ge_date,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_EPISODES,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_EPISODES,adt_adm_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_EPISODES,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_EPISODES,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_EPISODES,patient_category,DIRECT_SOURCE,FCEEXT,PatientCategory,FCEEXT.PatientCategory -> LOAD_ADT_EPISODES.patient_category,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_EPISODES,actual_management,DERIVED,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_ADT_EPISODES.actual_management,MEDIUM,Derived/constructed field from source clinical context.
+LOAD_ADT_EPISODES,episode_start,DIRECT_SOURCE,SMREPISODE,EpisodeStartDate,SMREPISODE.EpisodeStartDate -> LOAD_ADT_EPISODES.episode_start,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_EPISODES,episode_end,DIRECT_SOURCE,CONSEPISODE,ConsultantEpisodeEndDttm,CONSEPISODE.ConsultantEpisodeEndDttm -> LOAD_ADT_EPISODES.episode_end,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_EPISODES,episode_order,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_ADT_EPISODES.episode_order,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_EPISODES,duration_of_episode,DERIVED,AECLINICMF,Duration,AECLINICMF.Duration -> LOAD_ADT_EPISODES.duration_of_episode,MEDIUM,Derived/constructed field from source clinical context.
+LOAD_ADT_EPISODES,age_at_start_of_episode,DERIVED,FCEEXT,AgeAtStartOfEpisode,FCEEXT.AgeAtStartOfEpisode -> LOAD_ADT_EPISODES.age_at_start_of_episode,HIGH,Derived/constructed field from source clinical context.
+LOAD_ADT_EPISODES,specialty,LOOKUP_TRANSLATION,FCEEXT,Specialty,FCEEXT.Specialty -> LOAD_ADT_EPISODES.specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_EPISODES,consultant_code,LOOKUP_TRANSLATION,FCEEXT,Consultant,FCEEXT.Consultant -> LOAD_ADT_EPISODES.consultant_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_EPISODES,consultant_name,DIRECT_SOURCE,FCEEXT,Consultant,FCEEXT.Consultant -> LOAD_ADT_EPISODES.consultant_name,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_WARDSTAYS,specialty,LOOKUP_TRANSLATION,ADMITDISCH,Specialty,ADMITDISCH.Specialty -> LOAD_ADT_WARDSTAYS.specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_WARDSTAYS,consultant_code,LOOKUP_TRANSLATION,ADMITDISCH,Consultant,ADMITDISCH.Consultant -> LOAD_ADT_WARDSTAYS.consultant_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_ADT_WARDSTAYS,start_date,DIRECT_SOURCE,FCEEXT,FCEStartDate,FCEEXT.FCEStartDate -> LOAD_ADT_WARDSTAYS.start_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_WARDSTAYS,end_date,DIRECT_SOURCE,FCEEXT,FCEEndDate,FCEEXT.FCEEndDate -> LOAD_ADT_WARDSTAYS.end_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_WARDSTAYS,table,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_WARDSTAYS,indicates,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_ADT_WARDSTAYS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_WARDSTAYS,adt_eps_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_WARDSTAYS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_WARDSTAYS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_ADT_WARDSTAYS,team,DIRECT_SOURCE,CPCLINACTIVITY,Team,CPCLINACTIVITY.Team -> LOAD_ADT_WARDSTAYS.team,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_WARDSTAYS,ward,DIRECT_SOURCE,ADMITDISCH,AdmWard,ADMITDISCH.AdmWard -> LOAD_ADT_WARDSTAYS.ward,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_WARDSTAYS,bed_sex,DIRECT_SOURCE,ADMITDISCH,Bed,ADMITDISCH.Bed -> LOAD_ADT_WARDSTAYS.bed_sex,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_WARDSTAYS,bed_location,DIRECT_SOURCE,ADMITDISCH,Bed,ADMITDISCH.Bed -> LOAD_ADT_WARDSTAYS.bed_location,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_ADT_WARDSTAYS,is_home_stay,DERIVED,,,Default policy: inpatient ward stay implies non-home stay unless explicitly indicated.,HIGH,Policy default for migration completeness.
+LOAD_ADT_WARDSTAYS,is_awol,DERIVED,,,Default policy: AWOL is false unless explicit source flag exists.,HIGH,Policy default for migration completeness.
+LOAD_ADT_WARDSTAYS,leave_location_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_ADT_WARDSTAYS.leave_location_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_ADT_WARDSTAYS,transfer_reason,LOOKUP_TRANSLATION,CPREFDISCH,Reason,CPREFDISCH.Reason -> LOAD_ADT_WARDSTAYS.transfer_reason,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_CASENOTELOCS,practice_post_code,LOOKUP_TRANSLATION,LOCATIONCODES,PostCode,LOCATIONCODES.PostCode -> LOAD_CASENOTELOCS.practice_post_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_CASENOTELOCS,applies_start,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_CASENOTELOCS.applies_start,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CASENOTELOCS,applies_end,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_CASENOTELOCS.applies_end,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CASENOTELOCS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_CASENOTELOCS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_CASENOTELOCS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_CASENOTELOCS,hospital_code,LOOKUP_TRANSLATION,AEA,HospitalCode,AEA.HospitalCode -> LOAD_CASENOTELOCS.hospital_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_CASENOTELOCS,site,DIRECT_SOURCE,AEANATSITE,AeAnatomSitePromptSideInt,AEANATSITE.AeAnatomSitePromptSideInt -> LOAD_CASENOTELOCS.site,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CASENOTELOCS,location_type,LOOKUP_TRANSLATION,LOCN,LocationType,LOCN.LocationType -> LOAD_CASENOTELOCS.location_type,HIGH,Code/value translation required against PAS code sets.
+LOAD_CASENOTELOCS,user_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_CASENOTELOCS.user_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_CASENOTELOCS,description,DIRECT_SOURCE,LOCATIONCODES,Description,LOCATIONCODES.Description -> LOAD_CASENOTELOCS.description,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CASENOTELOCS,active_flag,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_CASENOTELOCS.active_flag,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,diagnosed_by,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_CMTY_APPOINTMENTS.diagnosed_by,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,diagnosis_date,DIRECT_SOURCE,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_CMTY_APPOINTMENTS.diagnosis_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,must,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_CMTY_APPOINTMENTS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_CMTY_APPOINTMENTS,loadowl_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_CMTY_APPOINTMENTS,loadrttpwy_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_CMTY_APPOINTMENTS,loadrttprd_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_CMTY_APPOINTMENTS,loadrttprd_action,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_CMTY_APPOINTMENTS.loadrttprd_action,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_CMTY_APPOINTMENTS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_CMTY_APPOINTMENTS,main_crn_type,LOOKUP_TRANSLATION,CPSGREFERRAL,Type,CPSGREFERRAL.Type -> LOAD_CMTY_APPOINTMENTS.main_crn_type,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,main_crn,DIRECT_SOURCE,CPSGREFERRAL,InternalPatientNumber,CPSGREFERRAL.InternalPatientNumber -> LOAD_CMTY_APPOINTMENTS.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,patient_category,DIRECT_SOURCE,CPSGREFERRAL,Category,CPSGREFERRAL.Category -> LOAD_CMTY_APPOINTMENTS.patient_category,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,first_seen,DIRECT_SOURCE,CANCERSUMMARY,DateFirstSeen,CANCERSUMMARY.DateFirstSeen -> LOAD_CMTY_APPOINTMENTS.first_seen,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,override_wait_reset_date,DIRECT_SOURCE,CPFCLINEFFDATA,Id,CPFCLINEFFDATA.Id -> LOAD_CMTY_APPOINTMENTS.override_wait_reset_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,ref_new_followup_flag,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_CMTY_APPOINTMENTS.ref_new_followup_flag,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,ref_date,DIRECT_SOURCE,CANCERSUMMARY,DecToRefDate,CANCERSUMMARY.DecToRefDate -> LOAD_CMTY_APPOINTMENTS.ref_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,appointments,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_CMTY_APPOINTMENTS,ref_received_date,DIRECT_SOURCE,CPSGREFERRAL,ReferralDate,CPSGREFERRAL.ReferralDate -> LOAD_CMTY_APPOINTMENTS.ref_received_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,ref_source,DIRECT_SOURCE,CPSGREFERRAL,Source,CPSGREFERRAL.Source -> LOAD_CMTY_APPOINTMENTS.ref_source,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,ref_gp_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_CMTY_APPOINTMENTS.ref_gp_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,ref_practice_code,LOOKUP_TRANSLATION,HWSAPP,PracticeCode,HWSAPP.PracticeCode -> LOAD_CMTY_APPOINTMENTS.ref_practice_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,ref_practice_postcode,LOOKUP_TRANSLATION,HWSAPP,Postcode,HWSAPP.Postcode -> LOAD_CMTY_APPOINTMENTS.ref_practice_postcode,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,ref_urgency,LOOKUP_TRANSLATION,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_CMTY_APPOINTMENTS.ref_urgency,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,ref_type,LOOKUP_TRANSLATION,CPSGREFERRAL,Type,CPSGREFERRAL.Type -> LOAD_CMTY_APPOINTMENTS.ref_type,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,ref_reason,LOOKUP_TRANSLATION,CPREFDISCH,Reason,CPREFDISCH.Reason -> LOAD_CMTY_APPOINTMENTS.ref_reason,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,ref_specialty,LOOKUP_TRANSLATION,HWSAPP,RefSpecialty,HWSAPP.RefSpecialty -> LOAD_CMTY_APPOINTMENTS.ref_specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,ref_team,DIRECT_SOURCE,CPCLINACTIVITY,Team,CPCLINACTIVITY.Team -> LOAD_CMTY_APPOINTMENTS.ref_team,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,ref_consultant,DIRECT_SOURCE,HWSAPP,RefConsultant,HWSAPP.RefConsultant -> LOAD_CMTY_APPOINTMENTS.ref_consultant,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,ref_outcome,LOOKUP_TRANSLATION,CPSGREFERRAL,Outcome,CPSGREFERRAL.Outcome -> LOAD_CMTY_APPOINTMENTS.ref_outcome,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,ref_discharge_date,DIRECT_SOURCE,CPSGREFERRAL,DischargeDate,CPSGREFERRAL.DischargeDate -> LOAD_CMTY_APPOINTMENTS.ref_discharge_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,ged_date,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_CMTY_APPOINTMENTS.ged_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,booked_date,DIRECT_SOURCE,HWSAPP,ApptBookedDate,HWSAPP.ApptBookedDate -> LOAD_CMTY_APPOINTMENTS.booked_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,booking_type,LOOKUP_TRANSLATION,CPSGREFERRAL,Type,CPSGREFERRAL.Type -> LOAD_CMTY_APPOINTMENTS.booking_type,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,clinic_code_1,LOOKUP_TRANSLATION,HWSAPP,ClinicCode,HWSAPP.ClinicCode -> LOAD_CMTY_APPOINTMENTS.clinic_code_1,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,clinic_code_2,LOOKUP_TRANSLATION,HWSAPP,ClinicCode,HWSAPP.ClinicCode -> LOAD_CMTY_APPOINTMENTS.clinic_code_2,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,appt_type,LOOKUP_TRANSLATION,CPSGREFERRAL,Type,CPSGREFERRAL.Type -> LOAD_CMTY_APPOINTMENTS.appt_type,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,consultant_code,LOOKUP_TRANSLATION,HWSAPP,ClinicConsultant,HWSAPP.ClinicConsultant -> LOAD_CMTY_APPOINTMENTS.consultant_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,transport_required,DIRECT_SOURCE,HWSAPP,Transport,HWSAPP.Transport -> LOAD_CMTY_APPOINTMENTS.transport_required,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,walkin_flag,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_CMTY_APPOINTMENTS.walkin_flag,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,time_arrived,DIRECT_SOURCE,HWSAPP,ApptTime,HWSAPP.ApptTime -> LOAD_CMTY_APPOINTMENTS.time_arrived,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,time_seen,DIRECT_SOURCE,HWSAPP,ApptTime,HWSAPP.ApptTime -> LOAD_CMTY_APPOINTMENTS.time_seen,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,time_complete,DIRECT_SOURCE,HWSAPP,ApptEndTime,HWSAPP.ApptEndTime -> LOAD_CMTY_APPOINTMENTS.time_complete,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,outcome,LOOKUP_TRANSLATION,CPSGREFERRAL,Outcome,CPSGREFERRAL.Outcome -> LOAD_CMTY_APPOINTMENTS.outcome,HIGH,Code/value translation required against PAS code sets.
+LOAD_CMTY_APPOINTMENTS,ged,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_CMTY_APPOINTMENTS,cancelled_date,DIRECT_SOURCE,OCCANCEL,DateCancelled,OCCANCEL.DateCancelled -> LOAD_CMTY_APPOINTMENTS.cancelled_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,ref_comment,DIRECT_SOURCE,ADMITDISCH,Comment,ADMITDISCH.Comment -> LOAD_CMTY_APPOINTMENTS.ref_comment,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_CMTY_APPOINTMENTS,appt_comment,DIRECT_SOURCE,HWSAPP,ApptComment,HWSAPP.ApptComment -> LOAD_CMTY_APPOINTMENTS.appt_comment,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_CPA_ARCHIVE,crn,DERIVED,CANCERREGLINK,CrnCancerRegPatientCodingMraNumber,CANCERREGLINK.CrnCancerRegPatientCodingMraNumber -> LOAD_CPA_ARCHIVE.crn,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,of_birth,DERIVED,PATDATA,InternalDateOfBirth,PATDATA.InternalDateOfBirth -> LOAD_CPA_ARCHIVE.of_birth,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,sex,DERIVED,ASFIELDRANGE,FieldRangeSex,ASFIELDRANGE.FieldRangeSex -> LOAD_CPA_ARCHIVE.sex,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,pat_name_1,DERIVED,CONSMAST,Name,CONSMAST.Name -> LOAD_CPA_ARCHIVE.pat_name_1,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,pat_name_family,DERIVED,AEDOCTOR,Surname,AEDOCTOR.Surname -> LOAD_CPA_ARCHIVE.pat_name_family,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,address_1,DERIVED,AEATYPEINC,EdEstAddress1,AEATYPEINC.EdEstAddress1 -> LOAD_CPA_ARCHIVE.address_1,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,address_2,DERIVED,AEATYPEINC,EdEstAddress2,AEATYPEINC.EdEstAddress2 -> LOAD_CPA_ARCHIVE.address_2,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,address_3,DERIVED,AEATYPEINC,EdEstAddress3,AEATYPEINC.EdEstAddress3 -> LOAD_CPA_ARCHIVE.address_3,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,address_4,DERIVED,AEATYPEINC,EdEstAddress4,AEATYPEINC.EdEstAddress4 -> LOAD_CPA_ARCHIVE.address_4,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,address_5,DERIVED,GDP,Address,GDP.Address -> LOAD_CPA_ARCHIVE.address_5,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,post_code,LOOKUP_TRANSLATION,ADTLADDCOR,Newpostcode,ADTLADDCOR.Newpostcode -> LOAD_CPA_ARCHIVE.post_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_CPA_ARCHIVE,cpa_start,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_CPA_ARCHIVE.cpa_start,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,cpa_end,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_CPA_ARCHIVE.cpa_end,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,cpa_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_CPA_ARCHIVE.cpa_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_CPA_ARCHIVE,key_worker,DERIVED,DISCHEXPECTED,ExpDischKeyWorker,DISCHEXPECTED.ExpDischKeyWorker -> LOAD_CPA_ARCHIVE.key_worker,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_CPA_ARCHIVE,care_coordinator,DERIVED,,,Assemble from multi-table joins (transactional + lookup + historical contexts).,MEDIUM,Explicit archive synthesis mapping required.
+LOAD_CPA_ARCHIVE,cpa_notescpa,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_CPA_ARCHIVE.cpa_notescpa,MEDIUM,Derived/constructed field from source clinical context.
+LOAD_DETENTION_ARCHIVE,crn,DERIVED,CANCERREGLINK,CrnCancerRegPatientCodingMraNumber,CANCERREGLINK.CrnCancerRegPatientCodingMraNumber -> LOAD_DETENTION_ARCHIVE.crn,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,of_birth,DERIVED,PATDATA,InternalDateOfBirth,PATDATA.InternalDateOfBirth -> LOAD_DETENTION_ARCHIVE.of_birth,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,sex,DERIVED,ASFIELDRANGE,FieldRangeSex,ASFIELDRANGE.FieldRangeSex -> LOAD_DETENTION_ARCHIVE.sex,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,pat_name_1,DERIVED,CONSMAST,Name,CONSMAST.Name -> LOAD_DETENTION_ARCHIVE.pat_name_1,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,pat_name_family,DERIVED,AEDOCTOR,Surname,AEDOCTOR.Surname -> LOAD_DETENTION_ARCHIVE.pat_name_family,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,address_1,DERIVED,AEATYPEINC,EdEstAddress1,AEATYPEINC.EdEstAddress1 -> LOAD_DETENTION_ARCHIVE.address_1,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,address_2,DERIVED,AEATYPEINC,EdEstAddress2,AEATYPEINC.EdEstAddress2 -> LOAD_DETENTION_ARCHIVE.address_2,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,address_3,DERIVED,AEATYPEINC,EdEstAddress3,AEATYPEINC.EdEstAddress3 -> LOAD_DETENTION_ARCHIVE.address_3,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,address_4,DERIVED,AEATYPEINC,EdEstAddress4,AEATYPEINC.EdEstAddress4 -> LOAD_DETENTION_ARCHIVE.address_4,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,address_5,DERIVED,GDP,Address,GDP.Address -> LOAD_DETENTION_ARCHIVE.address_5,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,post_code,LOOKUP_TRANSLATION,ADTLADDCOR,Newpostcode,ADTLADDCOR.Newpostcode -> LOAD_DETENTION_ARCHIVE.post_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_DETENTION_ARCHIVE,detention_start,DERIVED,,,Assemble from multi-table joins (transactional + lookup + historical contexts).,MEDIUM,Explicit archive synthesis mapping required.
+LOAD_DETENTION_ARCHIVE,detention_end,DERIVED,,,Assemble from multi-table joins (transactional + lookup + historical contexts).,MEDIUM,Explicit archive synthesis mapping required.
+LOAD_DETENTION_ARCHIVE,detention_location,DERIVED,AELOCATION,Location,AELOCATION.Location -> LOAD_DETENTION_ARCHIVE.detention_location,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,caseholder,DERIVED,,,Assemble from multi-table joins (transactional + lookup + historical contexts).,MEDIUM,Explicit archive synthesis mapping required.
+LOAD_DETENTION_ARCHIVE,mental_category,DERIVED,LEGALSTATUSDETS,MentalCategory,LEGALSTATUSDETS.MentalCategory -> LOAD_DETENTION_ARCHIVE.mental_category,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_DETENTION_ARCHIVE,legal_status,LOOKUP_TRANSLATION,LEGALSTATUSDETS,LegalStatus,LEGALSTATUSDETS.LegalStatus -> LOAD_DETENTION_ARCHIVE.legal_status,HIGH,Code/value translation required against PAS code sets.
+LOAD_DETENTION_ARCHIVE,detention_notes,DERIVED,,,Assemble from multi-table joins (transactional + lookup + historical contexts).,MEDIUM,Explicit archive synthesis mapping required.
+LOAD_IWL,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL,loadref_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL,rttpwy_recno_out_encounter,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL,loadrttprd_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL,loadrttprd_action,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_IWL.loadrttprd_action,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,rttevent_recno_encounter,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL,rttevent_recno_outcome,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_IWL.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_IWL,main_crn,DIRECT_SOURCE,WLCURRENT,InternalPatientNumber,WLCURRENT.InternalPatientNumber -> LOAD_IWL.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,waitlist_date,DIRECT_SOURCE,WLCURRENT,DateOnList,WLCURRENT.DateOnList -> LOAD_IWL.waitlist_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,urgency,LOOKUP_TRANSLATION,WLCURRENT,Urgency,WLCURRENT.Urgency -> LOAD_IWL.urgency,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL,short_notice_flag,DIRECT_SOURCE,WLCURRENT,ShortNotice,WLCURRENT.ShortNotice -> LOAD_IWL.short_notice_flag,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,status,LOOKUP_TRANSLATION,WLCURRENT,OsvStatus,WLCURRENT.OsvStatus -> LOAD_IWL.status,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL,waitlist_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_IWL.waitlist_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_IWL,waitlist_profile,DERIVED,WLCURRENT,Specialty,WLCURRENT.Specialty -> LOAD_IWL.waitlist_profile,HIGH,Derived/constructed field from source clinical context.
+LOAD_IWL,site_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_IWL.site_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_IWL,specialty,LOOKUP_TRANSLATION,WLCURRENT,Specialty,WLCURRENT.Specialty -> LOAD_IWL.specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL,consultant_code,LOOKUP_TRANSLATION,WLCURRENT,Consultant,WLCURRENT.Consultant -> LOAD_IWL.consultant_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL,intended_management,DERIVED,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_IWL.intended_management,MEDIUM,Derived/constructed field from source clinical context.
+LOAD_IWL,transport_required,DIRECT_SOURCE,WLCURRENT,Transport,WLCURRENT.Transport -> LOAD_IWL.transport_required,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,provisional_diagnosis,DIRECT_SOURCE,WLCURRENT,ProvisionalDiagnosis,WLCURRENT.ProvisionalDiagnosis -> LOAD_IWL.provisional_diagnosis,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,provisional_procedure,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_IWL.provisional_procedure,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,intended_procedure_code,LOOKUP_TRANSLATION,WLCURRENT,IntendedProc,WLCURRENT.IntendedProc -> LOAD_IWL.intended_procedure_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL,intended_procedure_code2,LOOKUP_TRANSLATION,WLCURRENT,IntendedProc,WLCURRENT.IntendedProc -> LOAD_IWL.intended_procedure_code2,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL,est_theatre_time,DIRECT_SOURCE,WLCURRENT,TheatreTime,WLCURRENT.TheatreTime -> LOAD_IWL.est_theatre_time,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,admission_duration,DERIVED,AECLINICMF,Duration,AECLINICMF.Duration -> LOAD_IWL.admission_duration,MEDIUM,Derived/constructed field from source clinical context.
+LOAD_IWL,last_review_date,DIRECT_SOURCE,WLCURRENT,LastReviewDate,WLCURRENT.LastReviewDate -> LOAD_IWL.last_review_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,last_review_response,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_IWL.last_review_response,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,wl_outcome,LOOKUP_TRANSLATION,AEDIARY,Outcome,AEDIARY.Outcome -> LOAD_IWL.wl_outcome,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_IWL,removed,DIRECT_SOURCE,CLIDATA,RemovedFromScreen,CLIDATA.RemovedFromScreen -> LOAD_IWL.removed,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL,wl_entry_comment,DIRECT_SOURCE,ADMITDISCH,Comment,ADMITDISCH.Comment -> LOAD_IWL.wl_entry_comment,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_DEFERRALS,admission_reason_comment,LOOKUP_TRANSLATION,WLACTIVITY,Reason,WLACTIVITY.Reason -> LOAD_IWL_DEFERRALS.admission_reason_comment,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL_DEFERRALS,operation_text,DIRECT_SOURCE,ADMITDISCH,Operation,ADMITDISCH.Operation -> LOAD_IWL_DEFERRALS.operation_text,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_DEFERRALS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_DEFERRALS,loadiwl_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_DEFERRALS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_DEFERRALS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_DEFERRALS,deferral_start,DIRECT_SOURCE,CONSWARDSTAY,StartDate,CONSWARDSTAY.StartDate -> LOAD_IWL_DEFERRALS.deferral_start,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_DEFERRALS,deferral_end,DIRECT_SOURCE,CONSWARDSTAY,EndDate,CONSWARDSTAY.EndDate -> LOAD_IWL_DEFERRALS.deferral_end,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_DEFERRALS,deferral_reason,LOOKUP_TRANSLATION,WLACTIVITY,Reason,WLACTIVITY.Reason -> LOAD_IWL_DEFERRALS.deferral_reason,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL_DEFERRALS,deferral_comment,DIRECT_SOURCE,ADMITDISCH,Comment,ADMITDISCH.Comment -> LOAD_IWL_DEFERRALS.deferral_comment,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_PROFILES,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_PROFILES,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_PROFILES,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_PROFILES,waitlist_profile,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_IWL_PROFILES,description,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_IWL_PROFILES,list_no,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_IWL_PROFILES,consultant_code,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_IWL_PROFILES,treatment_type,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_IWL_PROFILES,admit_type,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_IWL_PROFILES,max_wait_months,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_IWL_PROFILES,avg_length_stay,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_IWL_PROFILES,admit_duration_hours,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_IWL_PROFILES,operation_duration_mins,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_IWL_TCIS,deferral_end,DIRECT_SOURCE,CONSWARDSTAY,EndDate,CONSWARDSTAY.EndDate -> LOAD_IWL_TCIS.deferral_end,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_TCIS,deferral_reason,LOOKUP_TRANSLATION,WLACTIVITY,Reason,WLACTIVITY.Reason -> LOAD_IWL_TCIS.deferral_reason,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL_TCIS,deferral_comment,DIRECT_SOURCE,ADMITDISCH,Comment,ADMITDISCH.Comment -> LOAD_IWL_TCIS.deferral_comment,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_TCIS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_TCIS,loadiwl_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_TCIS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_TCIS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_IWL_TCIS,status,LOOKUP_TRANSLATION,WLCURRENT,OsvStatus,WLCURRENT.OsvStatus -> LOAD_IWL_TCIS.status,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL_TCIS,booking_type,LOOKUP_TRANSLATION,WLACTIVITY,BookingType,WLACTIVITY.BookingType -> LOAD_IWL_TCIS.booking_type,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL_TCIS,consultant_code,LOOKUP_TRANSLATION,WLACTIVITY,Consultant,WLACTIVITY.Consultant -> LOAD_IWL_TCIS.consultant_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_IWL_TCIS,offer_date,DIRECT_SOURCE,WLACTIVITY,TCIOfferDateInt,WLACTIVITY.TCIOfferDateInt -> LOAD_IWL_TCIS.offer_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_TCIS,agreed_date,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_IWL_TCIS.agreed_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_TCIS,agreed_flag,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_IWL_TCIS.agreed_flag,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_TCIS,preassessment_date,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_IWL_TCIS.preassessment_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_TCIS,tci_date,DIRECT_SOURCE,WLACTIVITY,TCIDate,WLACTIVITY.TCIDate -> LOAD_IWL_TCIS.tci_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_TCIS,operation_date,DIRECT_SOURCE,WLCURRENT,OperationDate,WLCURRENT.OperationDate -> LOAD_IWL_TCIS.operation_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_TCIS,estimated_discharge_date,DIRECT_SOURCE,ADMITDISCH,DischargeDate,ADMITDISCH.DischargeDate -> LOAD_IWL_TCIS.estimated_discharge_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_IWL_TCIS,ge_date,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_MH_CPA_HISTORY,applies_end,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_MH_CPA_HISTORY.applies_end,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_CPA_HISTORY,next_review_date,DIRECT_SOURCE,CPSCPADLPROBGOAL,ReviewDate,CPSCPADLPROBGOAL.ReviewDate -> LOAD_MH_CPA_HISTORY.next_review_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_CPA_HISTORY,table,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_MH_CPA_HISTORY,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_CPA_HISTORY,mh_cm_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_CPA_HISTORY,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_CPA_HISTORY,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_CPA_HISTORY,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_MH_CPA_HISTORY.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_MH_CPA_HISTORY,main_crn,DIRECT_SOURCE,SMREPISODE,InternalPatientNumber,SMREPISODE.InternalPatientNumber -> LOAD_MH_CPA_HISTORY.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_CPA_HISTORY,cpa_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_MH_CPA_HISTORY.cpa_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_MH_CPA_MASTER,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_CPA_MASTER,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_CPA_MASTER,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_CPA_MASTER,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_MH_CPA_MASTER.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_MH_CPA_MASTER,main_crn,DIRECT_SOURCE,SMREPISODE,InternalPatientNumber,SMREPISODE.InternalPatientNumber -> LOAD_MH_CPA_MASTER.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_CPA_MASTER,cpa_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_MH_CPA_MASTER.cpa_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_MH_CPA_MASTER,key_worker_staff_id,DIRECT_SOURCE,CPFCLINEFFDATA,Id,CPFCLINEFFDATA.Id -> LOAD_MH_CPA_MASTER.key_worker_staff_id,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_CPA_MASTER,care_coordinator,DERIVED,,,Derive from caseholder/lead clinician when dedicated coordinator unavailable.,MEDIUM,SME policy required at go-live.
+LOAD_MH_CPA_MASTER,applies_start,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_MH_CPA_MASTER.applies_start,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_MASTER,diagnosis_note,DERIVED,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_MH_DETENTION_MASTER.diagnosis_note,MEDIUM,Derived/constructed field from source clinical context.
+LOAD_MH_DETENTION_MASTER,diagnosed_by,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_MH_DETENTION_MASTER.diagnosed_by,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_MASTER,diagnosis_date,DIRECT_SOURCE,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_MH_DETENTION_MASTER.diagnosis_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_MASTER,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_DETENTION_MASTER,adt_adm_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_DETENTION_MASTER,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_DETENTION_MASTER,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_DETENTION_MASTER,main_crn_type,LOOKUP_TRANSLATION,CPSGREFERRAL,Type,CPSGREFERRAL.Type -> LOAD_MH_DETENTION_MASTER.main_crn_type,HIGH,Code/value translation required against PAS code sets.
+LOAD_MH_DETENTION_MASTER,main_crn,DIRECT_SOURCE,SMREPISODE,InternalPatientNumber,SMREPISODE.InternalPatientNumber -> LOAD_MH_DETENTION_MASTER.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_TRANSFERS,start_date,DIRECT_SOURCE,SMREPISODE,EpisodeStartDate,SMREPISODE.EpisodeStartDate -> LOAD_MH_DETENTION_TRANSFERS.start_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_TRANSFERS,end_date,DIRECT_SOURCE,AUGCAREPATDET,ApcAugmentedCarePeriodEndDatetimeInt,AUGCAREPATDET.ApcAugmentedCarePeriodEndDatetimeInt -> LOAD_MH_DETENTION_TRANSFERS.end_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_TRANSFERS,expiry_date,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_MH_DETENTION_TRANSFERS.expiry_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_TRANSFERS,table,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_MH_DETENTION_TRANSFERS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_DETENTION_TRANSFERS,mh_dm_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_DETENTION_TRANSFERS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_DETENTION_TRANSFERS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_MH_DETENTION_TRANSFERS,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_MH_DETENTION_TRANSFERS.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_MH_DETENTION_TRANSFERS,main_crn,DIRECT_SOURCE,SMREPISODE,InternalPatientNumber,SMREPISODE.InternalPatientNumber -> LOAD_MH_DETENTION_TRANSFERS.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_TRANSFERS,institution,DIRECT_SOURCE,LOCATIONCODES,RiScottishInstitutionLocationCode,LOCATIONCODES.RiScottishInstitutionLocationCode -> LOAD_MH_DETENTION_TRANSFERS.institution,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_TRANSFERS,legal_status,LOOKUP_TRANSLATION,LEGALSTATUSDETS,LegalStatus,LEGALSTATUSDETS.LegalStatus -> LOAD_MH_DETENTION_TRANSFERS.legal_status,HIGH,Code/value translation required against PAS code sets.
+LOAD_MH_DETENTION_TRANSFERS,mental_category,DIRECT_SOURCE,LEGALSTATUSDETS,MentalCategory,LEGALSTATUSDETS.MentalCategory -> LOAD_MH_DETENTION_TRANSFERS.mental_category,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_TRANSFERS,caseholder,DERIVED,,,Derive from consultant/lead clinician in episode context.,MEDIUM,SME policy required at go-live.
+LOAD_MH_DETENTION_TRANSFERS,section_review_date,DIRECT_SOURCE,CPSCPADLPROBGOAL,ReviewDate,CPSCPADLPROBGOAL.ReviewDate -> LOAD_MH_DETENTION_TRANSFERS.section_review_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_MH_DETENTION_TRANSFERS,consent_reminder_date,DERIVED,,,Default schedule date derived from detention review calendar.,MEDIUM,Policy default for testing/pre-production.
+LOAD_MH_DETENTION_TRANSFERS,consent_due_date,DERIVED,,,Default consent due date derived from reminder date.,MEDIUM,Policy default for testing/pre-production.
+LOAD_OPD_APPOINTMENTS,must,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_OPD_APPOINTMENTS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_APPOINTMENTS,loadref_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_APPOINTMENTS,loadowl_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_APPOINTMENTS,rttpwy_recno_out_encounter,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_APPOINTMENTS,loadrttprd_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_APPOINTMENTS,loadrttprd_action,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_APPOINTMENTS.loadrttprd_action,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,rttevent_recno_encounter,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_APPOINTMENTS,rttevent_recno_outcome,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_APPOINTMENTS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_APPOINTMENTS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_APPOINTMENTS,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_OPD_APPOINTMENTS.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_APPOINTMENTS,main_crn,DIRECT_SOURCE,OPA,InternalPatientNumber,OPA.InternalPatientNumber -> LOAD_OPD_APPOINTMENTS.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,new_followup_flag,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_APPOINTMENTS.new_followup_flag,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,appt_team,DIRECT_SOURCE,OPA,ClinicSpecialty,OPA.ClinicSpecialty -> LOAD_OPD_APPOINTMENTS.appt_team,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,appt_date,DIRECT_SOURCE,OPA,ApptDate,OPA.ApptDate -> LOAD_OPD_APPOINTMENTS.appt_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,booked_date,DIRECT_SOURCE,OPA,ApptBookedDate,OPA.ApptBookedDate -> LOAD_OPD_APPOINTMENTS.booked_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,booking_type,LOOKUP_TRANSLATION,OPA,BookingType,OPA.BookingType -> LOAD_OPD_APPOINTMENTS.booking_type,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPD_APPOINTMENTS,clinic_code_1,LOOKUP_TRANSLATION,OPA,ClinicCode,OPA.ClinicCode -> LOAD_OPD_APPOINTMENTS.clinic_code_1,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPD_APPOINTMENTS,clinic_code_2,LOOKUP_TRANSLATION,OPA,ClinicCode,OPA.ClinicCode -> LOAD_OPD_APPOINTMENTS.clinic_code_2,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPD_APPOINTMENTS,appt_type,LOOKUP_TRANSLATION,OPA,ApptType,OPA.ApptType -> LOAD_OPD_APPOINTMENTS.appt_type,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPD_APPOINTMENTS,consultant_in_charge,DIRECT_SOURCE,ADMISSIONMANAGEMENT,Consultant,ADMISSIONMANAGEMENT.Consultant -> LOAD_OPD_APPOINTMENTS.consultant_in_charge,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,consultant_taking_appt,DIRECT_SOURCE,ADMISSIONMANAGEMENT,Consultant,ADMISSIONMANAGEMENT.Consultant -> LOAD_OPD_APPOINTMENTS.consultant_taking_appt,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,transport_required,DIRECT_SOURCE,OPA,Transport,OPA.Transport -> LOAD_OPD_APPOINTMENTS.transport_required,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,walkin_flag,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_OPD_APPOINTMENTS.walkin_flag,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,time_arrived,DIRECT_SOURCE,OPA,ApptTime,OPA.ApptTime -> LOAD_OPD_APPOINTMENTS.time_arrived,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,time_seen,DIRECT_SOURCE,OPA,ApptTime,OPA.ApptTime -> LOAD_OPD_APPOINTMENTS.time_seen,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,time_complete,DIRECT_SOURCE,OPA,ApptEndTime,OPA.ApptEndTime -> LOAD_OPD_APPOINTMENTS.time_complete,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,outcome,LOOKUP_TRANSLATION,AEDIARY,Outcome,AEDIARY.Outcome -> LOAD_OPD_APPOINTMENTS.outcome,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_APPOINTMENTS,cancelled_date,DIRECT_SOURCE,OCCANCEL,DateCancelled,OCCANCEL.DateCancelled -> LOAD_OPD_APPOINTMENTS.cancelled_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,appt_comment,DIRECT_SOURCE,OPA,ApptComment,OPA.ApptComment -> LOAD_OPD_APPOINTMENTS.appt_comment,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,cab_ubrn,DERIVED,,,Set empty or local synthetic value where CAB integration is absent.,HIGH,"Interface-specific field, not present in V83 core extracts."
+LOAD_OPD_APPOINTMENTS,cab_service,DIRECT_SOURCE,OPA,CABServiceCode,OPA.CABServiceCode -> LOAD_OPD_APPOINTMENTS.cab_service,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_APPOINTMENTS,cab_usrn,DERIVED,,,Set empty or local synthetic value where CAB integration is absent.,HIGH,"Interface-specific field, not present in V83 core extracts."
+LOAD_OPD_ARCHIVE,key_worker_staff_id,DERIVED,CPFCLINEFFDATA,Id,CPFCLINEFFDATA.Id -> LOAD_OPD_ARCHIVE.key_worker_staff_id,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,care_coordinator,DERIVED,,,Assemble from multi-table joins (transactional + lookup + historical contexts).,MEDIUM,Explicit archive synthesis mapping required.
+LOAD_OPD_ARCHIVE,next_review_date,DERIVED,CPSCPADLPROBGOAL,ReviewDate,CPSCPADLPROBGOAL.ReviewDate -> LOAD_OPD_ARCHIVE.next_review_date,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,review_date_changed_at,DERIVED,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_OPD_ARCHIVE.review_date_changed_at,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,encounter_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_OPD_ARCHIVE.encounter_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,crn,DERIVED,CANCERREGLINK,CrnCancerRegPatientCodingMraNumber,CANCERREGLINK.CrnCancerRegPatientCodingMraNumber -> LOAD_OPD_ARCHIVE.crn,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,of_birth,DERIVED,PATDATA,InternalDateOfBirth,PATDATA.InternalDateOfBirth -> LOAD_OPD_ARCHIVE.of_birth,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,sex,DERIVED,OPA,Sex,OPA.Sex -> LOAD_OPD_ARCHIVE.sex,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,pat_name_1,DERIVED,OPA,Forenames,OPA.Forenames -> LOAD_OPD_ARCHIVE.pat_name_1,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,pat_name_family,DERIVED,OPA,Surname,OPA.Surname -> LOAD_OPD_ARCHIVE.pat_name_family,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,address_1,DERIVED,AEATYPEINC,EdEstAddress1,AEATYPEINC.EdEstAddress1 -> LOAD_OPD_ARCHIVE.address_1,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,address_2,DERIVED,AEATYPEINC,EdEstAddress2,AEATYPEINC.EdEstAddress2 -> LOAD_OPD_ARCHIVE.address_2,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,address_3,DERIVED,AEATYPEINC,EdEstAddress3,AEATYPEINC.EdEstAddress3 -> LOAD_OPD_ARCHIVE.address_3,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,address_4,DERIVED,AEATYPEINC,EdEstAddress4,AEATYPEINC.EdEstAddress4 -> LOAD_OPD_ARCHIVE.address_4,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,address_5,DERIVED,GDP,Address,GDP.Address -> LOAD_OPD_ARCHIVE.address_5,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,post_code,LOOKUP_TRANSLATION,OPA,Postcode,OPA.Postcode -> LOAD_OPD_ARCHIVE.post_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,district,DERIVED,OPA,DistrictNumber,OPA.DistrictNumber -> LOAD_OPD_ARCHIVE.district,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,pct_codepct,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.pct_codepct,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,contract_number,DERIVED,,,Assemble from multi-table joins (transactional + lookup + historical contexts).,MEDIUM,Explicit archive synthesis mapping required.
+LOAD_OPD_ARCHIVE,purchaser_ref,DERIVED,ALLOCATEDCONTRACT,PurchaserRef,ALLOCATEDCONTRACT.PurchaserRef -> LOAD_OPD_ARCHIVE.purchaser_ref,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,provider_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.provider_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,purchaser_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.purchaser_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,ref_source,DERIVED,CPSGREFERRAL,Source,CPSGREFERRAL.Source -> LOAD_OPD_ARCHIVE.ref_source,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,gp_registration_codegp,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.gp_registration_codegp,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,gp_namegp,DERIVED,CONSMAST,Name,CONSMAST.Name -> LOAD_OPD_ARCHIVE.gp_namegp,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,gp_fundholder_codegp,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.gp_fundholder_codegp,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,gp_practice_code,LOOKUP_TRANSLATION,OPA,PracticeCode,OPA.PracticeCode -> LOAD_OPD_ARCHIVE.gp_practice_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,practice_name,DERIVED,CONSMAST,Name,CONSMAST.Name -> LOAD_OPD_ARCHIVE.practice_name,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,referral_request_date,DERIVED,ADMITDISCH,Referral,ADMITDISCH.Referral -> LOAD_OPD_ARCHIVE.referral_request_date,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,referral_reason,LOOKUP_TRANSLATION,ADMITDISCH,Referral,ADMITDISCH.Referral -> LOAD_OPD_ARCHIVE.referral_reason,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,referring_consultant_gmc,DERIVED,ADMISSIONMANAGEMENT,Consultant,ADMISSIONMANAGEMENT.Consultant -> LOAD_OPD_ARCHIVE.referring_consultant_gmc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,referring_consultant_name,DERIVED,ADMISSIONMANAGEMENT,Consultant,ADMISSIONMANAGEMENT.Consultant -> LOAD_OPD_ARCHIVE.referring_consultant_name,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,first_attendance,DERIVED,OPCANCERREG,DateOfFirstAttendance,OPCANCERREG.DateOfFirstAttendance -> LOAD_OPD_ARCHIVE.first_attendance,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,referral_discharge_date,DERIVED,ADMITDISCH,DischargeDate,ADMITDISCH.DischargeDate -> LOAD_OPD_ARCHIVE.referral_discharge_date,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,ge_date,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_OPD_ARCHIVE,ge_status,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_OPD_ARCHIVE,clinic_name,DERIVED,AECLINICMF,Clinic,AECLINICMF.Clinic -> LOAD_OPD_ARCHIVE.clinic_name,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,specialty,LOOKUP_TRANSLATION,OPA,ClinicSpecialty,OPA.ClinicSpecialty -> LOAD_OPD_ARCHIVE.specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,consultant_team,DERIVED,ADMISSIONMANAGEMENT,Consultant,ADMISSIONMANAGEMENT.Consultant -> LOAD_OPD_ARCHIVE.consultant_team,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,consultant_gmc,DERIVED,ADMISSIONMANAGEMENT,Consultant,ADMISSIONMANAGEMENT.Consultant -> LOAD_OPD_ARCHIVE.consultant_gmc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,consultant_name,DERIVED,OPA,ClinicConsultant,OPA.ClinicConsultant -> LOAD_OPD_ARCHIVE.consultant_name,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,transport,DERIVED,OPA,Transport,OPA.Transport -> LOAD_OPD_ARCHIVE.transport,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,appointment_priority,LOOKUP_TRANSLATION,AEATRACKSTEP,Priority,AEATRACKSTEP.Priority -> LOAD_OPD_ARCHIVE.appointment_priority,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,appointment_purpose,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.appointment_purpose,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,appointment_status,LOOKUP_TRANSLATION,OCCANCEL,Status,OCCANCEL.Status -> LOAD_OPD_ARCHIVE.appointment_status,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,appointment_date,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.appointment_date,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,appointment_time,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.appointment_time,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,walkin_flag,DERIVED,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_OPD_ARCHIVE.walkin_flag,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,forced_booking_flag,DERIVED,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_OPD_ARCHIVE.forced_booking_flag,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,booked,DERIVED,OPA,ApptBookedDate,OPA.ApptBookedDate -> LOAD_OPD_ARCHIVE.booked,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,booking_type,LOOKUP_TRANSLATION,OPA,BookingType,OPA.BookingType -> LOAD_OPD_ARCHIVE.booking_type,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,appointment_type,LOOKUP_TRANSLATION,APPTYP,AppointmentTypeCode,APPTYP.AppointmentTypeCode -> LOAD_OPD_ARCHIVE.appointment_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,time_arrived,DERIVED,OPA,ApptTime,OPA.ApptTime -> LOAD_OPD_ARCHIVE.time_arrived,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,time_seen,DERIVED,OPA,ApptTime,OPA.ApptTime -> LOAD_OPD_ARCHIVE.time_seen,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,time_completed,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.time_completed,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,outcome,LOOKUP_TRANSLATION,AEDIARY,Outcome,AEDIARY.Outcome -> LOAD_OPD_ARCHIVE.outcome,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,cancelled_date,DERIVED,OCCANCEL,DateCancelled,OCCANCEL.DateCancelled -> LOAD_OPD_ARCHIVE.cancelled_date,HIGH,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,cancelled_by,DERIVED,OPAPPOINTATTEND,PatientAppointmentCancelledByCode,OPAPPOINTATTEND.PatientAppointmentCancelledByCode -> LOAD_OPD_ARCHIVE.cancelled_by,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,cancellation_reason,LOOKUP_TRANSLATION,CPREFDISCH,Reason,CPREFDISCH.Reason -> LOAD_OPD_ARCHIVE.cancellation_reason,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,procedure_scheme,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.procedure_scheme,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,primary_procedure_code,LOOKUP_TRANSLATION,OPA,ApptPrimaryProcedureCode,OPA.ApptPrimaryProcedureCode -> LOAD_OPD_ARCHIVE.primary_procedure_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,primary_procedure_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.primary_procedure_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,procedure_1_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.procedure_1_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,procedure_1_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.procedure_1_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,procedure_2_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.procedure_2_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,procedure_2_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.procedure_2_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,procedure_3_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.procedure_3_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,procedure_3_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.procedure_3_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,procedure_4_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.procedure_4_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,procedure_4_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.procedure_4_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,procedure_5_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.procedure_5_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,procedure_5_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.procedure_5_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,procedure_6_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.procedure_6_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,procedure_6_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.procedure_6_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,procedure_7_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.procedure_7_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,procedure_7_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.procedure_7_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,procedure_8_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.procedure_8_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,procedure_8_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.procedure_8_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,procedure_9_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.procedure_9_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_ARCHIVE,procedure_9_desc,DERIVED,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPD_ARCHIVE.procedure_9_desc,MEDIUM,Archive structure is denormalized and assembled from multiple source entities.
+LOAD_OPD_ARCHIVE,procedure_10_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPD_ARCHIVE.procedure_10_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_CODING,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_CODING,load_opd_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_CODING,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_CODING,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPD_CODING,diagnosis_division,DIRECT_SOURCE,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_OPD_CODING.diagnosis_division,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_CODING,note_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_OPD_CODING.note_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPD_CODING,diagnosis,DIRECT_SOURCE,OPA,RefPrimaryDiagnosisCode,OPA.RefPrimaryDiagnosisCode -> LOAD_OPD_CODING.diagnosis,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPD_CODING,diagnosis_note,DERIVED,AEAUSERDIAG,Diagnosis,AEAUSERDIAG.Diagnosis -> LOAD_OPD_CODING.diagnosis_note,HIGH,Derived/constructed field from source clinical context.
+LOAD_OPDWAITLIST,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLIST,loadref_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLIST,rttpwy_recno_out_encounter,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLIST,loadrttprd_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLIST,loadrttprd_action,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPDWAITLIST.loadrttprd_action,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLIST,rttevent_recno_encounter,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLIST,rttevent_recno_outcome,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLIST,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLIST,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLIST,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_OPDWAITLIST.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPDWAITLIST,main_crn,DIRECT_SOURCE,OPA,InternalPatientNumber,OPA.InternalPatientNumber -> LOAD_OPDWAITLIST.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLIST,hospital_code,LOOKUP_TRANSLATION,OPREFERRAL,HospitalCode,OPREFERRAL.HospitalCode -> LOAD_OPDWAITLIST.hospital_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPDWAITLIST,site,DIRECT_SOURCE,AEANATSITE,AeAnatomSitePromptSideInt,AEANATSITE.AeAnatomSitePromptSideInt -> LOAD_OPDWAITLIST.site,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLIST,list_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPDWAITLIST.list_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPDWAITLIST,list_name,DIRECT_SOURCE,CONSMAST,Name,CONSMAST.Name -> LOAD_OPDWAITLIST.list_name,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLIST,encounter_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_OPDWAITLIST.encounter_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPDWAITLIST,specialty,LOOKUP_TRANSLATION,OPA,ClinicSpecialty,OPA.ClinicSpecialty -> LOAD_OPDWAITLIST.specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPDWAITLIST,new_followup_flagn,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_OPDWAITLIST.new_followup_flagn,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLIST,short_notice_flag,DIRECT_SOURCE,WLCURRENT,ShortNotice,WLCURRENT.ShortNotice -> LOAD_OPDWAITLIST.short_notice_flag,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLIST,status,LOOKUP_TRANSLATION,OPA,ApptStatus,OPA.ApptStatus -> LOAD_OPDWAITLIST.status,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPDWAITLIST,target_date,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_OPDWAITLIST.target_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLIST,consultant,DIRECT_SOURCE,OPA,ClinicConsultant,OPA.ClinicConsultant -> LOAD_OPDWAITLIST.consultant,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLIST,outcome,LOOKUP_TRANSLATION,AEDIARY,Outcome,AEDIARY.Outcome -> LOAD_OPDWAITLIST.outcome,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPDWAITLIST,removed,DIRECT_SOURCE,CLIDATA,RemovedFromScreen,CLIDATA.RemovedFromScreen -> LOAD_OPDWAITLIST.removed,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLIST,wl_comment,DIRECT_SOURCE,OPREFERRAL,Comment,OPREFERRAL.Comment -> LOAD_OPDWAITLIST.wl_comment,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLIST,ios_usercode,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_OPDWAITLIST.ios_usercode,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_OPDWAITLIST,transport_required,DIRECT_SOURCE,OPA,Transport,OPA.Transport -> LOAD_OPDWAITLIST.transport_required,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLISTDEF,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLISTDEF,loadowl_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLISTDEF,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLISTDEF,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_OPDWAITLISTDEF,deferral_start,DIRECT_SOURCE,CONSWARDSTAY,StartDate,CONSWARDSTAY.StartDate -> LOAD_OPDWAITLISTDEF.deferral_start,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLISTDEF,deferral_end,DIRECT_SOURCE,CONSWARDSTAY,EndDate,CONSWARDSTAY.EndDate -> LOAD_OPDWAITLISTDEF.deferral_end,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_OPDWAITLISTDEF,deferral_reason,LOOKUP_TRANSLATION,WLACTIVITY,Reason,WLACTIVITY.Reason -> LOAD_OPDWAITLISTDEF.deferral_reason,HIGH,Code/value translation required against PAS code sets.
+LOAD_OPDWAITLISTDEF,deferral_comment,DIRECT_SOURCE,ADMITDISCH,Comment,ADMITDISCH.Comment -> LOAD_OPDWAITLISTDEF.deferral_comment,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMI,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMI,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMI,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_PMI.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,main_crn,DIRECT_SOURCE,PATDATA,InternalPatientNumber,PATDATA.InternalPatientNumber -> LOAD_PMI.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,date_registered,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_PMI.date_registered,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nhs_number,DIRECT_SOURCE,PATDATA,NhsNumber,PATDATA.NhsNumber -> LOAD_PMI.nhs_number,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nhs_number_statusnhs,LOOKUP_TRANSLATION,PATDATA,NhsNumber,PATDATA.NhsNumber -> LOAD_PMI.nhs_number_statusnhs,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,sex,DIRECT_SOURCE,PATDATA,Sex,PATDATA.Sex -> LOAD_PMI.sex,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,title,DIRECT_SOURCE,PATDATA,Title,PATDATA.Title -> LOAD_PMI.title,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_name_1,DIRECT_SOURCE,PATDATA,Forenames,PATDATA.Forenames -> LOAD_PMI.pat_name_1,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_name_2,DIRECT_SOURCE,CONSMAST,Name,CONSMAST.Name -> LOAD_PMI.pat_name_2,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_name_3,DIRECT_SOURCE,CONSMAST,Name,CONSMAST.Name -> LOAD_PMI.pat_name_3,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_name_family,DIRECT_SOURCE,PATDATA,Surname,PATDATA.Surname -> LOAD_PMI.pat_name_family,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,maiden_name,DIRECT_SOURCE,CONSMAST,Name,CONSMAST.Name -> LOAD_PMI.maiden_name,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,of_birth,DIRECT_SOURCE,PATDATA,InternalDateOfBirth,PATDATA.InternalDateOfBirth -> LOAD_PMI.of_birth,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,place_born,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMI.place_born,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,entered_country,DIRECT_SOURCE,CPSGREFERRAL,Edc,CPSGREFERRAL.Edc -> LOAD_PMI.entered_country,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nationality,DERIVED,,,Default to GBR where nationality not captured in source.,MEDIUM,Requires governance confirmation for unknown values.
+LOAD_PMI,ethnic_group,LOOKUP_TRANSLATION,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMI.ethnic_group,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,preferred_language,LOOKUP_TRANSLATION,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMI.preferred_language,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,religion_code,LOOKUP_TRANSLATION,PATDATA,Religion,PATDATA.Religion -> LOAD_PMI.religion_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,marital_status,LOOKUP_TRANSLATION,PATDATA,MaritalStatus,PATDATA.MaritalStatus -> LOAD_PMI.marital_status,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,occupation_code,LOOKUP_TRANSLATION,PATDATA,Occupation,PATDATA.Occupation -> LOAD_PMI.occupation_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,where_heard_of_service,DIRECT_SOURCE,OCMLOCNPERF,Service,OCMLOCNPERF.Service -> LOAD_PMI.where_heard_of_service,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_address_1,DIRECT_SOURCE,GP,Address,GP.Address -> LOAD_PMI.pat_address_1,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_address_2,DIRECT_SOURCE,GP,Address,GP.Address -> LOAD_PMI.pat_address_2,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_address_3,DIRECT_SOURCE,GP,Address,GP.Address -> LOAD_PMI.pat_address_3,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_address_4,DIRECT_SOURCE,GP,Address,GP.Address -> LOAD_PMI.pat_address_4,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,post_code,LOOKUP_TRANSLATION,PATDATA,NoKPostCode,PATDATA.NoKPostCode -> LOAD_PMI.post_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,telephone_no,DIRECT_SOURCE,GPHISTORY,Phone,GPHISTORY.Phone -> LOAD_PMI.telephone_no,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,telephone_no_2,DIRECT_SOURCE,GPHISTORY,Phone,GPHISTORY.Phone -> LOAD_PMI.telephone_no_2,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,telephone_no_3,DIRECT_SOURCE,GPHISTORY,Phone,GPHISTORY.Phone -> LOAD_PMI.telephone_no_3,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_email_address,DIRECT_SOURCE,GP,Address,GP.Address -> LOAD_PMI.pat_email_address,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_lives_alone,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMI.pat_lives_alone,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_permission_to_contact,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMI.pat_permission_to_contact,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_permission_to_phone,DIRECT_SOURCE,GPHISTORY,Phone,GPHISTORY.Phone -> LOAD_PMI.pat_permission_to_phone,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,pat_address_from,DIRECT_SOURCE,GP,Address,GP.Address -> LOAD_PMI.pat_address_from,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,of_death,DIRECT_SOURCE,PATDATA,PtDateOfDeath,PATDATA.PtDateOfDeath -> LOAD_PMI.of_death,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,where_died,DERIVED,,,Leave blank or derive from death location if available.,MEDIUM,Policy fallback when source does not capture detail.
+LOAD_PMI,cause_of_death,DIRECT_SOURCE,ICD9,RareCauseOfDeath,ICD9.RareCauseOfDeath -> LOAD_PMI.cause_of_death,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,death_treatment_related,DERIVED,,,Default to N unless explicitly indicated.,MEDIUM,Policy fallback.
+LOAD_PMI,death_hiv_related,DERIVED,,,Default to N unless explicitly indicated.,MEDIUM,Policy fallback.
+LOAD_PMI,extra_info_1_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMI.extra_info_1_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,extra_info_1,DERIVED,,,"Map from source user-defined fields where available, else default empty.",HIGH,Policy-based extension mapping.
+LOAD_PMI,extra_info_2_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMI.extra_info_2_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,extra_info_2,DERIVED,,,"Map from source user-defined fields where available, else default empty.",HIGH,Policy-based extension mapping.
+LOAD_PMI,extra_info_3_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMI.extra_info_3_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,extra_info_3,DERIVED,,,"Map from source user-defined fields where available, else default empty.",HIGH,Policy-based extension mapping.
+LOAD_PMI,extra_info_4_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMI.extra_info_4_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,extra_info_4,DERIVED,,,"Map from source user-defined fields where available, else default empty.",HIGH,Policy-based extension mapping.
+LOAD_PMI,extra_info_5_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMI.extra_info_5_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,extra_info_5,DERIVED,,,"Map from source user-defined fields where available, else default empty.",HIGH,Policy-based extension mapping.
+LOAD_PMI,extra_info_6_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMI.extra_info_6_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,extra_info_6,DERIVED,,,"Map from source user-defined fields where available, else default empty.",HIGH,Policy-based extension mapping.
+LOAD_PMI,extra_info_7_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMI.extra_info_7_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,extra_info_7,DERIVED,,,"Map from source user-defined fields where available, else default empty.",HIGH,Policy-based extension mapping.
+LOAD_PMI,extra_info_8_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMI.extra_info_8_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,extra_info_8,DERIVED,,,"Map from source user-defined fields where available, else default empty.",HIGH,Policy-based extension mapping.
+LOAD_PMI,extra_info_9_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMI.extra_info_9_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,extra_info_9,DERIVED,,,"Map from source user-defined fields where available, else default empty.",HIGH,Policy-based extension mapping.
+LOAD_PMI,extra_info_10_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMI.extra_info_10_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMI,extra_info_10,DERIVED,,,"Map from source user-defined fields where available, else default empty.",HIGH,Policy-based extension mapping.
+LOAD_PMI,comments,DERIVED,PATDATA,Comments,PATDATA.Comments -> LOAD_PMI.comments,HIGH,Derived/constructed field from source clinical context.
+LOAD_PMI,note_1_subject,DERIVED,,,Derived from clinical workflow context and/or defaults when direct source absent.,MEDIUM,No single-source equivalent; ETL derivation rule required.
+LOAD_PMI,note_1_text,DERIVED,,,Derived from clinical workflow context and/or defaults when direct source absent.,MEDIUM,No single-source equivalent; ETL derivation rule required.
+LOAD_PMI,note_2_subject,DERIVED,,,Derived from clinical workflow context and/or defaults when direct source absent.,MEDIUM,No single-source equivalent; ETL derivation rule required.
+LOAD_PMI,note_2_text,DERIVED,,,Derived from clinical workflow context and/or defaults when direct source absent.,MEDIUM,No single-source equivalent; ETL derivation rule required.
+LOAD_PMI,nok_relationship,DIRECT_SOURCE,PATDATA,NoKRelationship,PATDATA.NoKRelationship -> LOAD_PMI.nok_relationship,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nok_title,DIRECT_SOURCE,PATDATA,Title,PATDATA.Title -> LOAD_PMI.nok_title,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nok_name_1,DIRECT_SOURCE,PATDATA,NoKName,PATDATA.NoKName -> LOAD_PMI.nok_name_1,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nok_name_family,DIRECT_SOURCE,PATDATA,NoKName,PATDATA.NoKName -> LOAD_PMI.nok_name_family,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nok_address_1,DIRECT_SOURCE,GP,Address,GP.Address -> LOAD_PMI.nok_address_1,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nok_address_2,DIRECT_SOURCE,GP,Address,GP.Address -> LOAD_PMI.nok_address_2,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nok_address_3,DIRECT_SOURCE,GP,Address,GP.Address -> LOAD_PMI.nok_address_3,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nok_address_4,DIRECT_SOURCE,GP,Address,GP.Address -> LOAD_PMI.nok_address_4,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nok_post_code,LOOKUP_TRANSLATION,PATDATA,NoKPostCode,PATDATA.NoKPostCode -> LOAD_PMI.nok_post_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,nok_telephone_1,DIRECT_SOURCE,GPHISTORY,Phone,GPHISTORY.Phone -> LOAD_PMI.nok_telephone_1,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nok_telephone_2,DIRECT_SOURCE,GPHISTORY,Phone,GPHISTORY.Phone -> LOAD_PMI.nok_telephone_2,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,nok_comments,DERIVED,PATDATA,NoKComments,PATDATA.NoKComments -> LOAD_PMI.nok_comments,HIGH,Derived/constructed field from source clinical context.
+LOAD_PMI,pat_permission_to_copy_gp,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMI.pat_permission_to_copy_gp,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,gp_national_code,LOOKUP_TRANSLATION,PATDATA,GpCode,PATDATA.GpCode -> LOAD_PMI.gp_national_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,practice_national_code,LOOKUP_TRANSLATION,GPHISTORY,Practice,GPHISTORY.Practice -> LOAD_PMI.practice_national_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,practice_post_code,LOOKUP_TRANSLATION,GPHISTORY,Postcode,GPHISTORY.Postcode -> LOAD_PMI.practice_post_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,practice_applies_from,DIRECT_SOURCE,GPHISTORY,Practice,GPHISTORY.Practice -> LOAD_PMI.practice_applies_from,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMI,gdp_national_code,LOOKUP_TRANSLATION,GPHISTORY,NationalCode,GPHISTORY.NationalCode -> LOAD_PMI.gdp_national_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,gdp_practice_national_code,LOOKUP_TRANSLATION,GPHISTORY,NationalCode,GPHISTORY.NationalCode -> LOAD_PMI.gdp_practice_national_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,gdp_practice_post_code,LOOKUP_TRANSLATION,GPHISTORY,Postcode,GPHISTORY.Postcode -> LOAD_PMI.gdp_practice_post_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMI,gdp_practice_applies_from,DIRECT_SOURCE,GPHISTORY,Practice,GPHISTORY.Practice -> LOAD_PMI.gdp_practice_applies_from,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,of_birth,DIRECT_SOURCE,PATDATA,InternalDateOfBirth,PATDATA.InternalDateOfBirth -> LOAD_PMIADDRS.of_birth,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,marital_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_PMIADDRS.marital_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMIADDRS,applies_start,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIADDRS.applies_start,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,applies_end,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIADDRS.applies_end,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIADDRS,loadpmi_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIADDRS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIADDRS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIADDRS,main_crnload_pmi,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIADDRS.main_crnload_pmi,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,address_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMIADDRS.address_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMIADDRS,address_1,DIRECT_SOURCE,AEATYPEINC,EdEstAddress1,AEATYPEINC.EdEstAddress1 -> LOAD_PMIADDRS.address_1,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,address_2,DIRECT_SOURCE,AEATYPEINC,EdEstAddress2,AEATYPEINC.EdEstAddress2 -> LOAD_PMIADDRS.address_2,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,address_3,DIRECT_SOURCE,AEATYPEINC,EdEstAddress3,AEATYPEINC.EdEstAddress3 -> LOAD_PMIADDRS.address_3,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,address_4,DIRECT_SOURCE,AEATYPEINC,EdEstAddress4,AEATYPEINC.EdEstAddress4 -> LOAD_PMIADDRS.address_4,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,post_code,LOOKUP_TRANSLATION,PATDATA,NoKPostCode,PATDATA.NoKPostCode -> LOAD_PMIADDRS.post_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMIADDRS,country_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_PMIADDRS.country_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMIADDRS,phone_1,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIADDRS.phone_1,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,phone_2,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIADDRS.phone_2,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,phone_3,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIADDRS.phone_3,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,date_of_birth,DIRECT_SOURCE,PATDATA,InternalDateOfBirth,PATDATA.InternalDateOfBirth -> LOAD_PMIADDRS.date_of_birth,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_PMIADDRS.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMIADDRS,main_crn,DIRECT_SOURCE,PATDATA,InternalPatientNumber,PATDATA.InternalPatientNumber -> LOAD_PMIADDRS.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIADDRS,address_5,DIRECT_SOURCE,GDP,Address,GDP.Address -> LOAD_PMIADDRS.address_5,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALIASES,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIALIASES,loadpmi_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIALIASES,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIALIASES,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIALIASES,main_crnload_pmi,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIALIASES.main_crnload_pmi,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALIASES,sex,DIRECT_SOURCE,PATDATA,Sex,PATDATA.Sex -> LOAD_PMIALIASES.sex,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALIASES,title,DIRECT_SOURCE,PATDATA,Title,PATDATA.Title -> LOAD_PMIALIASES.title,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALIASES,pat_name_1,DIRECT_SOURCE,PATDATA,Forenames,PATDATA.Forenames -> LOAD_PMIALIASES.pat_name_1,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALIASES,pat_name_2,DIRECT_SOURCE,CONSMAST,Name,CONSMAST.Name -> LOAD_PMIALIASES.pat_name_2,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALIASES,pat_name_3,DIRECT_SOURCE,CONSMAST,Name,CONSMAST.Name -> LOAD_PMIALIASES.pat_name_3,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALIASES,pat_name_family,DIRECT_SOURCE,PATDATA,Surname,PATDATA.Surname -> LOAD_PMIALIASES.pat_name_family,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALLERGIES,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIALLERGIES,loadpmi_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIALLERGIES,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIALLERGIES,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIALLERGIES,main_crnload_pmi,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIALLERGIES.main_crnload_pmi,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALLERGIES,allergy_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_PMIALLERGIES.allergy_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMIALLERGIES,allergy_comment,DIRECT_SOURCE,ADMITDISCH,Comment,ADMITDISCH.Comment -> LOAD_PMIALLERGIES.allergy_comment,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALLERGIES,applies_start,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIALLERGIES.applies_start,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIALLERGIES,applies_end,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIALLERGIES.applies_end,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICASENOTEHISTORY,field,DIRECT_SOURCE,PATDATA,UserField1,PATDATA.UserField1 -> LOAD_PMICASENOTEHISTORY.field,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICASENOTEHISTORY,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMICASENOTEHISTORY,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMICASENOTEHISTORY,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMICASENOTEHISTORY,id_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_PMICASENOTEHISTORY.id_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMICASENOTEHISTORY,id_number,DIRECT_SOURCE,CPFCLINEFFDATA,Id,CPFCLINEFFDATA.Id -> LOAD_PMICASENOTEHISTORY.id_number,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICASENOTEHISTORY,volume,DIRECT_SOURCE,CVCNTRCT,VolumeCeiling,CVCNTRCT.VolumeCeiling -> LOAD_PMICASENOTEHISTORY.volume,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICASENOTEHISTORY,hospital_code,LOOKUP_TRANSLATION,AEA,HospitalCode,AEA.HospitalCode -> LOAD_PMICASENOTEHISTORY.hospital_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMICASENOTEHISTORY,site,DIRECT_SOURCE,AEANATSITE,AeAnatomSitePromptSideInt,AEANATSITE.AeAnatomSitePromptSideInt -> LOAD_PMICASENOTEHISTORY.site,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICASENOTEHISTORY,location_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_PMICASENOTEHISTORY.location_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMICASENOTEHISTORY,start_date,DIRECT_SOURCE,AEVALUABLES,AePersonalBelongingsSafeKeepingStartDateInt,AEVALUABLES.AePersonalBelongingsSafeKeepingStartDateInt -> LOAD_PMICASENOTEHISTORY.start_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICASENOTEHISTORY,end_date,DIRECT_SOURCE,AUGCAREPATDET,ApcAugmentedCarePeriodEndDatetimeInt,AUGCAREPATDET.ApcAugmentedCarePeriodEndDatetimeInt -> LOAD_PMICASENOTEHISTORY.end_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICASENOTEHISTORY,short_note,DERIVED,,,Derived from clinical workflow context and/or defaults when direct source absent.,MEDIUM,No single-source equivalent; ETL derivation rule required.
+LOAD_PMICASENOTEHISTORY,comment_1,DIRECT_SOURCE,PATDATA,PtDeathComment1,PATDATA.PtDeathComment1 -> LOAD_PMICASENOTEHISTORY.comment_1,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICASENOTEHISTORY,comment_2,DIRECT_SOURCE,PATDATA,PtDeathComment2,PATDATA.PtDeathComment2 -> LOAD_PMICASENOTEHISTORY.comment_2,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMICONTACTS,loadpmi_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMICONTACTS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMICONTACTS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMICONTACTS,main_crnload_pmi,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMICONTACTS.main_crnload_pmi,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,contact_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMICONTACTS.contact_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMICONTACTS,relationship,DIRECT_SOURCE,PATDATA,Relationship,PATDATA.Relationship -> LOAD_PMICONTACTS.relationship,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,parental_responsibility,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMICONTACTS.parental_responsibility,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,title,DIRECT_SOURCE,PATDATA,Title,PATDATA.Title -> LOAD_PMICONTACTS.title,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,name_1,DIRECT_SOURCE,PATDATA,PreviousSurname1,PATDATA.PreviousSurname1 -> LOAD_PMICONTACTS.name_1,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,name_family,DIRECT_SOURCE,CONSMAST,Name,CONSMAST.Name -> LOAD_PMICONTACTS.name_family,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,address_1,DIRECT_SOURCE,AEATYPEINC,EdEstAddress1,AEATYPEINC.EdEstAddress1 -> LOAD_PMICONTACTS.address_1,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,address_2,DIRECT_SOURCE,AEATYPEINC,EdEstAddress2,AEATYPEINC.EdEstAddress2 -> LOAD_PMICONTACTS.address_2,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,address_3,DIRECT_SOURCE,AEATYPEINC,EdEstAddress3,AEATYPEINC.EdEstAddress3 -> LOAD_PMICONTACTS.address_3,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,address_4,DIRECT_SOURCE,AEATYPEINC,EdEstAddress4,AEATYPEINC.EdEstAddress4 -> LOAD_PMICONTACTS.address_4,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,post_code,LOOKUP_TRANSLATION,PATDATA,NoKPostCode,PATDATA.NoKPostCode -> LOAD_PMICONTACTS.post_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMICONTACTS,country_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_PMICONTACTS.country_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMICONTACTS,phone_1,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMICONTACTS.phone_1,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,phone_2,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMICONTACTS.phone_2,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,phone_3,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMICONTACTS.phone_3,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,comments,DERIVED,PATDATA,Comments,PATDATA.Comments -> LOAD_PMICONTACTS.comments,HIGH,Derived/constructed field from source clinical context.
+LOAD_PMICONTACTS,applies_start,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMICONTACTS.applies_start,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMICONTACTS,applies_end,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMICONTACTS.applies_end,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIGPAUDIT,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIGPAUDIT,loadpmi_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIGPAUDIT,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIGPAUDIT,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIGPAUDIT,main_crnload_pmi,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIGPAUDIT.main_crnload_pmi,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIGPAUDIT,gp_national_code,LOOKUP_TRANSLATION,PATDATA,GpCode,PATDATA.GpCode -> LOAD_PMIGPAUDIT.gp_national_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMIGPAUDIT,practice_national_code,LOOKUP_TRANSLATION,GPHISTORY,Practice,GPHISTORY.Practice -> LOAD_PMIGPAUDIT.practice_national_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_PMIIDS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIIDS,loadpmi_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIIDS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIIDS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMIIDS,main_crnload_pmi,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMIIDS.main_crnload_pmi,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIIDS,additional_id_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_PMIIDS.additional_id_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMIIDS,additional_id,DIRECT_SOURCE,CPFCLINEFFDATA,Id,CPFCLINEFFDATA.Id -> LOAD_PMIIDS.additional_id,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMIIDS,volume,DIRECT_SOURCE,CVCNTRCT,VolumeCeiling,CVCNTRCT.VolumeCeiling -> LOAD_PMIIDS.volume,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMISTAFFWARNINGS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMISTAFFWARNINGS,loadpmi_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMISTAFFWARNINGS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMISTAFFWARNINGS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_PMISTAFFWARNINGS,main_crnload_pmi,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMISTAFFWARNINGS.main_crnload_pmi,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMISTAFFWARNINGS,warning_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_PMISTAFFWARNINGS.warning_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_PMISTAFFWARNINGS,warning_comment,DIRECT_SOURCE,ADMITDISCH,Comment,ADMITDISCH.Comment -> LOAD_PMISTAFFWARNINGS.warning_comment,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMISTAFFWARNINGS,applies_start,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMISTAFFWARNINGS.applies_start,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_PMISTAFFWARNINGS,applies_end,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_PMISTAFFWARNINGS.applies_end,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,pathway_end_event,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_REFERRALS.pathway_end_event,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,pathway_specialty,LOOKUP_TRANSLATION,OPREFERRAL,Specialty,OPREFERRAL.Specialty -> LOAD_REFERRALS.pathway_specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,pathway_status,LOOKUP_TRANSLATION,CASENOTEDETS,Status,CASENOTEDETS.Status -> LOAD_REFERRALS.pathway_status,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,pathway_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_REFERRALS.pathway_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_REFERRALS,loadrttpwy_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_REFERRALS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_REFERRALS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_REFERRALS,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_REFERRALS.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,main_crn,DIRECT_SOURCE,OPREFERRAL,InternalPatientNumber,OPREFERRAL.InternalPatientNumber -> LOAD_REFERRALS.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,patient_category,DIRECT_SOURCE,OPREFERRAL,Category,OPREFERRAL.Category -> LOAD_REFERRALS.patient_category,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,first_seen,DIRECT_SOURCE,CANCERSUMMARY,DateFirstSeen,CANCERSUMMARY.DateFirstSeen -> LOAD_REFERRALS.first_seen,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,override_wait_reset_date,DIRECT_SOURCE,CPFCLINEFFDATA,Id,CPFCLINEFFDATA.Id -> LOAD_REFERRALS.override_wait_reset_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,ref_new_followup_flag,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_REFERRALS.ref_new_followup_flag,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,ref_date,DIRECT_SOURCE,CANCERSUMMARY,DecToRefDate,CANCERSUMMARY.DecToRefDate -> LOAD_REFERRALS.ref_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,ref_received_date,DIRECT_SOURCE,OPREFERRAL,ReferralDate,OPREFERRAL.ReferralDate -> LOAD_REFERRALS.ref_received_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,ref_source,DIRECT_SOURCE,CPSGREFERRAL,Source,CPSGREFERRAL.Source -> LOAD_REFERRALS.ref_source,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,ref_gp_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_REFERRALS.ref_gp_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,ref_practice_code,LOOKUP_TRANSLATION,OPA,PracticeCode,OPA.PracticeCode -> LOAD_REFERRALS.ref_practice_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,ref_practice_postcode,LOOKUP_TRANSLATION,OPA,Postcode,OPA.Postcode -> LOAD_REFERRALS.ref_practice_postcode,HIGH,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,ref_urgency,LOOKUP_TRANSLATION,WLCURRENT,Urgency,WLCURRENT.Urgency -> LOAD_REFERRALS.ref_urgency,HIGH,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,ref_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_REFERRALS.ref_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,ref_reason,LOOKUP_TRANSLATION,CPREFDISCH,Reason,CPREFDISCH.Reason -> LOAD_REFERRALS.ref_reason,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,ref_specialty,LOOKUP_TRANSLATION,OPREFERRAL,Specialty,OPREFERRAL.Specialty -> LOAD_REFERRALS.ref_specialty,HIGH,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,ref_team,DIRECT_SOURCE,CPCLINACTIVITY,Team,CPCLINACTIVITY.Team -> LOAD_REFERRALS.ref_team,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,ref_consultant,DIRECT_SOURCE,OPA,RefConsultant,OPA.RefConsultant -> LOAD_REFERRALS.ref_consultant,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,ref_outcome,LOOKUP_TRANSLATION,AEDIARY,Outcome,AEDIARY.Outcome -> LOAD_REFERRALS.ref_outcome,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_REFERRALS,ref_discharge_date,DIRECT_SOURCE,ADMITDISCH,DischargeDate,ADMITDISCH.DischargeDate -> LOAD_REFERRALS.ref_discharge_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,ged_date,DIRECT_SOURCE,CPSCPADLPROBGOAL,G,CPSCPADLPROBGOAL.G -> LOAD_REFERRALS.ged_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_REFERRALS,encounter_type,LOOKUP_TRANSLATION,CONTR,Type,CONTR.Type -> LOAD_REFERRALS.encounter_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_RTT_EVENTS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_EVENTS,loadrttprd_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_EVENTS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_EVENTS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_EVENTS,event_date,DIRECT_SOURCE,OPREFERRAL,StatusDT,OPREFERRAL.StatusDT -> LOAD_RTT_EVENTS.event_date,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_RTT_EVENTS,event_action_code,LOOKUP_TRANSLATION,OPREFERRAL,CurrentStatus,OPREFERRAL.CurrentStatus -> LOAD_RTT_EVENTS.event_action_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_RTT_EVENTS,event_reason_code,LOOKUP_TRANSLATION,OPREFERRAL,ReasonForRef,OPREFERRAL.ReasonForRef -> LOAD_RTT_EVENTS.event_reason_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_RTT_EVENTS,rtt_status,LOOKUP_TRANSLATION,CASENOTEDETS,Status,CASENOTEDETS.Status -> LOAD_RTT_EVENTS.rtt_status,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_RTT_EVENTS,event_text,DERIVED,,,Compose from event action/reason and source status timeline.,HIGH,Narrative field synthesis.
+LOAD_RTT_EVENTS,must,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_RTT_EVENTS,before,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_RTT_EVENTS,ranges,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_RTT_PATHWAYS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_PATHWAYS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_PATHWAYS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_PATHWAYS,main_crn_type,LOOKUP_TRANSLATION,CONTR,CidType,CONTR.CidType -> LOAD_RTT_PATHWAYS.main_crn_type,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_RTT_PATHWAYS,main_crn,DIRECT_SOURCE,OPREFERRAL,InternalPatientNumber,OPREFERRAL.InternalPatientNumber -> LOAD_RTT_PATHWAYS.main_crn,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_RTT_PATHWAYS,pathway_id,DIRECT_SOURCE,CPFCLINEFFDATA,Id,CPFCLINEFFDATA.Id -> LOAD_RTT_PATHWAYS.pathway_id,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_RTT_PATHWAYS,ubrn,DERIVED,,,Derive synthetic UBRN where absent in legacy source.,HIGH,Temporary synthetic ID policy.
+LOAD_RTT_PATHWAYS,pathway_start_date,DIRECT_SOURCE,CONSWARDSTAY,StartDate,CONSWARDSTAY.StartDate -> LOAD_RTT_PATHWAYS.pathway_start_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_RTT_PATHWAYS,pathway_end_date,DIRECT_SOURCE,CONSWARDSTAY,EndDate,CONSWARDSTAY.EndDate -> LOAD_RTT_PATHWAYS.pathway_end_date,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_RTT_PATHWAYS,description,DIRECT_SOURCE,OPREFERRAL,CurrentStatusDescription,OPREFERRAL.CurrentStatusDescription -> LOAD_RTT_PATHWAYS.description,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_RTT_PATHWAYS,pathway_coded_desc_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_RTT_PATHWAYS.pathway_coded_desc_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_RTT_PERIODS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_PERIODS,loadrttpwy_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_PERIODS,loadref_record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_PERIODS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_PERIODS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_RTT_PERIODS,clock_start,DERIVED,,,Derive from referral/period start date precedence rules.,HIGH,Clock policy derivation.
+LOAD_RTT_PERIODS,start_event_reason_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_RTT_PERIODS.start_event_reason_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_RTT_PERIODS,clock_stop,DIRECT_SOURCE,CPSCPADLPROB,P,CPSCPADLPROB.P -> LOAD_RTT_PERIODS.clock_stop,MEDIUM,Direct field transfer from source with datatype/format normalization.
+LOAD_RTT_PERIODS,stop_event_reason_code,LOOKUP_TRANSLATION,AEACCBY,Code,AEACCBY.Code -> LOAD_RTT_PERIODS.stop_event_reason_code,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_RTT_PERIODS,breach_reason_code,LOOKUP_TRANSLATION,WLCURRENT,WlBreachReasonCode,WLCURRENT.WlBreachReasonCode -> LOAD_RTT_PERIODS.breach_reason_code,HIGH,Code/value translation required against PAS code sets.
+LOAD_RTT_PERIODS,breach_reason_text,LOOKUP_TRANSLATION,CPREFDISCH,Reason,CPREFDISCH.Reason -> LOAD_RTT_PERIODS.breach_reason_text,MEDIUM,Code/value translation required against PAS code sets.
+LOAD_RTT_PERIODS,referral_as_start_encountery,DIRECT_SOURCE,WLCURRENT,Referral,WLCURRENT.Referral -> LOAD_RTT_PERIODS.referral_as_start_encountery,HIGH,Direct field transfer from source with datatype/format normalization.
+LOAD_SITES,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_SITES,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_SITES,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_SITES,provider_prefix,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,site_code,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,site_description,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,site_link_applies_start,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,site_link_applies_end,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,address_1,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,address_2,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,address_3,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,address_4,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,post_code,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,phone_1,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,phone_2,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,email,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,applies_start,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_SITES,applies_end,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_STAFF,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_STAFF,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_STAFF,user_name,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,first_name,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,middle_name,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,family_name,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,acters,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_STAFF,job_id,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,password,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,psswd_life_months,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,psswd_expiry_date,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,language_id,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,staff_id,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,default_parts_entity,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,default_tools_entity,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,default_labour_entity,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,employee_flag,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,default_stock_entity,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,staff_security_level,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,phone_no,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,extension_no,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,default_login_entity,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,eoasis_user,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,allow_logon,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,default_executable,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,gp_national_code,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,type_of_user,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,login_from_date,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,login_to_date,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,practice_national_code,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,email_address,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,can_log_support_calls,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,ask_review_warnings,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,from_time,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,to_time,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,mon_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,tue_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,wed_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,thu_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,fri_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,sat_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_STAFF,sun_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,default_team,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,client_user,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,record_number,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_USERS,system_code,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_USERS,external_system_id,SURROGATE_ETL,,,Generate during ETL sequencing and key orchestration.,HIGH,
+LOAD_USERS,user_name,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,first_name,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,middle_name,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,family_name,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,acters,OUT_OF_SCOPE,,,Exclude: parse artefact field from non-authoritative PDF conversion.,HIGH,
+LOAD_USERS,job_id,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,psswd_life_months,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,psswd_expiry_date,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,language_id,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,staff_id,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,default_parts_entity,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,default_tools_entity,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,default_labour_entity,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,employee_flag,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,default_stock_entity,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,staff_security_level,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,phone_no,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,extension_no,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,default_login_entity,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,eoasis_user,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,allow_logon,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,default_executable,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,gp_national_code,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,type_of_user,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,login_from_date,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,login_to_date,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,practice_national_code,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,email_address,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,can_log_support_calls,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,ask_review_warnings,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,from_time,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,to_time,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,mon_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,tue_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,wed_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,thu_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,fri_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,sat_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,
+LOAD_USERS,sun_allowed,REFERENCE_MASTER_FEED,,,Populate from operational master/reference datasets (not patient transaction extract).,HIGH,

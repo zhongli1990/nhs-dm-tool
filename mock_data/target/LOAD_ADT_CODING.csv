@@ -1,0 +1,21 @@
+record_number,adt_eps_record_number,system_code,external_system_id,diagnosis_division,note_type,diagnosis,diagnosis_scheme,primary_diagnosis_code,primary_diagnosis_desc,diagnosis_1_code,diagnosis_1_desc,diagnosis_2_code,diagnosis_2_desc,procedure_scheme,primary_procedure_code,primary_procedure_desc,procedure_1_code,procedure_1_desc,hrg,comments
+1,1,SRC_PAS_V83,MRN10001,1,,I25.1,ICD10,I25.1,Primary diagnosis confirmed,,,,,OPCS4,W371,Primary surgical procedure,,,AA86A,No clinical issues noted
+2,2,SRC_PAS_V83,MRN10002,1,,J18.9,ICD10,J18.9,Primary diagnosis confirmed,,,,,OPCS4,W381,Primary surgical procedure,,,AA70A,No clinical issues noted
+3,3,SRC_PAS_V83,MRN10003,1,,M16.1,ICD10,M16.1,Primary diagnosis confirmed,,,,,OPCS4,W391,Primary surgical procedure,,,AA94A,No clinical issues noted
+4,4,SRC_PAS_V83,MRN10004,1,,K80.2,ICD10,K80.2,Primary diagnosis confirmed,,,,,OPCS4,K444,Primary surgical procedure,,,AA56A,No clinical issues noted
+5,5,SRC_PAS_V83,MRN10005,1,,N18.3,ICD10,N18.3,Primary diagnosis confirmed,,,,,OPCS4,H011,Primary surgical procedure,,,AA67A,No clinical issues noted
+6,6,SRC_PAS_V83,MRN10006,1,,E11.9,ICD10,E11.9,Primary diagnosis confirmed,,,,,OPCS4,E411,Primary surgical procedure,,,AA24A,No clinical issues noted
+7,7,SRC_PAS_V83,MRN10007,1,,F32.1,ICD10,F32.1,Primary diagnosis confirmed,,,,,OPCS4,C711,Primary surgical procedure,,,AA22A,No clinical issues noted
+8,8,SRC_PAS_V83,MRN10008,1,,M79.3,ICD10,M79.3,Primary diagnosis confirmed,,,,,OPCS4,A111,Primary surgical procedure,,,AA94A,No clinical issues noted
+9,9,SRC_PAS_V83,MRN10009,1,,L40.0,ICD10,L40.0,Primary diagnosis confirmed,,,,,OPCS4,T241,Primary surgical procedure,,,AA38A,No clinical issues noted
+10,10,SRC_PAS_V83,MRN10010,1,,Z96.6,ICD10,Z96.6,Primary diagnosis confirmed,,,,,OPCS4,V544,Primary surgical procedure,,,AA10A,No clinical issues noted
+11,11,SRC_PAS_V83,MRN10011,1,,I25.1,ICD10,I25.1,Primary diagnosis confirmed,,,,,OPCS4,W371,Primary surgical procedure,,,AA53A,No clinical issues noted
+12,12,SRC_PAS_V83,MRN10012,1,,J18.9,ICD10,J18.9,Primary diagnosis confirmed,,,,,OPCS4,W381,Primary surgical procedure,,,AA55A,No clinical issues noted
+13,13,SRC_PAS_V83,MRN10013,1,,M16.1,ICD10,M16.1,Primary diagnosis confirmed,,,,,OPCS4,W391,Primary surgical procedure,,,AA91A,No clinical issues noted
+14,14,SRC_PAS_V83,MRN10014,1,,K80.2,ICD10,K80.2,Primary diagnosis confirmed,,,,,OPCS4,K444,Primary surgical procedure,,,AA47A,No clinical issues noted
+15,15,SRC_PAS_V83,MRN10015,1,,N18.3,ICD10,N18.3,Primary diagnosis confirmed,,,,,OPCS4,H011,Primary surgical procedure,,,AA80A,No clinical issues noted
+16,16,SRC_PAS_V83,MRN10016,1,,E11.9,ICD10,E11.9,Primary diagnosis confirmed,,,,,OPCS4,E411,Primary surgical procedure,,,AA76A,No clinical issues noted
+17,17,SRC_PAS_V83,MRN10017,1,,F32.1,ICD10,F32.1,Primary diagnosis confirmed,,,,,OPCS4,C711,Primary surgical procedure,,,AA57A,No clinical issues noted
+18,18,SRC_PAS_V83,MRN10018,1,,M79.3,ICD10,M79.3,Primary diagnosis confirmed,,,,,OPCS4,A111,Primary surgical procedure,,,AA99A,No clinical issues noted
+19,19,SRC_PAS_V83,MRN10019,1,,L40.0,ICD10,L40.0,Primary diagnosis confirmed,,,,,OPCS4,T241,Primary surgical procedure,,,AA23A,No clinical issues noted
+20,20,SRC_PAS_V83,MRN10020,1,,Z96.6,ICD10,Z96.6,Primary diagnosis confirmed,,,,,OPCS4,V544,Primary surgical procedure,,,AA15A,No clinical issues noted

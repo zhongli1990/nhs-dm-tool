@@ -1,0 +1,5 @@
+source_value,target_value,description
+11,11,Elective waiting list
+12,12,Booked admission
+21,21,Emergency via A&E
+22,22,Emergency GP referral

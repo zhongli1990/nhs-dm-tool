@@ -1,0 +1,7 @@
+source_value,target_value,description
+1,M,Legacy male code to PAS sex code
+2,F,Legacy female code to PAS sex code
+9,U,Legacy not specified to PAS unknown
+M,M,Pass-through
+F,F,Pass-through
+U,U,Pass-through

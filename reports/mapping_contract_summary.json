@@ -1,0 +1,229 @@
+{
+  "target_table_count": 38,
+  "target_field_count": 919,
+  "mapping_class_counts": {
+    "DIRECT_SOURCE": 258,
+    "LOOKUP_TRANSLATION": 207,
+    "SURROGATE_ETL": 143,
+    "DERIVED": 178,
+    "OUT_OF_SCOPE": 29,
+    "REFERENCE_MASTER_FEED": 104
+  },
+  "policy_override_count": 25,
+  "target_table_class_breakdown": {
+    "LOAD_ADT_ADMISSIONS": {
+      "DIRECT_SOURCE": 17,
+      "LOOKUP_TRANSLATION": 9,
+      "SURROGATE_ETL": 4,
+      "DERIVED": 1,
+      "OUT_OF_SCOPE": 4
+    },
+    "LOAD_ADT_ARCHIVE": {
+      "DERIVED": 52,
+      "LOOKUP_TRANSLATION": 34,
+      "OUT_OF_SCOPE": 6
+    },
+    "LOAD_ADT_CODING": {
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 10,
+      "LOOKUP_TRANSLATION": 6,
+      "DERIVED": 1
+    },
+    "LOAD_ADT_EPISODES": {
+      "OUT_OF_SCOPE": 3,
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 5,
+      "DERIVED": 3,
+      "LOOKUP_TRANSLATION": 2
+    },
+    "LOAD_ADT_WARDSTAYS": {
+      "LOOKUP_TRANSLATION": 4,
+      "DIRECT_SOURCE": 6,
+      "OUT_OF_SCOPE": 2,
+      "SURROGATE_ETL": 4,
+      "DERIVED": 2
+    },
+    "LOAD_CASENOTELOCS": {
+      "LOOKUP_TRANSLATION": 4,
+      "DIRECT_SOURCE": 5,
+      "SURROGATE_ETL": 3
+    },
+    "LOAD_CMTY_APPOINTMENTS": {
+      "DIRECT_SOURCE": 24,
+      "OUT_OF_SCOPE": 3,
+      "SURROGATE_ETL": 6,
+      "LOOKUP_TRANSLATION": 15
+    },
+    "LOAD_CPA_ARCHIVE": {
+      "DERIVED": 15,
+      "LOOKUP_TRANSLATION": 2
+    },
+    "LOAD_DETENTION_ARCHIVE": {
+      "DERIVED": 16,
+      "LOOKUP_TRANSLATION": 2
+    },
+    "LOAD_IWL": {
+      "SURROGATE_ETL": 8,
+      "DIRECT_SOURCE": 12,
+      "LOOKUP_TRANSLATION": 10,
+      "DERIVED": 3
+    },
+    "LOAD_IWL_DEFERRALS": {
+      "LOOKUP_TRANSLATION": 2,
+      "DIRECT_SOURCE": 4,
+      "SURROGATE_ETL": 4
+    },
+    "LOAD_IWL_PROFILES": {
+      "SURROGATE_ETL": 3,
+      "REFERENCE_MASTER_FEED": 10
+    },
+    "LOAD_IWL_TCIS": {
+      "DIRECT_SOURCE": 9,
+      "LOOKUP_TRANSLATION": 4,
+      "SURROGATE_ETL": 4,
+      "OUT_OF_SCOPE": 1
+    },
+    "LOAD_MH_CPA_HISTORY": {
+      "DIRECT_SOURCE": 3,
+      "OUT_OF_SCOPE": 1,
+      "SURROGATE_ETL": 4,
+      "LOOKUP_TRANSLATION": 2
+    },
+    "LOAD_MH_CPA_MASTER": {
+      "SURROGATE_ETL": 3,
+      "LOOKUP_TRANSLATION": 2,
+      "DIRECT_SOURCE": 3,
+      "OUT_OF_SCOPE": 0,
+      "DERIVED": 1
+    },
+    "LOAD_MH_DETENTION_MASTER": {
+      "DERIVED": 1,
+      "DIRECT_SOURCE": 3,
+      "SURROGATE_ETL": 4,
+      "LOOKUP_TRANSLATION": 1
+    },
+    "LOAD_MH_DETENTION_TRANSFERS": {
+      "DIRECT_SOURCE": 7,
+      "OUT_OF_SCOPE": 1,
+      "SURROGATE_ETL": 4,
+      "LOOKUP_TRANSLATION": 2,
+      "DERIVED": 3
+    },
+    "LOAD_OPD_APPOINTMENTS": {
+      "OUT_OF_SCOPE": 1,
+      "SURROGATE_ETL": 9,
+      "DIRECT_SOURCE": 16,
+      "LOOKUP_TRANSLATION": 6,
+      "DERIVED": 2
+    },
+    "LOAD_OPD_ARCHIVE": {
+      "DERIVED": 52,
+      "LOOKUP_TRANSLATION": 27,
+      "OUT_OF_SCOPE": 2
+    },
+    "LOAD_OPD_CODING": {
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 2,
+      "LOOKUP_TRANSLATION": 1,
+      "DERIVED": 1
+    },
+    "LOAD_OPDWAITLIST": {
+      "SURROGATE_ETL": 8,
+      "DIRECT_SOURCE": 11,
+      "LOOKUP_TRANSLATION": 8
+    },
+    "LOAD_OPDWAITLISTDEF": {
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 3,
+      "LOOKUP_TRANSLATION": 1
+    },
+    "LOAD_PMI": {
+      "SURROGATE_ETL": 3,
+      "LOOKUP_TRANSLATION": 25,
+      "DIRECT_SOURCE": 41,
+      "OUT_OF_SCOPE": 0,
+      "DERIVED": 20
+    },
+    "LOAD_PMIADDRS": {
+      "DIRECT_SOURCE": 14,
+      "LOOKUP_TRANSLATION": 5,
+      "SURROGATE_ETL": 4
+    },
+    "LOAD_PMIALIASES": {
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 7
+    },
+    "LOAD_PMIALLERGIES": {
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 4,
+      "LOOKUP_TRANSLATION": 1
+    },
+    "LOAD_PMICASENOTEHISTORY": {
+      "DIRECT_SOURCE": 8,
+      "SURROGATE_ETL": 3,
+      "LOOKUP_TRANSLATION": 3,
+      "DERIVED": 1
+    },
+    "LOAD_PMICONTACTS": {
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 15,
+      "LOOKUP_TRANSLATION": 3,
+      "DERIVED": 1
+    },
+    "LOAD_PMIGPAUDIT": {
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 1,
+      "LOOKUP_TRANSLATION": 2
+    },
+    "LOAD_PMIIDS": {
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 3,
+      "LOOKUP_TRANSLATION": 1
+    },
+    "LOAD_PMISTAFFWARNINGS": {
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 4,
+      "LOOKUP_TRANSLATION": 1
+    },
+    "LOAD_REFERRALS": {
+      "DIRECT_SOURCE": 13,
+      "LOOKUP_TRANSLATION": 13,
+      "SURROGATE_ETL": 4
+    },
+    "LOAD_RTT_EVENTS": {
+      "SURROGATE_ETL": 4,
+      "DIRECT_SOURCE": 1,
+      "LOOKUP_TRANSLATION": 3,
+      "OUT_OF_SCOPE": 3,
+      "DERIVED": 1
+    },
+    "LOAD_RTT_PATHWAYS": {
+      "SURROGATE_ETL": 3,
+      "LOOKUP_TRANSLATION": 2,
+      "DIRECT_SOURCE": 5,
+      "OUT_OF_SCOPE": 0,
+      "DERIVED": 1
+    },
+    "LOAD_RTT_PERIODS": {
+      "SURROGATE_ETL": 5,
+      "OUT_OF_SCOPE": 0,
+      "LOOKUP_TRANSLATION": 4,
+      "DIRECT_SOURCE": 2,
+      "DERIVED": 1
+    },
+    "LOAD_SITES": {
+      "SURROGATE_ETL": 3,
+      "REFERENCE_MASTER_FEED": 15
+    },
+    "LOAD_STAFF": {
+      "SURROGATE_ETL": 3,
+      "REFERENCE_MASTER_FEED": 39,
+      "OUT_OF_SCOPE": 1
+    },
+    "LOAD_USERS": {
+      "REFERENCE_MASTER_FEED": 40,
+      "SURROGATE_ETL": 3,
+      "OUT_OF_SCOPE": 1
+    }
+  }
+}

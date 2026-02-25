@@ -1,0 +1,527 @@
+gap_type,severity,entity,field_name,detail
+UNMAPPED_SOURCE_TABLE,HIGH,ADMISSIONMANAGEMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ADMUNBDHRG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ADTLADDCOR,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEA,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEACCBY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEACOMPLAINT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEADIAGNOSISCOMMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEADISCHARGE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEADOCTOR,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEADRUG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEAIMMUNISATION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEAINVESTIGATION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEAINVESTIGATIONCOMMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEALETTERCOPY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEALOAN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEANATSITE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEAOUTSAFE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEAPPLIANCE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEAPROCEDURE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEAPROCEDURECOMMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEARRIVALMODE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEASECDIAG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEATRACKSTEP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEATRACKSTEPCOMMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEATRIAGEID,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEATRIDRUG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEATTENDANCE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEATYPEINC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEAUSERDEFDATA,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEAUSERDIAG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AECLINICMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AECOMPLAINT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AECUBICLE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEDEPARTMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEDEPARTMETHOD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEDIAGNOSIS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEDIARY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEDIARYCOMMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEDOCTOR,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEDRUG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEDRUGCOMMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEEPISODE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEHRG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEIMMUNISATION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEINITIATOR,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEINVESTIGATION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AELOCATION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEMEDICALCOMMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEPATIENTGROUP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEPLACEOFACCIDENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEPRIORITY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEPROCEDURE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AESAFETYDEVICE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AESITEOFACCIDENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AESNOMEDCODE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AETIMEELAPSED,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AETRACKSTEP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AETRIAGENURSE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AETRIAGEPAINSCORE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AETYPEINCIDENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AETYPEOFACCIDENTMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AETYPEROADUSER,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AETYPESPORT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEUSERDEFDATA,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEVALUABLES,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AEVALUABLESTEXT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ALLOCATEDCONTRACT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ALLOCPATCAT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ALLOCSPECIALTY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AMSUID,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ANAESTHETDET,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ANAESTHETICUDD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ANANINIT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,APPOINTMENTDNA,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,APPTYP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ASFIELDMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ASFIELDRANGE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AUGCAREPATDET,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,AUGPATCARELOC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BCNTRACT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDCLASS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDCLOSURE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDDEFAULTRETURN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDDEFBEDALLOC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDDEFCLOSURE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDDEFDELDISCH,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDDEFEXPDISCH,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDDEFRESERV,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDDEFSPECIALTY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDMANBEDALLOC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDMANCLOSURE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDMANDELDISCH,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDMANEXPDISCH,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDMANRESERV,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDMANSPECIALTY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BEDMANUALRETURN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BIRTH,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BIRTHUDD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BORROWER,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,BREACH,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CABSERVICE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CANCERBASISOFDIAGMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CANCERREGLINK,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CANCERSUMMARY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CANCERSUMMARYTREAT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CANCERTREATMTYPMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CASENLOC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CASENOTEDETS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CASENOTELINK,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CASENOTELOAN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CCNTRCT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CIDUDCGRP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CLIDATA,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CLINGROUP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CLINICALFACILITY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CLNHOL,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CMFT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONONSPEC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONSEPISDIAG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONSEPISODE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONSEPISPROC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONSEPIUNBDHRG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONSMAST,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONSPEC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONSWARDSTAY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONTR,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONTRASSRULE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CONTUID,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,COUNTRYBIRTHMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPACTIVITYPOSINDEX,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPADLMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPASSESSADL,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPASSESSADLOBS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPASSESSMENTMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPASSESSMENTOBPROBMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPASSESSTYPE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPASSESSTYPEADLANMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPASSESSTYPEADLMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPASSESSTYPEMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPCLINACTIVITY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPCLINCONTACT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFACTIVITY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFACTIVITYDATES,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFACTIVITYSG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCLINCAT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCLINCATSG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCLINEFFDATA,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCLINEFFLOCALITY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCLINEFFOTHERTEAM,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCLINICIAN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCLINSUBSPEC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCOMMDIAG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCOMMGRADE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCOMMREFSOURCE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFCOMMUSER,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFDISCHREASON,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFLOCALITY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFLOCATION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFOUTCOME,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFOUTCOMESG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFPATGROUP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFPATGROUPSG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFREQUENCYMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFSECURITY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFSECURITYPROFILE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFSECURITYPROFILESG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFSERVICEGROUPS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFSEVERITY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFSGCATEGORIES,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFTEAMS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFTREATCASE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPFTREATCASESG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPGOALINTCDMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPGOALMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPOTHERCONTACT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPPROBLEMGOALMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPPROBLEMMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPPROBLEMSGMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPPTCONTACT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPPTCONTACTNOTES,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPREFDISCH,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSCPADLPROB,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSCPADLPROBGOAL,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSCPADLPROBGOALINTERV,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSECCONTDIAG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSECEPIDISCHDIAG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSECEPISDIAG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSGASSESSMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSGCONTACTINDEX,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSGREFERRAL,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSGREFTREATGRPS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSHOLDING,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSHOLDINGER,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSOPWLIST,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSTDCAREPLANMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSTDCAREPLANPROBLEMMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSTDCAREPLANSGMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPSUPLOAD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPTREATEPI,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CPTREATEPIDISCH,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CRICAREPATDET,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CRIDMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CRITICALCAREACTYDTPAED,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CRITICALCARENEONATE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CRITICALCAREPERIODPAED,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CURRENTPREADMISSIONS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,CVCNTRCT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DELIVERY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DELIVERYUDD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DENTALMODELDETS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DHA,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DIARY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DIARYAPPTTYPE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DIARYSERVICE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DIARYSESSIONCANC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DIARYTIMESLOT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DIARYTIMESLOTCANC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DIARYTIMESLOTSERVICE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DISCHAWAITREASON,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DISCHAWAITREASONMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DISCHEXPECTED,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DISP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DOCTEMPLATETYPES,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DOCTORSESSION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DOCTORTEMPLATE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DOCTORTIMESLOT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DOCTORTIMESLOTSERVICE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DOCUMENTS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DOD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,DRAPPTYP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ECRSTATUSHISTORY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ECT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,EFG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,EPIREGISTRATION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ETHN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ETHNCLASS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,FCEEXT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,FSDEF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,FSEDEF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,GDP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,GP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,GPHISTORY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,HOLIDAY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,HOSPDET,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,HRG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,HWARD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,HWARDSPECSF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,HWMHEALTHPERSON,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,HWMSPECIALTY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,HWSAPP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,HWSAPPIS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ICD10,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ICD10MOD5,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ICD9,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,INMAN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,INPATIENTSUSPEND,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,INPPRESCTTO,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,IPACTIVITY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,IPATPMDI,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,IPBOOKTYPEMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,IPCANCERREG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,IPPATLETHISTORY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,IPSUMM,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,IPUNCODED,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,JOINTCONSPEC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,JOURNEYDETAIL,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,LEGALSTATUSDETS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,LOCATIONCODES,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,LOCN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,LOSEXPECTED,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,MARITALS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,MATCLINICDETS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,MATCLINICUDD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,MERGEDID,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,MIDNIGHTBEDSTATE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,MOA,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,MOD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,MOTHERBABYLINK,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,NEONATE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCCANCEL,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMDUPREASONMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMFDEPT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMFLOCATION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMFRESULTS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMLOCNPERF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMPTLINK,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMRESULTSOPT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMSCREENTYPE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMSERVICE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMSTATUS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCMTEXTRESULTS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCORDER,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCORDERRSO,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCORDERRSOCOM,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCORDERRSONEW,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCRESULT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OCSTATUS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPA,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPADIAGNOSIS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPAPPOINTATTEND,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPAPPOINTUDD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPATTTRACK,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPBOOKTYPEMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPCANCERREG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPCANCRSN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPCLINJOINT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPCS4,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPDIAGNOSIS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPDISCHARGE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPDOCTOR,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPPATLETHISTORY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPPROCEDURE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPPROCGRP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPREFERRAL,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPREFREASON,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPREFSOURCE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPREFTKSTATUS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPREFTKSTATUSMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPRSNDISCH,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPTICIAN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPTRACKSTEP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPWLENTRY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPWLJTCONSMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPWLMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OPWLREMENTRY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OUTCLNC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,OUTP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PATCAT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PATCHANGE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PATCHANGEBYDATE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PATCHANGEBYID,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PATCHANGEBYIDANDDATE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PATEPISEC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PATIENTNEEDMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PATIENTNEEDS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PFSASSESSMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PMISPECIALREG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PMISPECIALREGMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PMITITLEMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,POSTCODE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PRCPROF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PREADMISSION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PRESECINTPROC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PREVADDRESS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PREVGPFH,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PREVSURNAME,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PRICPROF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PROV,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PSEUDOPCODE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PURCHASER,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,PURCHASERASSOC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,READCODESPREF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,READCODETERMS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,RELIGION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ROOM,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ROOMBEDID,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ROOMCLOSURE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ROOMSPECIALTY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,ROOMSTAY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,RTTALLPRDSTS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,RTTEPIPERIOD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,RTTPERIOD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,RTTPERIODCURR,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,RTTPERSTSMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,RTTPTEPIPATHWAY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,RTTPTPATHWAY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,RTTPTPATHWAYCURRENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SAMAP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SECTDEF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SEXORIENTATION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SGBOOKTYPEMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SGPATLETHISTORY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SHHRG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SHHRGSPECIALTY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SMREPISODE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SMREPISODEAFTERC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SOAD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SPEC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,STAFFGP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SUSCANCERCATMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SUSPCANCER,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,SYSTEMAREF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,TIMESLOTAPPTYPE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,TIMESLOTSERVICE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,TRANS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,TSTEP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,UDCGROUP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,UDPPGRP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,URG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,USERDEFCODES,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,USERDEFCODESEPCONS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,USERS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WAITCD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WARD,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WARDATTENDER,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WARDATTSECDIAG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WARDATTSECPROC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WARDCLOSURE,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WARDSPEC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WARDSPECBEDS,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WARDSTAY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLACTIVITY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLCANCRSN,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLCURRENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLDIAG,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLENTRY,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLEXPSUSPENSION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLINTENDEDPROC,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLPOSTPONEMENT,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLPRCGRP,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLREMOVAL,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLREMOVALREASON,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLSUSPENSION,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLSUSPREASONMF,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_SOURCE_TABLE,HIGH,WLTRANSFER,,Source table exists in dictionary but has no migration mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_ADT_ARCHIVE,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_ADT_CODING,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_ADT_EPISODES,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_ADT_WARDSTAYS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_CASENOTELOCS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_CMTY_APPOINTMENTS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_CPA_ARCHIVE,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_DETENTION_ARCHIVE,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_IWL,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_IWL_DEFERRALS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_IWL_PROFILES,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_IWL_TCIS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_MH_CPA_HISTORY,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_MH_CPA_MASTER,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_MH_DETENTION_MASTER,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_MH_DETENTION_TRANSFERS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_OPDWAITLIST,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_OPDWAITLISTDEF,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_OPD_APPOINTMENTS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_OPD_ARCHIVE,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_OPD_CODING,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_PMIADDRS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_PMIALIASES,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_PMIALLERGIES,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_PMICASENOTEHISTORY,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_PMICONTACTS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_PMIGPAUDIT,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_PMIIDS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_PMISTAFFWARNINGS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_REFERRALS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_RTT_EVENTS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_RTT_PATHWAYS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_RTT_PERIODS,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_SITES,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_STAFF,,Target load table exists in migration guide but has no population mapping defined.
+UNMAPPED_TARGET_TABLE,HIGH,LOAD_USERS,,Target load table exists in migration guide but has no population mapping defined.
+MAPPING_SOURCE_FIELD_NOT_FOUND,HIGH,PATDATA,DateOfBirth,Field in mapping spec not found in source table PATDATA.
+MAPPING_SOURCE_FIELD_NOT_FOUND,HIGH,PATDATA,EmailAddress,Field in mapping spec not found in source table PATDATA.
+MAPPING_SOURCE_FIELD_NOT_FOUND,HIGH,PATDATA,MobilePhone,Field in mapping spec not found in source table PATDATA.
+MAPPING_SOURCE_FIELD_NOT_FOUND,HIGH,PATDATA,PtPostCode,Field in mapping spec not found in source table PATDATA.
+MAPPING_TARGET_FIELD_NOT_FOUND,HIGH,LOAD_PMI,date_of_birth,Field in mapping spec not found in target table LOAD_PMI.
+MAPPING_TARGET_FIELD_NOT_FOUND,HIGH,LOAD_PMI,nhs_number_status,Field in mapping spec not found in target table LOAD_PMI.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,cause_of_death,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,comments,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,date_registered,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,death_hiv_related,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,death_treatment_related,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,entered_country,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_1,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_10,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_10_type,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_1_type,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_2,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_2_type,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_3,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_3_type,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_4,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_4_type,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_5,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_5_type,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_6,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_6_type,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_7,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_7_type,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_8,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_8_type,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_9,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,extra_info_9_type,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,gdp_practice_applies_from,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,gdp_practice_national_code,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,gdp_practice_post_code,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,nationality,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,nhs_number_statusnhs,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,nok_name_family,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,nok_telephone_1,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,nok_telephone_2,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,nok_title,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,note_1_subject,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,note_1_text,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,note_2_subject,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,note_2_text,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,of_birth,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,of_death,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,pat_address_from,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,pat_lives_alone,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,pat_name_2,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,pat_name_3,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,pat_permission_to_contact,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,pat_permission_to_copy_gp,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,pat_permission_to_phone,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,practice_applies_from,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,practice_national_code,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,practice_post_code,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,preferred_language,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,religion_code,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,where_died,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_PMI,where_heard_of_service,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,cancelled_date,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,discharged_by,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,estimated_discharge_date,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,ge_date,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,ge_toe,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,ge_typee,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,ged,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,ged_by_staff_id,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,intended_management,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,ref_gp_code,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,ref_practice_code,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,ref_practice_postcode,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,tci_outcome,Target field is in catalog but has no source mapping/default in current pipeline.
+UNMAPPED_TARGET_FIELD,MEDIUM,LOAD_ADT_ADMISSIONS,wl_date,Target field is in catalog but has no source mapping/default in current pipeline.

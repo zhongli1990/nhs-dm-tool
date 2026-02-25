@@ -1,0 +1,214 @@
+{
+  "schema_catalog_stats": {
+    "source_total_fields": 5387,
+    "source_total_tables": 417,
+    "target_total_fields": 880,
+    "target_total_tables": 38,
+    "target_parse_confidence_avg": 0.819,
+    "target_md_table_section_count": 32,
+    "source_docx_md_bytes": 0,
+    "source_top_tables": [
+      [
+        "PATDATA",
+        131
+      ],
+      [
+        "OPA",
+        107
+      ],
+      [
+        "CURRENTPREADMISSIONS",
+        100
+      ],
+      [
+        "PREADMISSION",
+        94
+      ],
+      [
+        "HWSAPP",
+        90
+      ],
+      [
+        "WLCURRENT",
+        90
+      ],
+      [
+        "WLENTRY",
+        90
+      ],
+      [
+        "OCORDER",
+        79
+      ],
+      [
+        "ADMITDISCH",
+        69
+      ],
+      [
+        "AEA",
+        69
+      ],
+      [
+        "FCEEXT",
+        68
+      ],
+      [
+        "WLACTIVITY",
+        68
+      ],
+      [
+        "CRITICALCARENEONATE",
+        57
+      ],
+      [
+        "IPCANCERREG",
+        57
+      ],
+      [
+        "OPCANCERREG",
+        54
+      ],
+      [
+        "SMREPISODE",
+        52
+      ],
+      [
+        "CANCERSUMMARY",
+        49
+      ],
+      [
+        "CRITICALCAREACTYDTPAED",
+        49
+      ],
+      [
+        "OPREFERRAL",
+        47
+      ],
+      [
+        "CPSGREFERRAL",
+        46
+      ]
+    ],
+    "target_top_tables": [
+      [
+        "LOAD_ADT_ARCHIVE",
+        92
+      ],
+      [
+        "LOAD_PMI",
+        89
+      ],
+      [
+        "LOAD_OPD_ARCHIVE",
+        81
+      ],
+      [
+        "LOAD_CMTY_APPOINTMENTS",
+        48
+      ],
+      [
+        "LOAD_USERS",
+        44
+      ],
+      [
+        "LOAD_STAFF",
+        43
+      ],
+      [
+        "LOAD_OPD_APPOINTMENTS",
+        34
+      ],
+      [
+        "LOAD_IWL",
+        33
+      ],
+      [
+        "LOAD_REFERRALS",
+        30
+      ],
+      [
+        "LOAD_OPDWAITLIST",
+        27
+      ],
+      [
+        "LOAD_ADT_ADMISSIONS",
+        25
+      ],
+      [
+        "LOAD_PMICONTACTS",
+        23
+      ],
+      [
+        "LOAD_PMIADDRS",
+        19
+      ],
+      [
+        "LOAD_SITES",
+        18
+      ],
+      [
+        "LOAD_IWL_TCIS",
+        18
+      ],
+      [
+        "LOAD_ADT_WARDSTAYS",
+        18
+      ],
+      [
+        "LOAD_DETENTION_ARCHIVE",
+        18
+      ],
+      [
+        "LOAD_MH_DETENTION_TRANSFERS",
+        17
+      ],
+      [
+        "LOAD_CPA_ARCHIVE",
+        17
+      ],
+      [
+        "LOAD_PMICASENOTEHISTORY",
+        15
+      ]
+    ],
+    "target_tables_from_md_not_in_pdf_catalog": [],
+    "target_tables_from_pdf_catalog_not_in_md_sections": [
+      "LOAD_ADT_ARCHIVE",
+      "LOAD_CPA_ARCHIVE",
+      "LOAD_DETENTION_ARCHIVE",
+      "LOAD_MH_CPA_HISTORY",
+      "LOAD_MH_CPA_MASTER",
+      "LOAD_OPD_ARCHIVE"
+    ]
+  },
+  "migrations": [
+    {
+      "migration_name": "PATDATA_to_LOAD_PMI",
+      "source_table": "PATDATA",
+      "target_table": "LOAD_PMI",
+      "source_rows": 3,
+      "target_rows": 3,
+      "failed_rows": 3
+    },
+    {
+      "migration_name": "ADMITDISCH_to_LOAD_ADT_ADMISSIONS",
+      "source_table": "ADMITDISCH",
+      "target_table": "LOAD_ADT_ADMISSIONS",
+      "source_rows": 3,
+      "target_rows": 3,
+      "failed_rows": 3
+    }
+  ],
+  "quality_summary": {
+    "PASS": 0,
+    "FAIL": 6
+  },
+  "gap_summary": {
+    "high_severity_gap_count": 457,
+    "medium_severity_gap_count": 69,
+    "mapped_source_table_count": 2,
+    "mapped_target_table_count": 2,
+    "total_source_table_count": 417,
+    "total_target_table_count": 38
+  }
+}

@@ -1,0 +1,5 @@
+source_value,target_value,description
+19,19,Usual place of residence
+51,51,NHS hospital provider
+52,52,Independent provider
+99,99,Not known

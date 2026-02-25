@@ -1,0 +1,52 @@
+{
+  "run_at_utc": "2026-02-25T21:12:34.101787+00:00",
+  "status": "PASS",
+  "rows": 20,
+  "seed": 42,
+  "min_patients": 20,
+  "release_profile": "pre_production",
+  "steps": [
+    {
+      "command": "python pipeline/extract_specs.py",
+      "return_code": 0,
+      "stdout": "\",\n      100\n    ],\n    [\n      \"PREADMISSION\",\n      94\n    ],\n    [\n      \"HWSAPP\",\n      90\n    ],\n    [\n      \"WLCURRENT\",\n      90\n    ],\n    [\n      \"WLENTRY\",\n      90\n    ],\n    [\n      \"OCORDER\",\n      79\n    ],\n    [\n      \"ADMITDISCH\",\n      69\n    ],\n    [\n      \"AEA\",\n      69\n    ],\n    [\n      \"FCEEXT\",\n      68\n    ],\n    [\n      \"WLACTIVITY\",\n      68\n    ],\n    [\n      \"CRITICALCARENEONATE\",\n      57\n    ],\n    [\n      \"IPCANCERREG\",\n      57\n    ],\n    [\n      \"OPCANCERREG\",\n      54\n    ],\n    [\n      \"SMREPISODE\",\n      52\n    ],\n    [\n      \"CANCERSUMMARY\",\n      49\n    ],\n    [\n      \"CRITICALCAREACTYDTPAED\",\n      49\n    ],\n    [\n      \"OPREFERRAL\",\n      47\n    ],\n    [\n      \"CPSGREFERRAL\",\n      46\n    ]\n  ],\n  \"target_top_tables\": [\n    [\n      \"LOAD_ADT_ARCHIVE\",\n      92\n    ],\n    [\n      \"LOAD_PMI\",\n      89\n    ],\n    [\n      \"LOAD_OPD_ARCHIVE\",\n      81\n    ],\n    [\n      \"LOAD_CMTY_APPOINTMENTS\",\n      48\n    ],\n    [\n      \"LOAD_USERS\",\n      44\n    ],\n    [\n      \"LOAD_STAFF\",\n      43\n    ],\n    [\n      \"LOAD_OPD_APPOINTMENTS\",\n      34\n    ],\n    [\n      \"LOAD_IWL\",\n      33\n    ],\n    [\n      \"LOAD_REFERRALS\",\n      30\n    ],\n    [\n      \"LOAD_OPDWAITLIST\",\n      27\n    ],\n    [\n      \"LOAD_ADT_ADMISSIONS\",\n      25\n    ],\n    [\n      \"LOAD_PMICONTACTS\",\n      23\n    ],\n    [\n      \"LOAD_PMIADDRS\",\n      19\n    ],\n    [\n      \"LOAD_SITES\",\n      18\n    ],\n    [\n      \"LOAD_IWL_TCIS\",\n      18\n    ],\n    [\n      \"LOAD_ADT_WARDSTAYS\",\n      18\n    ],\n    [\n      \"LOAD_DETENTION_ARCHIVE\",\n      18\n    ],\n    [\n      \"LOAD_MH_DETENTION_TRANSFERS\",\n      17\n    ],\n    [\n      \"LOAD_CPA_ARCHIVE\",\n      17\n    ],\n    [\n      \"LOAD_PMICASENOTEHISTORY\",\n      15\n    ]\n  ],\n  \"target_tables_from_md_not_in_pdf_catalog\": [],\n  \"target_tables_from_pdf_catalog_not_in_md_sections\": [\n    \"LOAD_ADT_ARCHIVE\",\n    \"LOAD_CPA_ARCHIVE\",\n    \"LOAD_DETENTION_ARCHIVE\",\n    \"LOAD_MH_CPA_HISTORY\",\n    \"LOAD_MH_CPA_MASTER\",\n    \"LOAD_OPD_ARCHIVE\"\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "python pipeline/generate_all_mock_data.py --rows 20 --seed 42",
+      "return_code": 0,
+      "stdout": "                             42 cols  20 rows\n  [SOURCE] CONSEPISDIAG                                    10 cols  20 rows\n  [SOURCE] CONSEPISPROC                                    14 cols  20 rows\n  [SOURCE] OCCANCEL                                        15 cols  20 rows\n  [SOURCE] LOCATIONCODES                                   16 cols  20 rows\n  [SOURCE] LOCN                                            11 cols  20 rows\n  [SOURCE] WARD                                            29 cols  20 rows\n  [SOURCE] CONSMAST                                        18 cols  20 rows\n  [SOURCE] CONSPEC                                          3 cols  20 rows\n  [SOURCE] GP                                              33 cols  20 rows\n  [SOURCE] GPHISTORY                                       20 cols  20 rows\n  [SOURCE] POSTCODE                                         6 cols  20 rows\n  [SOURCE] PSEUDOPCODE                                      6 cols  20 rows\n  [SOURCE] OPREFTKSTATUS                                    9 cols  20 rows\n  [SOURCE] OPREFTKSTATUSMF                                  3 cols  20 rows\n  [SOURCE] OPBOOKTYPEMF                                     6 cols  20 rows\n  [SOURCE] IPBOOKTYPEMF                                     6 cols  20 rows\n  [SOURCE] WLSUSPREASONMF                                   3 cols  20 rows\n  [SOURCE] WLREMOVALREASON                                 11 cols  20 rows\n  [SOURCE] CPFTEAMS                                         4 cols  20 rows\n  [SOURCE] CPFLOCATION                                      7 cols  20 rows\n  [SOURCE] CPFDISCHREASON                                   4 cols  20 rows\n  [SOURCE] LEGALSTATUSDETS                                  6 cols  20 rows\n  [SOURCE] ALLOCATEDCONTRACT                               10 cols  20 rows\n\n======================================================================\nDone. Files written to mock_data/target/ and mock_data/source/\n======================================================================\n",
+      "stderr": ""
+    },
+    {
+      "command": "python pipeline/analyze_semantic_mapping.py",
+      "return_code": 0,
+      "stdout": "C:\\Zhong\\Windsurf\\data_migration\\reports\\semantic_mapping_matrix.csv\nC:\\Zhong\\Windsurf\\data_migration\\reports\\semantic_mapping_summary.json\nC:\\Zhong\\Windsurf\\data_migration\\analysis\\source_target_semantic_mapping.md\n",
+      "stderr": ""
+    },
+    {
+      "command": "python pipeline/build_mapping_contract.py",
+      "return_code": 0,
+      "stdout": "C:\\Zhong\\Windsurf\\data_migration\\reports\\mapping_contract.csv\nC:\\Zhong\\Windsurf\\data_migration\\reports\\mapping_contract_summary.json\nC:\\Zhong\\Windsurf\\data_migration\\analysis\\mapping_contract.md\n",
+      "stderr": ""
+    },
+    {
+      "command": "python pipeline/run_contract_migration.py --source-dir mock_data/source --output-dir mock_data/target_contract --contract-file reports/mapping_contract.csv --target-catalog-file schemas/target_schema_catalog.csv --crosswalk-dir schemas/crosswalks --impute-mode pre_production",
+      "return_code": 0,
+      "stdout": "Contract-driven migration pipeline completed.\nStatus: PASS\nTables written: 38\nOutput directory: C:\\Zhong\\Windsurf\\data_migration\\mock_data\\target_contract\nReport: C:\\Zhong\\Windsurf\\data_migration\\reports\\contract_migration_report.json\n",
+      "stderr": ""
+    },
+    {
+      "command": "python pipeline/run_enterprise_pipeline.py --min-patients 20",
+      "return_code": 0,
+      "stdout": "Enterprise migration quality pipeline completed.\nStatus: PASS\nErrors: 0\nWarnings: 0\nReport: C:\\Zhong\\Windsurf\\data_migration\\reports\\enterprise_pipeline_report.json\nIssues: C:\\Zhong\\Windsurf\\data_migration\\reports\\enterprise_pipeline_issues.csv\n",
+      "stderr": ""
+    },
+    {
+      "command": "python pipeline/run_release_gates.py --profile pre_production",
+      "return_code": 0,
+      "stdout": "Release gate evaluation completed.\nStatus: PASS\nReport: C:\\Zhong\\Windsurf\\data_migration\\reports\\release_gate_report.json\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "target_tables": {
+    "LOAD_ADT_ADMISSIONS": {
+      "rows": 20,
+      "cols": 35
+    },
+    "LOAD_ADT_ARCHIVE": {
+      "rows": 20,
+      "cols": 92
+    },
+    "LOAD_ADT_CODING": {
+      "rows": 20,
+      "cols": 21
+    },
+    "LOAD_ADT_EPISODES": {
+      "rows": 20,
+      "cols": 17
+    },
+    "LOAD_ADT_WARDSTAYS": {
+      "rows": 20,
+      "cols": 18
+    },
+    "LOAD_CASENOTELOCS": {
+      "rows": 20,
+      "cols": 12
+    },
+    "LOAD_CMTY_APPOINTMENTS": {
+      "rows": 20,
+      "cols": 48
+    },
+    "LOAD_CPA_ARCHIVE": {
+      "rows": 20,
+      "cols": 17
+    },
+    "LOAD_DETENTION_ARCHIVE": {
+      "rows": 20,
+      "cols": 18
+    },
+    "LOAD_IWL": {
+      "rows": 20,
+      "cols": 33
+    },
+    "LOAD_IWL_DEFERRALS": {
+      "rows": 20,
+      "cols": 10
+    },
+    "LOAD_IWL_PROFILES": {
+      "rows": 20,
+      "cols": 13
+    },
+    "LOAD_IWL_TCIS": {
+      "rows": 20,
+      "cols": 18
+    },
+    "LOAD_MH_CPA_HISTORY": {
+      "rows": 20,
+      "cols": 10
+    },
+    "LOAD_MH_CPA_MASTER": {
+      "rows": 20,
+      "cols": 9
+    },
+    "LOAD_MH_DETENTION_MASTER": {
+      "rows": 20,
+      "cols": 9
+    },
+    "LOAD_MH_DETENTION_TRANSFERS": {
+      "rows": 20,
+      "cols": 17
+    },
+    "LOAD_OPD_APPOINTMENTS": {
+      "rows": 20,
+      "cols": 34
+    },
+    "LOAD_OPD_ARCHIVE": {
+      "rows": 20,
+      "cols": 81
+    },
+    "LOAD_OPD_CODING": {
+      "rows": 20,
+      "cols": 8
+    },
+    "LOAD_OPDWAITLIST": {
+      "rows": 20,
+      "cols": 27
+    },
+    "LOAD_OPDWAITLISTDEF": {
+      "rows": 20,
+      "cols": 8
+    },
+    "LOAD_PMI": {
+      "rows": 20,
+      "cols": 89
+    },
+    "LOAD_PMIADDRS": {
+      "rows": 20,
+      "cols": 23
+    },
+    "LOAD_PMIALIASES": {
+      "rows": 20,
+      "cols": 11
+    },
+    "LOAD_PMIALLERGIES": {
+      "rows": 20,
+      "cols": 9
+    },
+    "LOAD_PMICASENOTEHISTORY": {
+      "rows": 20,
+      "cols": 15
+    },
+    "LOAD_PMICONTACTS": {
+      "rows": 20,
+      "cols": 23
+    },
+    "LOAD_PMIGPAUDIT": {
+      "rows": 20,
+      "cols": 7
+    },
+    "LOAD_PMIIDS": {
+      "rows": 20,
+      "cols": 8
+    },
+    "LOAD_PMISTAFFWARNINGS": {
+      "rows": 20,
+      "cols": 9
+    },
+    "LOAD_REFERRALS": {
+      "rows": 20,
+      "cols": 30
+    },
+    "LOAD_RTT_EVENTS": {
+      "rows": 20,
+      "cols": 12
+    },
+    "LOAD_RTT_PATHWAYS": {
+      "rows": 20,
+      "cols": 11
+    },
+    "LOAD_RTT_PERIODS": {
+      "rows": 20,
+      "cols": 12
+    },
+    "LOAD_SITES": {
+      "rows": 20,
+      "cols": 18
+    },
+    "LOAD_STAFF": {
+      "rows": 20,
+      "cols": 43
+    },
+    "LOAD_USERS": {
+      "rows": 20,
+      "cols": 44
+    }
+  },
+  "source_tables": {
+    "ADMITDISCH": {
+      "rows": 20,
+      "cols": 69
+    },
+    "ADTLADDCOR": {
+      "rows": 20,
+      "cols": 23
+    },
+    "AEA": {
+      "rows": 20,
+      "cols": 69
+    },
+    "CPSGREFERRAL": {
+      "rows": 20,
+      "cols": 46
+    },
+    "FCEEXT": {
+      "rows": 20,
+      "cols": 68
+    },
+    "HWSAPP": {
+      "rows": 20,
+      "cols": 90
+    },
+    "OPA": {
+      "rows": 20,
+      "cols": 107
+    },
+    "OPREFERRAL": {
+      "rows": 20,
+      "cols": 47
+    },
+    "PATDATA": {
+      "rows": 20,
+      "cols": 131
+    },
+    "SMREPISODE": {
+      "rows": 20,
+      "cols": 52
+    },
+    "WLACTIVITY": {
+      "rows": 20,
+      "cols": 68
+    },
+    "WLCURRENT": {
+      "rows": 20,
+      "cols": 90
+    },
+    "WLENTRY": {
+      "rows": 20,
+      "cols": 90
+    }
+  },
+  "target_table_count": 38,
+  "source_table_count": 13,
+  "all_target_rows_20": true,
+  "all_source_rows_20": true
+}

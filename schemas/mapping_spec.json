@@ -1,0 +1,1259 @@
+{
+  "_meta": {
+    "version": "2.0",
+    "generated": "2026-02-25",
+    "project": "NHS Queen Victoria Hospital – EPR/PAS Data Migration",
+    "source_system": "PC60/V83 Legacy PAS",
+    "target_system": "PAS 18.4",
+    "total_migrations": 38,
+    "mapped_migrations": 33,
+    "reference_only_targets": 5,
+    "notes": [
+      "5 target tables (LOAD_STAFF, LOAD_USERS, LOAD_SITES, LOAD_CASENOTELOCS, LOAD_IWL_PROFILES) are reference/configuration data with no direct source table. They require manual population or vendor-supplied reference files.",
+      "Target PDF spec is marked FOR REF ONLY – all mandatory field hints are provisional pending vendor confirmation.",
+      "Code-set crosswalks (sex, ethnicity, marital, admission type, RTT status, etc.) are listed as GAPS and must be resolved before production load.",
+      "LOAD_PMIIDS and LOAD_PMIALIASES derive multiple child rows from a single PATDATA parent row."
+    ]
+  },
+  "migrations": [
+
+    {
+      "name": "PATDATA_to_LOAD_PMI",
+      "source_table": "PATDATA",
+      "target_table": "LOAD_PMI",
+      "description": "Patient Master Index – core demographics from legacy PATDATA",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "NhsNumber": "nhs_number",
+        "NHSNumberStatus": "nhs_number_status",
+        "CurrentGender": "sex",
+        "Title": "title",
+        "Forenames": "pat_name_1",
+        "PreferredName": "pat_name_2",
+        "Surname": "pat_name_family",
+        "BirthName": "maiden_name",
+        "PtDoB": "of_birth",
+        "PlaceOfBirth": "place_born",
+        "EthnicType": "ethnic_group",
+        "MaritalStatus": "marital_status",
+        "Occupation": "occupation_code",
+        "Religion": "religion_code",
+        "SpokenLanguage": "preferred_language",
+        "PtAddrLine1": "pat_address_1",
+        "PtAddrLine2": "pat_address_2",
+        "PtAddrLine3": "pat_address_3",
+        "PtAddrLine4": "pat_address_4",
+        "PtAddrPostCode": "post_code",
+        "PtHomePhone": "telephone_no",
+        "NoKHomePhone": "telephone_no_2",
+        "PtMobilePhone": "telephone_no_3",
+        "PtEmail": "pat_email_address",
+        "PtDateOfDeath": "of_death",
+        "NoKRelationship": "nok_relationship",
+        "NoKName": "nok_name_1",
+        "NoKAddrLine1": "nok_address_1",
+        "NoKAddrLine2": "nok_address_2",
+        "NoKAddrLine3": "nok_address_3",
+        "NoKAddrLine4": "nok_address_4",
+        "NoKPostCode": "nok_post_code",
+        "NoKWorkPhone": "nok_telephone_2",
+        "NoKComments": "nok_comments",
+        "GpCode": "gp_national_code",
+        "GdpCode": "gdp_national_code",
+        "GeneralComments": "comments",
+        "UserField1": "extra_info_1",
+        "UserField2": "extra_info_2"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "PAS",
+        "main_crn": "FROM:InternalPatientNumber",
+        "date_registered": "LITERAL:01/01/1900"
+      },
+      "gaps": [
+        "nationality – no source field identified in PATDATA",
+        "where_heard_of_service – no source equivalent",
+        "pat_lives_alone – no source equivalent",
+        "pat_permission_to_contact / _phone / _copy_gp – partial: PtMsg field exists but semantics differ",
+        "where_died / cause_of_death / death_treatment_related – not in PATDATA",
+        "extra_info_3 through extra_info_10 – no additional source user fields",
+        "note_1/2_subject/text – PATDATA.Comments is short (30 chars); MedicalProfileComments also short",
+        "nok_title – no source field",
+        "nok_name_family – NoKName is a full-name string, requires split transform",
+        "practice_national_code / practice_post_code – not in PATDATA directly",
+        "gdp_practice_national_code / gdp_practice_post_code – not in PATDATA",
+        "SEX codeset: PATDATA.CurrentGender=1/2/9 must map to PAS18.4 sex codeset",
+        "ETHNIC_GROUP codeset: PATDATA.EthnicType uses local codes; must map to NHS 16+1 ethnicity",
+        "MARITAL_STATUS codeset: PATDATA.MaritalStatus uses single-char local codes"
+      ]
+    },
+
+    {
+      "name": "PATDATA_to_LOAD_PMIIDS",
+      "source_table": "PATDATA",
+      "target_table": "LOAD_PMIIDS",
+      "description": "Additional patient identifiers – old NHS number and internal alternate ID",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "InternalPatientNumber": "main_crnload_pmi",
+        "PmiAlternatePatientNumberinternal": "additional_id",
+        "DistrictNumber": "volume"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "additional_id_type": "LITERAL:INTERNAL_ALT"
+      },
+      "gaps": [
+        "OldNHSNumber requires a second child row with additional_id_type=OLD_NHS_NUMBER – requires row-splitting transform not yet implemented",
+        "DistrictNumber mapped to volume tentatively; semantics need vendor confirmation",
+        "loadpmi_record_number must be resolved to LOAD_PMI.record_number at load time (FK linkage)"
+      ]
+    },
+
+    {
+      "name": "PATDATA_to_LOAD_PMIALIASES",
+      "source_table": "PATDATA",
+      "target_table": "LOAD_PMIALIASES",
+      "description": "Patient name aliases – previous surnames and birth name",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "InternalPatientNumber": "main_crnload_pmi",
+        "CurrentGender": "sex",
+        "Title": "title",
+        "Forenames": "pat_name_1",
+        "PreviousSurname1": "pat_name_family"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "PreviousSurname2 and PreviousSurname3 each require a separate alias row – row-splitting transform needed",
+        "BirthName should produce a separate alias row (maiden name alias)",
+        "pat_name_2 / pat_name_3 – no multi-part forename in source",
+        "of_birth and marital_code required by target but not in alias context",
+        "loadpmi_record_number FK linkage required"
+      ]
+    },
+
+    {
+      "name": "ADTLADDCOR_to_LOAD_PMIADDRS",
+      "source_table": "ADTLADDCOR",
+      "target_table": "LOAD_PMIADDRS",
+      "description": "Patient address history from address correction audit table",
+      "field_map": {
+        "Intpatno": "external_system_id",
+        "Newaddline1": "address_1",
+        "Newaddline2": "address_2",
+        "Newaddline3": "address_3",
+        "Newaddline4": "address_4",
+        "Newpostcode": "post_code",
+        "PmiPatientAddressNewEffectiveDateFromInt": "applies_start",
+        "PmiPatientAddressNewEffectiveDateToInt": "applies_end"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "address_type": "LITERAL:H",
+        "main_crnload_pmi": "FROM:Intpatno"
+      },
+      "gaps": [
+        "of_birth is mandatory in target but not available in ADTLADDCOR – must be joined from PATDATA",
+        "marital_code not in source – must be joined from PATDATA",
+        "country_code not in source",
+        "phone_1/2/3 not in ADTLADDCOR",
+        "Current (live) address should also load from PATDATA.PtAddrLine1-4 – requires second migration pass",
+        "loadpmi_record_number FK linkage required",
+        "Date fields stored as internal integer format CCYYMMDDHHMM – transform to DATE needed"
+      ]
+    },
+
+    {
+      "name": "PATDATA_to_LOAD_PMICONTACTS",
+      "source_table": "PATDATA",
+      "target_table": "LOAD_PMICONTACTS",
+      "description": "Next-of-kin and carer contacts from patient demographics",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "InternalPatientNumber": "main_crnload_pmi",
+        "NoKRelationship": "relationship",
+        "NoKName": "name_1",
+        "NoKAddrLine1": "address_1",
+        "NoKAddrLine2": "address_2",
+        "NoKAddrLine3": "address_3",
+        "NoKAddrLine4": "address_4",
+        "NoKPostCode": "post_code",
+        "NoKHomePhone": "phone_1",
+        "NoKWorkPhone": "phone_2",
+        "NoKComments": "comments"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "contact_type": "LITERAL:NOK",
+        "applies_start": "LITERAL:01/01/1900",
+        "applies_end": "LITERAL:31/12/9999"
+      },
+      "gaps": [
+        "title – not stored separately for NOK in PATDATA",
+        "name_family – NoKName is full name string, split transform required",
+        "parental_responsibility – not in PATDATA",
+        "country_code – not in PATDATA",
+        "phone_3 – only two NOK phone numbers in PATDATA",
+        "CarerName/CarerAddress require a second contact row (contact_type=CARER) – row-splitting needed",
+        "applies_start/applies_end default to open-ended as no NOK date tracking in source",
+        "loadpmi_record_number FK linkage required"
+      ]
+    },
+
+    {
+      "name": "PATDATA_to_LOAD_PMIALLERGIES",
+      "source_table": "PATDATA",
+      "target_table": "LOAD_PMIALLERGIES",
+      "description": "Patient allergy flags from PATDATA",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "InternalPatientNumber": "main_crnload_pmi",
+        "Allergies": "allergy_code"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "applies_start": "LITERAL:01/01/1900",
+        "applies_end": "LITERAL:31/12/9999"
+      },
+      "gaps": [
+        "Allergies_1 is a second allergy field – requires a second child row (row-splitting)",
+        "allergy_comment – no free-text allergy description in PATDATA beyond the code",
+        "ALLERGY_CODE codeset: PATDATA stores a 15-char local code; must map to PAS18.4 allergy codeset",
+        "applies_start/applies_end default to open-ended as no allergy date in PATDATA",
+        "loadpmi_record_number FK linkage required"
+      ]
+    },
+
+    {
+      "name": "PATDATA_to_LOAD_PMISTAFFWARNINGS",
+      "source_table": "PATDATA",
+      "target_table": "LOAD_PMISTAFFWARNINGS",
+      "description": "Patient risk/staff warning flags from PATDATA",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "InternalPatientNumber": "main_crnload_pmi",
+        "RiskFactorCode": "warning_code"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "applies_start": "LITERAL:01/01/1900",
+        "applies_end": "LITERAL:31/12/9999"
+      },
+      "gaps": [
+        "RiskFactorCode_1 – second risk code requires a second child row",
+        "MRSA field could map to a warning but uses different semantics",
+        "warning_comment – no free-text equivalent for risk codes in PATDATA",
+        "WARNING_CODE codeset: local risk codes must map to PAS18.4 warning codeset",
+        "loadpmi_record_number FK linkage required"
+      ]
+    },
+
+    {
+      "name": "PATDATA_to_LOAD_PMIGPAUDIT",
+      "source_table": "PATDATA",
+      "target_table": "LOAD_PMIGPAUDIT",
+      "description": "Patient GP registration audit – current GP from PATDATA (historic GP changes not captured)",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "InternalPatientNumber": "main_crnload_pmi",
+        "GpCode": "gp_national_code"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "applies_start": "LITERAL:01/01/1900"
+      },
+      "gaps": [
+        "practice_national_code – not in PATDATA; may be derivable from GP code lookup",
+        "practice_post_code – not in PATDATA",
+        "GP registration history (date changes) not stored in PATDATA; only current GP available",
+        "loadpmi_record_number FK linkage required"
+      ]
+    },
+
+    {
+      "name": "REFERENCE_LOAD_CASENOTELOCS",
+      "source_table": "REFERENCE_ONLY",
+      "target_table": "LOAD_CASENOTELOCS",
+      "description": "Casenote location reference data – no direct source table; requires manual population from hospital library/casenote systems",
+      "field_map": {},
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "GAP_CRITICAL: No source table in legacy PAS for casenote locations",
+        "Requires manual data extract from hospital library management system",
+        "hospital_code, site, location_type, user_code, description all require manual population"
+      ]
+    },
+
+    {
+      "name": "PATDATA_to_LOAD_PMICASENOTEHISTORY",
+      "source_table": "PATDATA",
+      "target_table": "LOAD_PMICASENOTEHISTORY",
+      "description": "Casenote volume location history – limited data available from PATDATA casenote number only",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "InternalPatientNumber": "id_number"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "id_type": "LITERAL:MRN"
+      },
+      "gaps": [
+        "hospital_code, site, location_code – not available from PATDATA; requires casenote library system",
+        "volume – not stored in PATDATA",
+        "start_date / end_date – no casenote movement dates in PATDATA",
+        "short_note / comment_1 / comment_2 – no source"
+      ]
+    },
+
+    {
+      "name": "REFERENCE_LOAD_STAFF",
+      "source_table": "REFERENCE_ONLY",
+      "target_table": "LOAD_STAFF",
+      "description": "Clinical staff reference data – no staff master table extracted from legacy PAS; requires HR or Active Directory extract",
+      "field_map": {},
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "GAP_CRITICAL: No STAFF or USERFILE source table in extracted catalog",
+        "Consultant codes appear in ADMITDISCH.Consultant, OPA.ClinicConsultant, FCEEXT.Consultant but no staff master exists in scope",
+        "All mandatory fields (job_id, psswd_life_months, staff_id, default_*_entity, employee_flag, eoasis_user, ask_review_warnings, mon-sun_allowed) require vendor default or HR system input",
+        "Recommend: extract distinct consultant/GP codes from ADMITDISCH and OPA as minimal staff seed"
+      ]
+    },
+
+    {
+      "name": "REFERENCE_LOAD_USERS",
+      "source_table": "REFERENCE_ONLY",
+      "target_table": "LOAD_USERS",
+      "description": "System user accounts – no user master table in legacy PAS scope; requires IT/Active Directory extract",
+      "field_map": {},
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "GAP_CRITICAL: No USER or USERFILE source table in extracted catalog",
+        "Same mandatory field gap as LOAD_STAFF (identical structure)",
+        "default_team and client_user are LOAD_USERS-specific and have no source"
+      ]
+    },
+
+    {
+      "name": "REFERENCE_LOAD_SITES",
+      "source_table": "REFERENCE_ONLY",
+      "target_table": "LOAD_SITES",
+      "description": "Hospital site reference data – requires extract from hospital configuration or Spine/ODS",
+      "field_map": {},
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "GAP_CRITICAL: No SITE or HOSP master table in extracted catalog",
+        "HospCode appears in ADMITDISCH but only as a 4-char code; full site description/address not available",
+        "applies_start and applies_end are mandatory; recommend vendor default dates",
+        "Recommend: use ODS (Organisation Data Service) to populate site details"
+      ]
+    },
+
+    {
+      "name": "OPREFERRAL_to_LOAD_RTT_PATHWAYS",
+      "source_table": "OPREFERRAL",
+      "target_table": "LOAD_RTT_PATHWAYS",
+      "description": "RTT 18-week referral-to-treatment pathways from outpatient referral table",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "EpisodeNumber": "pathway_id",
+        "ReferralDate": "pathway_start_date",
+        "DischargeTm": "pathway_end_date",
+        "Specialty": "pathway_specialty",
+        "RTTPeriodStatus": "pathway_status"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE"
+      },
+      "gaps": [
+        "pathway_id should be a unique RTT pathway identifier; EpisodeNumber is used as proxy – confirm with vendor",
+        "ubrn – unique booking reference number not in OPREFERRAL; may be in eRS data",
+        "pathway_coded_desc_code – no source equivalent",
+        "pathway_end_date from DischargeTm may be null for active pathways",
+        "pathway_type – not directly available; may need derivation from RTTPeriodStatus",
+        "PATHWAY_STATUS codeset: RTTPeriodStatus is 4-char local code; must map to PAS18.4 pathway status"
+      ]
+    },
+
+    {
+      "name": "OPREFERRAL_to_LOAD_REFERRALS",
+      "source_table": "OPREFERRAL",
+      "target_table": "LOAD_REFERRALS",
+      "description": "Outpatient referral details mapped to load referral structure",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "ReferralDate": "ref_date",
+        "OpRegDtimeInt": "ref_received_date",
+        "RefBy": "ref_source",
+        "ConsCode": "ref_consultant",
+        "Specialty": "ref_specialty",
+        "ReasonForRef": "ref_reason",
+        "PriorityType": "ref_urgency",
+        "EpiGPCode": "ref_gp_code",
+        "EpiGPPracticeCode": "ref_practice_code",
+        "DischargeTm": "ref_discharge_date",
+        "RefComment": "ged_date",
+        "KornerEpisodePrimaryDiagnosisCode": "encounter_type"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE",
+        "patient_category": "LITERAL:OP",
+        "first_seen": "FROM:ReferralDate"
+      },
+      "gaps": [
+        "encounter_type is mandatory (1=new/2=FU) but mapped from primary diagnosis code as proxy – incorrect; must be derived from ApptCategory in OPA",
+        "ref_received_date from OpRegDtimeInt is internal format CCYYMMDDHHMM – date transform required",
+        "ref_new_followup_flag – not directly in OPREFERRAL",
+        "override_wait_reset_date – not in OPREFERRAL",
+        "ref_practice_postcode – not in OPREFERRAL",
+        "ref_type – not in OPREFERRAL; OPA.ApptType is a proxy",
+        "ref_outcome – not in OPREFERRAL; OPA.Disposal used as proxy",
+        "ref_discharge_date is mandatory but may be null for open referrals",
+        "REF_SOURCE codeset: OPREFERRAL.RefBy uses local 3-char code; must map",
+        "REF_URGENCY codeset: OPREFERRAL.PriorityType uses local 1-char code",
+        "loadrttpwy_record_number FK linkage required"
+      ]
+    },
+
+    {
+      "name": "OPREFERRAL_to_LOAD_RTT_PERIODS",
+      "source_table": "OPREFERRAL",
+      "target_table": "LOAD_RTT_PERIODS",
+      "description": "RTT clock periods from outpatient referral RTT status data",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "ReferralDate": "clock_start",
+        "BreachDate": "clock_stop",
+        "RTTPeriodStatus": "stop_event_reason_code",
+        "BreachReasonCode": "breach_reason_code",
+        "BreachReasonDesc": "breach_reason_text"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "start_event_reason_code": "LITERAL:REFERRAL",
+        "referral_as_start_encountery": "LITERAL:Y"
+      },
+      "gaps": [
+        "clock_stop is mandatory but BreachDate is only populated when a breach occurred; active periods have no clock stop",
+        "stop_event_reason_code: RTTPeriodStatus (4-char) is a proxy – actual stop reason code not in OPREFERRAL",
+        "loadrttpwy_record_number and loadref_record_number FK linkages required",
+        "START_EVENT_REASON_CODE codeset defaulted to REFERRAL – must confirm with vendor",
+        "BREACH_REASON_CODE from OPREFERRAL is a 4-char code; must map to PAS18.4 breach reason codeset",
+        "BreachDate is sourced from OPA not OPREFERRAL in legacy system – table join required"
+      ]
+    },
+
+    {
+      "name": "OPREFERRAL_to_LOAD_RTT_EVENTS",
+      "source_table": "OPREFERRAL",
+      "target_table": "LOAD_RTT_EVENTS",
+      "description": "RTT pathway event log derived from referral status changes",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "StatusDT": "event_date",
+        "RTTPeriodStatus": "rtt_status",
+        "CurrentStatusDescription": "event_text"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "event_action_code": "LITERAL:STATUS_CHANGE"
+      },
+      "gaps": [
+        "event_action_code: OPREFERRAL does not capture individual RTT events – only current status",
+        "event_reason_code – not in OPREFERRAL",
+        "loadrttprd_record_number FK linkage required",
+        "RTT_STATUS codeset: OPREFERRAL.RTTPeriodStatus is 4-char local code; must map",
+        "must / before / ranges – these appear to be PDF parsing artefacts in target catalog; meaning unclear",
+        "Full RTT event history not available in legacy PAS – only point-in-time status captured"
+      ]
+    },
+
+    {
+      "name": "OPA_to_LOAD_OPDWAITLIST",
+      "source_table": "OPA",
+      "target_table": "LOAD_OPDWAITLIST",
+      "description": "Outpatient waiting list entries from OPA appointment records",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "ApptDate": "target_date",
+        "ClinicConsultant": "consultant",
+        "Disposal": "outcome",
+        "BookFromWL": "list_code",
+        "ClinicCode": "list_name",
+        "ClinicSpecialty": "specialty",
+        "ApptComment": "wl_comment",
+        "Transport": "transport_required",
+        "DischDate": "removed",
+        "ApptStatus": "status"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE",
+        "encounter_type": "LITERAL:OP",
+        "new_followup_flagn": "LITERAL:N"
+      },
+      "gaps": [
+        "loadref_record_number (mandatory) FK to LOAD_REFERRALS – linkage required",
+        "rttpwy_recno_out_encounter FK to LOAD_RTT_PATHWAYS – linkage required",
+        "hospital_code / site – OPA does not store site separately; ClinicCode used as proxy",
+        "short_notice_flag – not in OPA",
+        "ios_usercode – not in OPA",
+        "STATUS codeset: OPA.ApptStatus=ATT/WLK/NATT/SATT/NR must map to OWL status codes",
+        "ENCOUNTER_TYPE defaulted to OP; new/follow-up must be derived from OPA.ApptCategory",
+        "OUTCOME codeset: OPA.Disposal is 4-char local code; must map"
+      ]
+    },
+
+    {
+      "name": "OPA_to_LOAD_OPDWAITLISTDEF",
+      "source_table": "OPA",
+      "target_table": "LOAD_OPDWAITLISTDEF",
+      "description": "OPD waiting list deferral records from OPA cancellation/deferral flags",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "ApptCancDate": "deferral_start",
+        "ApptDate": "deferral_end",
+        "ReasonForCanc": "deferral_reason",
+        "CancelComment": "deferral_comment"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "loadowl_record_number (mandatory FK to LOAD_OPDWAITLIST) – linkage required",
+        "deferral_start is mandatory – mapped from ApptCancDate which is only populated for cancellations",
+        "deferral_end is mandatory – mapped from ApptDate as next-available-date proxy; incorrect semantics",
+        "DEFERRAL_REASON codeset: OPA.ReasonForCanc is 30-char text; must map to coded deferral reason",
+        "Only cancelled appointments qualify; filter on OPA.ApptStatus=NATT or CancelBy IS NOT NULL"
+      ]
+    },
+
+    {
+      "name": "OPA_to_LOAD_OPD_APPOINTMENTS",
+      "source_table": "OPA",
+      "target_table": "LOAD_OPD_APPOINTMENTS",
+      "description": "Outpatient appointment attendance records from OPA",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "ApptDate": "appt_date",
+        "ApptBookedDate": "booked_date",
+        "BookingType": "booking_type",
+        "ClinicCode": "clinic_code_1",
+        "ApptType": "appt_type",
+        "ClinicConsultant": "consultant_in_charge",
+        "ResCode": "consultant_taking_appt",
+        "Transport": "transport_required",
+        "ApptCancDate": "cancelled_date",
+        "Disposal": "outcome",
+        "ApptComment": "appt_comment",
+        "CABServiceCode": "cab_service",
+        "EbookingReferenceNumber": "cab_ubrn"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE",
+        "new_followup_flag": "FROM:ApptClass",
+        "appt_team": "FROM:ClinicSpecialty",
+        "walkin_flag": "LITERAL:N"
+      },
+      "gaps": [
+        "loadref_record_number (mandatory FK to LOAD_REFERRALS) – linkage required",
+        "loadowl_record_number FK to LOAD_OPDWAITLIST – linkage required",
+        "time_arrived is mandatory – OPA.ApptTime is appointment time, not arrival time; no arrival time stored",
+        "time_seen is mandatory – not stored in OPA",
+        "time_complete is mandatory – not stored in OPA",
+        "booked_date is mandatory – ApptBookedDate may be null for walk-ins",
+        "BOOKING_TYPE codeset: OPA.BookingType=4-char local code from OPBOOKTYPEMF; must map",
+        "OUTCOME codeset: OPA.Disposal is 4-char local code; must map",
+        "cab_usrn – not in OPA",
+        "clinic_code_2 – secondary clinic not available in OPA",
+        "appt_comment exceeds OPA.ApptComment length (60 chars vs target 2000) – acceptable truncation noted"
+      ]
+    },
+
+    {
+      "name": "OPA_to_LOAD_OPD_CODING",
+      "source_table": "OPA",
+      "target_table": "LOAD_OPD_CODING",
+      "description": "OPD clinical coding – primary and subsidiary diagnoses from OPA",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "AttPriDiagCode": "diagnosis",
+        "RefPrimaryDiagnosisCode": "diagnosis"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "diagnosis_division": "LITERAL:1",
+        "note_type": "LITERAL:D"
+      },
+      "gaps": [
+        "load_opd_record_number (FK to LOAD_OPD_APPOINTMENTS) – linkage required",
+        "AttSubDiagCode and RefSubsidDiag each require a second coding row – row-splitting needed",
+        "diagnosis_note – no free-text diagnosis note in OPA",
+        "diagnosed_by – no diagnosing clinician field in OPA",
+        "diagnosis_date is mandatory – not stored in OPA",
+        "DIAGNOSIS_DIVISION codeset: 1=primary used as default; must confirm codeset with vendor",
+        "NOTE_TYPE codeset: D=diagnosis used as default",
+        "DIAGNOSIS codeset: OPA uses local Korner/Read codes; target may expect ICD-10"
+      ]
+    },
+
+    {
+      "name": "OPA_to_LOAD_OPD_ARCHIVE",
+      "source_table": "OPA",
+      "target_table": "LOAD_OPD_ARCHIVE",
+      "description": "Historical OPD appointment archive – closed/completed episodes from OPA",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "crn",
+        "Dob": "of_birth",
+        "Sex": "sex",
+        "Forenames": "pat_name_1",
+        "Surname": "pat_name_family",
+        "Postcode": "post_code",
+        "PracticeCode": "gp_practice_code",
+        "RefBy": "ref_source",
+        "ReferralDate": "referral_request_date",
+        "RefConsultant": "referring_consultant_gmc",
+        "RefPrimaryDiagnosisCode": "referral_reason",
+        "DischDate": "referral_discharge_date",
+        "Disposal": "ge_date",
+        "ClinicCode": "clinic_name",
+        "ClinicSpecialty": "specialty",
+        "ClinicConsultant": "consultant_gmc",
+        "ApptDate": "appointment_date",
+        "ApptTime": "appointment_time",
+        "BookingType": "booking_type",
+        "ApptType": "appointment_type",
+        "ApptBookedDate": "booked",
+        "ReasonForCanc": "cancellation_reason",
+        "ApptCancDate": "cancelled_date",
+        "ApptPrimaryProcedureCode": "primary_procedure_code"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "encounter_type": "LITERAL:OP",
+        "appointment_status": "LITERAL:ATT",
+        "walkin_flag": "LITERAL:N"
+      },
+      "gaps": [
+        "address_1-5 not directly in OPA; requires join to PATDATA",
+        "district / pct_code – not in OPA",
+        "contract_number / purchaser_ref / provider_code / purchaser_code – OPA has contract ID but not full contract number",
+        "gp_registration_code / gp_name / gp_fundholder_code – EpiGp code only; no GP name in OPA",
+        "practice_name – not in OPA",
+        "referring_consultant_name – not in OPA (code only via RefConsultant)",
+        "first_attendance – not directly in OPA",
+        "ge_status (hospital name) – not in OPA",
+        "consultant_team / consultant_name – not in OPA",
+        "time_arrived / time_seen / time_completed – mandatory but not stored in OPA",
+        "cancelled_by – CancelBy is 1-char H/P code only",
+        "procedure_scheme – not in OPA",
+        "procedure_1 through procedure_10 codes/descs – OPA only has primary procedure code",
+        "appointment_priority / appointment_purpose – not in OPA"
+      ]
+    },
+
+    {
+      "name": "CPSGREFERRAL_to_LOAD_CMTY_APPOINTMENTS",
+      "source_table": "CPSGREFERRAL",
+      "target_table": "LOAD_CMTY_APPOINTMENTS",
+      "description": "Community and mental health referral appointments from CPSGREFERRAL",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "ReferralDate": "ref_date",
+        "ReferralPriority": "ref_urgency",
+        "Source": "ref_source",
+        "LeadClinician": "ref_consultant",
+        "ServGroup": "ref_specialty",
+        "DischargeDate": "ref_discharge_date",
+        "Outcome": "ref_outcome",
+        "RefDtTmInt": "ref_received_date",
+        "PrimDiag": "diagnosed_by",
+        "DiagComment1": "appt_comment",
+        "DiagComment2": "ref_comment"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE",
+        "patient_category": "LITERAL:CMTY",
+        "first_seen": "FROM:ReferralDate",
+        "ref_type": "LITERAL:CMTY",
+        "booking_type": "LITERAL:MAN",
+        "walkin_flag": "LITERAL:N"
+      },
+      "gaps": [
+        "appt_date (mandatory) – CPSGREFERRAL has no individual appointment dates; only episode dates",
+        "booked_date (mandatory) – not stored in CPSGREFERRAL",
+        "time_arrived / time_seen / time_complete (mandatory) – not stored in CPSGREFERRAL",
+        "cancelled_date (mandatory) – not in CPSGREFERRAL unless status=discharged",
+        "clinic_code_1 / clinic_code_2 / appt_type – not in CPSGREFERRAL",
+        "transport_required – not in CPSGREFERRAL",
+        "ref_new_followup_flag – not in CPSGREFERRAL",
+        "ref_practice_code / ref_practice_postcode / ref_gp_code – not in CPSGREFERRAL",
+        "ref_reason – reason for referral not stored separately in CPSGREFERRAL",
+        "loadowl_record_number / loadrttpwy_record_number / loadrttprd_record_number FK linkages required",
+        "CPSGREFERRAL does not capture individual appointment slots – this table may require SMREPISODE join for appointment-level data",
+        "PATIENT_CATEGORY codeset: CMTY used as default; must confirm with vendor"
+      ]
+    },
+
+    {
+      "name": "REFERENCE_LOAD_IWL_PROFILES",
+      "source_table": "REFERENCE_ONLY",
+      "target_table": "LOAD_IWL_PROFILES",
+      "description": "Inpatient waiting list profile configuration – no direct source; requires clinical configuration extract",
+      "field_map": {},
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "GAP_CRITICAL: No waiting list profile master table in extracted catalog",
+        "Waiting list profiles are configuration data maintained in the PAS application",
+        "waitlist_profile, description, consultant_code, treatment_type, admit_type all require manual population",
+        "max_wait_months / avg_length_stay / admit_duration_hours / operation_duration_mins – clinical governance data"
+      ]
+    },
+
+    {
+      "name": "WLCURRENT_to_LOAD_IWL",
+      "source_table": "WLCURRENT",
+      "target_table": "LOAD_IWL",
+      "description": "Inpatient/daycase waiting list current entries from WLCURRENT",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "DateOnList": "waitlist_date",
+        "LastReviewDate": "last_review_date",
+        "Urgency": "urgency",
+        "IntdMgmt": "intended_management",
+        "Specialty": "specialty",
+        "Consultant": "consultant_code",
+        "WardProcedure": "provisional_procedure",
+        "Diagnosis": "provisional_diagnosis",
+        "ProcedureCode": "intended_procedure_code",
+        "TheatreTime": "est_theatre_time",
+        "WlStatus": "status",
+        "WlType": "waitlist_type",
+        "RemovalDate": "removed",
+        "WlComment": "wl_entry_comment",
+        "HospCode": "site_code",
+        "Transport": "transport_required"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE",
+        "short_notice_flag": "LITERAL:N"
+      },
+      "gaps": [
+        "loadref_record_number (mandatory FK to LOAD_REFERRALS) – linkage required",
+        "waitlist_date is mandatory – WLCURRENT.DateOnList must be confirmed as the list-date field",
+        "last_review_date is mandatory – WLCURRENT.LastReviewDate field name is inferred; confirm against actual catalog",
+        "removed is mandatory – null for active patients; mandatory hint may be incorrect for active list",
+        "waitlist_profile – waiting list profile code not confirmed in WLCURRENT",
+        "last_review_response codeset",
+        "wl_outcome codeset",
+        "STATUS codeset: WlStatus local code must map",
+        "WAITLIST_TYPE codeset: WlType local code must map",
+        "URGENCY codeset: WLCURRENT.Urgency local code must map",
+        "INTENDED_MANAGEMENT codeset: IntdMgmt=1-char local code (E=elective etc)",
+        "admission_duration – not confirmed in WLCURRENT",
+        "NOTE: WLCURRENT field names above are inferred from domain knowledge; actual field names must be verified against source catalog (WLCURRENT has 90 fields)"
+      ]
+    },
+
+    {
+      "name": "WLACTIVITY_to_LOAD_IWL_DEFERRALS",
+      "source_table": "WLACTIVITY",
+      "target_table": "LOAD_IWL_DEFERRALS",
+      "description": "Inpatient waiting list deferral history from WLACTIVITY",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "DeferralStartDate": "deferral_start",
+        "DeferralEndDate": "deferral_end",
+        "DeferralReason": "deferral_reason",
+        "DeferralComment": "deferral_comment",
+        "OperationText": "operation_text",
+        "AdmissionReasonComment": "admission_reason_comment"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "loadiwl_record_number (FK to LOAD_IWL) – linkage required",
+        "deferral_start is mandatory – WLACTIVITY.DeferralStartDate field name is inferred; verify",
+        "deferral_end is mandatory – WLACTIVITY.DeferralEndDate field name is inferred; verify",
+        "DEFERRAL_REASON codeset: local code must map",
+        "NOTE: WLACTIVITY field names are inferred; actual field names must be verified against 68-field source catalog"
+      ]
+    },
+
+    {
+      "name": "WLACTIVITY_to_LOAD_IWL_TCIS",
+      "source_table": "WLACTIVITY",
+      "target_table": "LOAD_IWL_TCIS",
+      "description": "To-come-in (TCI) booking records from waiting list activity table",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "BookingType": "booking_type",
+        "Consultant": "consultant_code",
+        "OfferDate": "offer_date",
+        "AgreedDate": "agreed_date",
+        "AgreedFlag": "agreed_flag",
+        "PreassessmentDate": "preassessment_date",
+        "TciDate": "tci_date",
+        "OperationDate": "operation_date",
+        "EstimatedDischargeDate": "estimated_discharge_date",
+        "TciStatus": "status"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "loadiwl_record_number (FK to LOAD_IWL) – linkage required",
+        "offer_date is mandatory – field name inferred from WLACTIVITY",
+        "agreed_date is mandatory – field name inferred",
+        "preassessment_date is mandatory – field name inferred",
+        "tci_date is mandatory – field name inferred",
+        "operation_date is mandatory – field name inferred",
+        "estimated_discharge_date is mandatory – field name inferred",
+        "ge_date – PDF parsing artefact in target; meaning unclear",
+        "BOOKING_TYPE codeset: local code must map",
+        "NOTE: WLACTIVITY field names are inferred; must be verified against actual source catalog"
+      ]
+    },
+
+    {
+      "name": "ADMITDISCH_to_LOAD_ADT_ADMISSIONS",
+      "source_table": "ADMITDISCH",
+      "target_table": "LOAD_ADT_ADMISSIONS",
+      "description": "Inpatient/daycase admission records from ADMITDISCH",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "AdmissionDate": "admit_date",
+        "DischargeDate": "discharge_date",
+        "AdmWard": "ward",
+        "SourceOfAdm": "admit_from",
+        "Consultant": "admitted_by",
+        "EpisodeNumber": "main_crn",
+        "MethodOfDischarge": "ge_typee",
+        "DestinationOnDischarge": "ge_toe",
+        "DateOnWl": "wl_date",
+        "ExpDateofDischarge": "estimated_discharge_date",
+        "GpCode": "ref_gp_code",
+        "HospCode": "ref_practice_code",
+        "IntdMgmt": "intended_management"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "loadiwl_record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE"
+      },
+      "gaps": [
+        "wl_date is mandatory but DateOnWl may be null for emergency admissions",
+        "admit_date is mandatory – AdmissionDate format is DD/MM/YYYY HH:MM; date transform required",
+        "estimated_discharge_date is mandatory – may be null",
+        "discharge_date is mandatory – may be null for current inpatients",
+        "tci_outcome / cancelled_date – TCI specific; not always present in ADMITDISCH",
+        "ref_practice_postcode – not in ADMITDISCH",
+        "discharged_by – not stored in ADMITDISCH",
+        "ged_by_staff_id (admission_outcome) – MethodOfDischarge is proxy; not exact",
+        "ge_typee / ged / ge_toe – PDF parsing artefacts in target column names; meaning uncertain",
+        "INTENDED_MANAGEMENT codeset: IntdMgmt=1-char local code; must map",
+        "WARD codeset: AdmWard=4-char code; must map to target ward codes",
+        "ADMIT_FROM codeset: SourceOfAdm=2-char local code; must map"
+      ]
+    },
+
+    {
+      "name": "FCEEXT_to_LOAD_ADT_EPISODES",
+      "source_table": "FCEEXT",
+      "target_table": "LOAD_ADT_EPISODES",
+      "description": "Finished consultant episode data from FCEEXT",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "PatientCategory": "patient_category",
+        "IntdMgmt": "actual_management"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "adt_adm_record_number": "AUTO"
+      },
+      "gaps": [
+        "adt_adm_record_number (FK to LOAD_ADT_ADMISSIONS) – linkage required",
+        "target table has only 4 fields beyond keys; however PDF parse may be incomplete for this table",
+        "indicates / must / ge_date – PDF parsing artefacts; meanings unclear",
+        "PATIENT_CATEGORY codeset: FCEEXT.PatientCategory=3-char local code; must map",
+        "ACTUAL_MANAGEMENT codeset: FCEEXT.IntdMgmt=1-char; must map"
+      ]
+    },
+
+    {
+      "name": "ADMITDISCH_to_LOAD_ADT_WARDSTAYS",
+      "source_table": "ADMITDISCH",
+      "target_table": "LOAD_ADT_WARDSTAYS",
+      "description": "Ward stay segments from admission/discharge record (single ward per episode in ADMITDISCH)",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "AdmWard": "ward",
+        "AdmissionDate": "start_date",
+        "DischargeDate": "end_date",
+        "Consultant": "consultant_code",
+        "Specialty": "specialty",
+        "Bed": "bed_location"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "adt_eps_record_number": "AUTO",
+        "is_home_stay": "LITERAL:N",
+        "is_awol": "LITERAL:N"
+      },
+      "gaps": [
+        "adt_eps_record_number (FK to LOAD_ADT_EPISODES) – linkage required",
+        "ADMITDISCH only stores admission ward and discharge ward (AdmWard, DischWard) – multi-ward transfers within an episode are not captured; a separate WARDMOVE table would be needed for full ward history",
+        "team – consultant team/firm not stored in ADMITDISCH",
+        "bed_sex – not stored in ADMITDISCH",
+        "is_home_stay / is_awol – not stored in ADMITDISCH",
+        "leave_location_code / transfer_reason – not stored in ADMITDISCH",
+        "start_date / end_date are mandatory – date transform from ADMITDISCH format required",
+        "WARD codeset: AdmWard=4-char local code; must map"
+      ]
+    },
+
+    {
+      "name": "FCEEXT_to_LOAD_ADT_CODING",
+      "source_table": "FCEEXT",
+      "target_table": "LOAD_ADT_CODING",
+      "description": "Inpatient clinical coding (ICD-10 diagnoses, OPCS-4 procedures) from FCEEXT",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "KornerEpisodePrimaryDiagnosisCode": "diagnosis",
+        "Subsid": "diagnosis"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "adt_eps_record_number": "AUTO",
+        "diagnosis_division": "LITERAL:1",
+        "note_type": "LITERAL:D"
+      },
+      "gaps": [
+        "adt_eps_record_number (FK to LOAD_ADT_EPISODES) – linkage required",
+        "KornerEpisodePrimaryDiagnosisCode and Subsid each map to separate coding rows – row-splitting required",
+        "KornerEpisodePrimaryProcedureCode and procedure date also require coding rows with note_type=P",
+        "diagnosis_note – FCEEXT has no free-text diagnosis note",
+        "diagnosed_by – not stored in FCEEXT",
+        "diagnosis_date is mandatory – not stored separately in FCEEXT",
+        "DIAGNOSIS codeset: FCEEXT uses Korner/local codes; target may expect ICD-10 confirmed codes",
+        "DIAGNOSIS_DIVISION codeset: 1=primary used as default; subsidiary codes need division=2+"
+      ]
+    },
+
+    {
+      "name": "SMREPISODE_to_LOAD_MH_DETENTION_MASTER",
+      "source_table": "SMREPISODE",
+      "target_table": "LOAD_MH_DETENTION_MASTER",
+      "description": "Mental health detention master record from SMR episode table",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "PrimDiag": "diagnosis_note",
+        "Consultant": "diagnosed_by",
+        "AdmissionDate": "diagnosis_date"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE",
+        "adt_adm_record_number": "AUTO"
+      },
+      "gaps": [
+        "adt_adm_record_number (FK to LOAD_ADT_ADMISSIONS) – linkage required",
+        "diagnosis_note is mandatory – SMREPISODE field names above are inferred; verify against actual 52-field catalog",
+        "SMREPISODE is a community/MH episode table; it may not contain formal detention data – MHA detention may be in separate tables not yet in scope",
+        "diagnosis_date is mandatory – mapped from AdmissionDate as proxy; actual diagnosis date may differ",
+        "NOTE: SMREPISODE field names are inferred from domain knowledge; must verify against actual catalog"
+      ]
+    },
+
+    {
+      "name": "SMREPISODE_to_LOAD_MH_DETENTION_TRANSFERS",
+      "source_table": "SMREPISODE",
+      "target_table": "LOAD_MH_DETENTION_TRANSFERS",
+      "description": "Mental health detention transfer/section history",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "AdmissionDate": "start_date",
+        "DischargeDate": "end_date",
+        "LegalStatus": "legal_status",
+        "MentalCategory": "mental_category",
+        "Caseholder": "caseholder",
+        "Institution": "institution"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE",
+        "mh_dm_record_number": "AUTO"
+      },
+      "gaps": [
+        "mh_dm_record_number (FK to LOAD_MH_DETENTION_MASTER) – linkage required",
+        "start_date / end_date are mandatory – field names inferred from SMREPISODE",
+        "expiry_date is mandatory – section expiry not confirmed in SMREPISODE",
+        "section_review_date is mandatory – not confirmed in SMREPISODE",
+        "consent_reminder_date / consent_due_date are mandatory – not confirmed in SMREPISODE",
+        "LEGAL_STATUS codeset: local code must map to MHA section codes",
+        "MENTAL_CATEGORY codeset: local code must map",
+        "NOTE: SMREPISODE field names are inferred; must verify against actual 52-field catalog",
+        "True MHA detention data may be in separate tables outside current scope"
+      ]
+    },
+
+    {
+      "name": "SMREPISODE_to_LOAD_MH_CPA_MASTER",
+      "source_table": "SMREPISODE",
+      "target_table": "LOAD_MH_CPA_MASTER",
+      "description": "Care Programme Approach master record from SMR episodes",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "CpaType": "cpa_type",
+        "Caseholder": "key_worker_staff_id",
+        "LeadClinician": "care_coordinator",
+        "AdmissionDate": "applies_start"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE"
+      },
+      "gaps": [
+        "applies_start is mandatory – mapped from AdmissionDate as proxy",
+        "CPA_TYPE codeset: local code must map to PAS18.4 CPA type codeset",
+        "key_worker_staff_id – SMREPISODE.Caseholder is a clinician code; must resolve to staff_id in LOAD_STAFF",
+        "care_coordinator – SMREPISODE.LeadClinician is a code reference; must resolve",
+        "NOTE: SMREPISODE field names are inferred; must verify against actual catalog"
+      ]
+    },
+
+    {
+      "name": "SMREPISODE_to_LOAD_MH_CPA_HISTORY",
+      "source_table": "SMREPISODE",
+      "target_table": "LOAD_MH_CPA_HISTORY",
+      "description": "CPA review history from SMR episodes",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "main_crn",
+        "CpaType": "cpa_type",
+        "Caseholder": "key_worker_staff_id",
+        "LeadClinician": "care_coordinator",
+        "AdmissionDate": "applies_start",
+        "DischargeDate": "applies_end",
+        "NextReviewDate": "next_review_date"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "main_crn_type": "EPISODE",
+        "mh_cm_record_number": "AUTO"
+      },
+      "gaps": [
+        "mh_cm_record_number (FK to LOAD_MH_CPA_MASTER) – linkage required",
+        "applies_end is mandatory – mapped from DischargeDate; null for active CPA",
+        "next_review_date is mandatory – SMREPISODE.NextReviewDate field name inferred",
+        "review_date_changed_at (in LOAD_OPD_ARCHIVE but parsed here) – not in SMREPISODE",
+        "NOTE: SMREPISODE field names are inferred; must verify against actual catalog"
+      ]
+    },
+
+    {
+      "name": "FCEEXT_to_LOAD_ADT_ARCHIVE",
+      "source_table": "FCEEXT",
+      "target_table": "LOAD_ADT_ARCHIVE",
+      "description": "Historical inpatient episode archive from FCEEXT – closed/completed episodes",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "crn",
+        "Dob": "of_birth",
+        "Sex": "sex",
+        "Forenames": "pat_name_1",
+        "Surname": "pat_name_family",
+        "Postcode": "post_code",
+        "GpCode": "gp_registration_code",
+        "PracticeCode": "gp_practice_code",
+        "PatientCategory": "patient_category",
+        "IntdMgmt": "intended_management",
+        "AdmissionDatetime": "admit_date",
+        "DischargeDatetime": "ge_date",
+        "Specialty": "specialty",
+        "Consultant": "consultant_gmc",
+        "WardCdadmit": "ward_name",
+        "AgeAtStartOfEpisode": "age_at_start_of_episode",
+        "FCEStartDate": "episode_start",
+        "FCEEndDate": "episode_end",
+        "FceSequenceNo": "episode_order",
+        "MethodOfDischarge": "discharge_method",
+        "DestinationOnDischarge": "ge_toe",
+        "SourceOfAdmission": "ref_source",
+        "KornerEpisodePrimaryDiagnosisCode": "primary_diagnosis_code",
+        "Subsid": "diagnosis_1_code",
+        "KornerEpisodePrimaryProcedureCode": "primary_procedure_code",
+        "HrgCode": "hrghrg",
+        "DateOnList": "decided_to_admit_date",
+        "KornerEpisodePrimaryProcedureDateExternal": "operation_date"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83",
+        "encounter_type": "LITERAL:IP",
+        "diagnosis_scheme": "LITERAL:ICD10",
+        "procedure_scheme": "LITERAL:OPCS4"
+      },
+      "gaps": [
+        "address_1-5 not in FCEEXT; requires join to PATDATA",
+        "district / pct_code – not in FCEEXT",
+        "contract_number / purchaser_ref / provider_code / purchaser_code – only partial in FCEEXT",
+        "gp_name / gp_fundholder_code – not in FCEEXT",
+        "practice_name – not in FCEEXT",
+        "waiting_list_name – not in FCEEXT",
+        "inpatient_wait_days – DaysOnWl field exists in FCEEXT; mapped omitted above – add DaysOnWl→inpatient_wait_days",
+        "est_discharge_date is mandatory – not in FCEEXT",
+        "admitting_specialty / admitting_consultant_gmc / admitting_consultant_name – not in FCEEXT",
+        "discharging_specialty / discharging_consultant – not in FCEEXT",
+        "admission_outcome – MethodOfDischarge used as proxy but semantics differ",
+        "diagnosis_1_desc through diagnosis_10_desc – no diagnosis text in FCEEXT",
+        "diagnosis_2 through diagnosis_10 codes – only primary + Subsid available in FCEEXT",
+        "procedure_1 through procedure_10 – only primary procedure in FCEEXT",
+        "ge_methode / ge_specialty / ge_consultant – PDF parsing artefacts; meanings unclear",
+        "duration_of_episode – Los exists in FCEEXT; add Los→duration_of_episode"
+      ]
+    },
+
+    {
+      "name": "SMREPISODE_to_LOAD_DETENTION_ARCHIVE",
+      "source_table": "SMREPISODE",
+      "target_table": "LOAD_DETENTION_ARCHIVE",
+      "description": "Historical mental health detention archive from SMR episodes",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "crn",
+        "Forenames": "pat_name_1",
+        "Surname": "pat_name_family",
+        "Sex": "sex",
+        "DateOfBirth": "of_birth",
+        "Address1": "address_1",
+        "Address2": "address_2",
+        "Address3": "address_3",
+        "Address4": "address_4",
+        "Postcode": "post_code",
+        "AdmissionDate": "detention_start",
+        "DischargeDate": "detention_end",
+        "DetentionLocation": "detention_location",
+        "Caseholder": "caseholder",
+        "MentalCategory": "mental_category",
+        "LegalStatus": "legal_status",
+        "DiagComment1": "detention_notes"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "address_5 – not in SMREPISODE",
+        "detention_start / detention_end are mandatory – mapped from admission/discharge dates as proxy",
+        "NOTE: SMREPISODE field names are inferred from domain knowledge; must verify against actual 52-field catalog",
+        "SMREPISODE may not be the correct source for formal MHA detention archive – dedicated tables may exist outside scope",
+        "MENTAL_CATEGORY / LEGAL_STATUS codeset mappings required"
+      ]
+    },
+
+    {
+      "name": "SMREPISODE_to_LOAD_CPA_ARCHIVE",
+      "source_table": "SMREPISODE",
+      "target_table": "LOAD_CPA_ARCHIVE",
+      "description": "Historical Care Programme Approach archive from SMR episodes",
+      "field_map": {
+        "InternalPatientNumber": "external_system_id",
+        "EpisodeNumber": "crn",
+        "Forenames": "pat_name_1",
+        "Surname": "pat_name_family",
+        "Sex": "sex",
+        "DateOfBirth": "of_birth",
+        "Address1": "address_1",
+        "Address2": "address_2",
+        "Address3": "address_3",
+        "Address4": "address_4",
+        "Postcode": "post_code",
+        "AdmissionDate": "cpa_start",
+        "DischargeDate": "cpa_end",
+        "CpaType": "cpa_type",
+        "Caseholder": "key_worker",
+        "LeadClinician": "care_coordinator",
+        "DiagComment1": "cpa_notes"
+      },
+      "defaults": {
+        "record_number": "AUTO",
+        "system_code": "SRC_PAS_V83"
+      },
+      "gaps": [
+        "cpa_start / cpa_end are mandatory – mapped from admission/discharge as proxy",
+        "address_5 – not in SMREPISODE",
+        "cpa_notes (cpa_notescpa in catalog) – SMREPISODE.DiagComment1 used as proxy",
+        "NOTE: SMREPISODE field names are inferred; must verify against actual catalog",
+        "CPA_TYPE codeset required"
+      ]
+    }
+  ]
+}

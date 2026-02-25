@@ -1,0 +1,24 @@
+{
+  "run_at_utc": "2026-02-25T21:12:33.328167+00:00",
+  "status": "PASS",
+  "source_dir": "C:\\Zhong\\Windsurf\\data_migration\\mock_data\\source",
+  "output_dir": "C:\\Zhong\\Windsurf\\data_migration\\mock_data\\target_contract",
+  "contract_file": "C:\\Zhong\\Windsurf\\data_migration\\reports\\mapping_contract.csv",
+  "target_catalog_file": "C:\\Zhong\\Windsurf\\data_migration\\schemas\\target_schema_catalog.csv",
+  "crosswalk_dir": "C:\\Zhong\\Windsurf\\data_migration\\schemas\\crosswalks",
+  "impute_mode": "pre_production",
+  "tables_written": 38,
+  "rows_written_total": 760,
+  "columns_total": 880,
+  "columns_populated": 597,
+  "overall_column_population_ratio": 0.6784,
+  "issue_counts": {
+    "ERROR": 0,
+    "WARN": 5,
+    "INFO": 0
+  },
+  "crosswalk_reject_count": 0,
+  "table_stats_csv": "C:\\Zhong\\Windsurf\\data_migration\\reports\\contract_migration_table_stats.csv",
+  "issues_csv": "C:\\Zhong\\Windsurf\\data_migration\\reports\\contract_migration_issues.csv",
+  "rejects_csv": "C:\\Zhong\\Windsurf\\data_migration\\reports\\contract_migration_rejects.csv"
+}
