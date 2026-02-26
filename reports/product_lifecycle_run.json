@@ -1,9 +1,9 @@
 {
-  "run_at_utc": "2026-02-25T21:12:34.101787+00:00",
+  "run_at_utc": "2026-02-26T12:51:51.907868+00:00",
   "status": "PASS",
-  "rows": 20,
+  "rows": 10,
   "seed": 42,
-  "min_patients": 20,
+  "min_patients": 10,
   "release_profile": "pre_production",
   "steps": [
     {
@@ -13,9 +13,9 @@
       "stderr": ""
     },
     {
-      "command": "python pipeline/generate_all_mock_data.py --rows 20 --seed 42",
+      "command": "python pipeline/generate_all_mock_data.py --rows 10 --seed 42",
       "return_code": 0,
-      "stdout": "                             42 cols  20 rows\n  [SOURCE] CONSEPISDIAG                                    10 cols  20 rows\n  [SOURCE] CONSEPISPROC                                    14 cols  20 rows\n  [SOURCE] OCCANCEL                                        15 cols  20 rows\n  [SOURCE] LOCATIONCODES                                   16 cols  20 rows\n  [SOURCE] LOCN                                            11 cols  20 rows\n  [SOURCE] WARD                                            29 cols  20 rows\n  [SOURCE] CONSMAST                                        18 cols  20 rows\n  [SOURCE] CONSPEC                                          3 cols  20 rows\n  [SOURCE] GP                                              33 cols  20 rows\n  [SOURCE] GPHISTORY                                       20 cols  20 rows\n  [SOURCE] POSTCODE                                         6 cols  20 rows\n  [SOURCE] PSEUDOPCODE                                      6 cols  20 rows\n  [SOURCE] OPREFTKSTATUS                                    9 cols  20 rows\n  [SOURCE] OPREFTKSTATUSMF                                  3 cols  20 rows\n  [SOURCE] OPBOOKTYPEMF                                     6 cols  20 rows\n  [SOURCE] IPBOOKTYPEMF                                     6 cols  20 rows\n  [SOURCE] WLSUSPREASONMF                                   3 cols  20 rows\n  [SOURCE] WLREMOVALREASON                                 11 cols  20 rows\n  [SOURCE] CPFTEAMS                                         4 cols  20 rows\n  [SOURCE] CPFLOCATION                                      7 cols  20 rows\n  [SOURCE] CPFDISCHREASON                                   4 cols  20 rows\n  [SOURCE] LEGALSTATUSDETS                                  6 cols  20 rows\n  [SOURCE] ALLOCATEDCONTRACT                               10 cols  20 rows\n\n======================================================================\nDone. Files written to mock_data/target/ and mock_data/source/\n======================================================================\n",
+      "stdout": "                             42 cols  10 rows\n  [SOURCE] CONSEPISDIAG                                    10 cols  10 rows\n  [SOURCE] CONSEPISPROC                                    14 cols  10 rows\n  [SOURCE] OCCANCEL                                        15 cols  10 rows\n  [SOURCE] LOCATIONCODES                                   16 cols  10 rows\n  [SOURCE] LOCN                                            11 cols  10 rows\n  [SOURCE] WARD                                            29 cols  10 rows\n  [SOURCE] CONSMAST                                        18 cols  10 rows\n  [SOURCE] CONSPEC                                          3 cols  10 rows\n  [SOURCE] GP                                              33 cols  10 rows\n  [SOURCE] GPHISTORY                                       20 cols  10 rows\n  [SOURCE] POSTCODE                                         6 cols  10 rows\n  [SOURCE] PSEUDOPCODE                                      6 cols  10 rows\n  [SOURCE] OPREFTKSTATUS                                    9 cols  10 rows\n  [SOURCE] OPREFTKSTATUSMF                                  3 cols  10 rows\n  [SOURCE] OPBOOKTYPEMF                                     6 cols  10 rows\n  [SOURCE] IPBOOKTYPEMF                                     6 cols  10 rows\n  [SOURCE] WLSUSPREASONMF                                   3 cols  10 rows\n  [SOURCE] WLREMOVALREASON                                 11 cols  10 rows\n  [SOURCE] CPFTEAMS                                         4 cols  10 rows\n  [SOURCE] CPFLOCATION                                      7 cols  10 rows\n  [SOURCE] CPFDISCHREASON                                   4 cols  10 rows\n  [SOURCE] LEGALSTATUSDETS                                  6 cols  10 rows\n  [SOURCE] ALLOCATEDCONTRACT                               10 cols  10 rows\n\n======================================================================\nDone. Files written to mock_data/target/ and mock_data/source/\n======================================================================\n",
       "stderr": ""
     },
     {
@@ -37,7 +37,7 @@
       "stderr": ""
     },
     {
-      "command": "python pipeline/run_enterprise_pipeline.py --min-patients 20",
+      "command": "python pipeline/run_enterprise_pipeline.py --min-patients 10",
       "return_code": 0,
       "stdout": "Enterprise migration quality pipeline completed.\nStatus: PASS\nErrors: 0\nWarnings: 0\nReport: C:\\Zhong\\Windsurf\\data_migration\\reports\\enterprise_pipeline_report.json\nIssues: C:\\Zhong\\Windsurf\\data_migration\\reports\\enterprise_pipeline_issues.csv\n",
       "stderr": ""

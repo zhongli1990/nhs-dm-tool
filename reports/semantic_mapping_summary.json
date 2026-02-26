@@ -32,9 +32,9 @@
     },
     "CPSGREFERRAL": {
       "total_fields": 46,
-      "mapped_fields": 1,
-      "unmapped_fields": 45,
-      "coverage_pct": 2.2
+      "mapped_fields": 2,
+      "unmapped_fields": 44,
+      "coverage_pct": 4.3
     },
     "FCEEXT": {
       "total_fields": 68,
@@ -50,15 +50,15 @@
     },
     "OPA": {
       "total_fields": 107,
-      "mapped_fields": 20,
-      "unmapped_fields": 87,
-      "coverage_pct": 18.7
+      "mapped_fields": 18,
+      "unmapped_fields": 89,
+      "coverage_pct": 16.8
     },
     "OPREFERRAL": {
       "total_fields": 47,
-      "mapped_fields": 3,
-      "unmapped_fields": 44,
-      "coverage_pct": 6.4
+      "mapped_fields": 6,
+      "unmapped_fields": 41,
+      "coverage_pct": 12.8
     },
     "PATDATA": {
       "total_fields": 131,
@@ -74,15 +74,15 @@
     },
     "WLACTIVITY": {
       "total_fields": 68,
-      "mapped_fields": 0,
-      "unmapped_fields": 68,
-      "coverage_pct": 0.0
+      "mapped_fields": 1,
+      "unmapped_fields": 67,
+      "coverage_pct": 1.5
     },
     "WLCURRENT": {
       "total_fields": 90,
-      "mapped_fields": 6,
-      "unmapped_fields": 84,
-      "coverage_pct": 6.7
+      "mapped_fields": 4,
+      "unmapped_fields": 86,
+      "coverage_pct": 4.4
     },
     "WLENTRY": {
       "total_fields": 90,

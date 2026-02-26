@@ -1,6 +1,6 @@
 import "./globals.css";
-import Link from "next/link";
 import type { ReactNode } from "react";
+import AppNav from "../components/AppNav";
 
 export const metadata = {
   title: "NHS Data Migration Control Plane",
@@ -11,22 +11,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <div className="shell">
-          <header className="topbar">
+        <div className="app-shell">
+          <header className="app-topbar">
             <div>
               <div className="title">NHS Migration Control Plane</div>
-              <div className="subtitle">QVH PAS Migration Productization Workspace</div>
+              <div className="subtitle">Enterprise PAS to EPR Data Migration Lifecycle</div>
             </div>
-            <nav className="nav">
-              <Link href="/">Dashboard</Link>
-              <Link href="/schemas">Schemas</Link>
-              <Link href="/mappings">Mappings</Link>
-              <Link href="/runs">Runs</Link>
-              <Link href="/connectors">Connectors</Link>
-              <Link href="/users">Users</Link>
-            </nav>
+            <div className="topbar-meta">Mission-critical mode</div>
           </header>
-          {children}
+          <div className="app-main">
+            <AppNav />
+            <section className="content">{children}</section>
+          </div>
         </div>
       </body>
     </html>

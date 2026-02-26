@@ -53,11 +53,11 @@ powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\produc
 ## UI pages
 
 - `/` dashboard
-- `/schemas` dynamic source/target table and column summaries
-- `/mappings` mapping contract inspection
-- `/runs` contract run, enterprise quality, release gates, rejects
-- `/connectors` connector strategy and coverage
-- `/connectors` dynamic connector selection/config + discovery preview via API
+- `/schemas` dynamic source/target explorer with table filter and field drill-down
+- `/mappings` mapping contract explorer (summary + filtered field rows)
+- `/lifecycle` step-by-step lifecycle orchestration (run each stage or all stages with run controls)
+- `/runs` execution console with profile controls, gate checks and reject review tabs
+- `/connectors` connector strategy and dynamic connector config/test/preview console
 - `/users` mission-critical user roles and lifecycle task ownership
 
 ## API coverage
@@ -68,6 +68,7 @@ See:
 Highlights:
 - schema APIs for dynamic table/column rendering
 - mapping APIs with filtering
+- lifecycle step APIs (`/api/lifecycle/steps`, `/api/lifecycle/steps/{step_id}/execute`)
 - run APIs (latest/history/execute)
 - quality/reject APIs
 - gate profile APIs

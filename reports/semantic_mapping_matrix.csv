@@ -126,8 +126,8 @@ LOAD_ADT_ARCHIVE,procedure_9_code,FCEEXT,HrgRankedProcedureCode,0.510,UNMAPPED,Y
 LOAD_ADT_ARCHIVE,procedure_9_desc,FCEEXT,ReadPrimaryProcedure,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_ARCHIVE,procedure_10_code,FCEEXT,HrgRankedProcedureCode,0.510,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_ARCHIVE,hrghrg,FCEEXT,AdmissionDatetime,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_ADT_CODING,record_number,FCEEXT,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_ADT_CODING,adt_eps_record_number,FCEEXT,DistrictNumber,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_ADT_CODING,record_number,OPA,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_ADT_CODING,adt_eps_record_number,OPA,DistrictNumber,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_CODING,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_ADT_CODING,external_system_id,FCEEXT,ContractId,0.360,SYSTEM_FIELD,Y,Y,
 LOAD_ADT_CODING,diagnosis_division,AEAUSERDIAG,Diagnosis,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
@@ -142,23 +142,23 @@ LOAD_ADT_CODING,diagnosis_2_code,OPA,AttPriDiagCode,0.510,UNMAPPED,Y,Y,No reliab
 LOAD_ADT_CODING,diagnosis_2_desc,OPCANCERREG,DiagnosisDesc,0.667,LOW_CONFIDENCE,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_ADT_CODING,procedure_scheme,WLCURRENT,IntendedProc,0.363,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_CODING,primary_procedure_code,OPA,ApptPrimaryProcedureCode,0.860,HIGH_CONFIDENCE,Y,Y,
-LOAD_ADT_CODING,primary_procedure_desc,FCEEXT,ReadPrimaryProcedure,0.610,LOW_CONFIDENCE,Y,Y,
-LOAD_ADT_CODING,procedure_1_code,FCEEXT,HrgRankedProcedureCode,0.510,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_ADT_CODING,primary_procedure_desc,OPA,PrimaryProcGroup,0.610,LOW_CONFIDENCE,Y,Y,
+LOAD_ADT_CODING,procedure_1_code,OPA,ApptPrimaryProcedureCode,0.510,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_CODING,procedure_1_desc,LOCN,LocationDesc_1,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_CODING,hrg,FCEEXT,HrgCode,0.610,LOW_CONFIDENCE,Y,Y,
 LOAD_ADT_CODING,comments,AEA,Comments,1.000,HIGH_CONFIDENCE,Y,N,
-LOAD_ADT_EPISODES,indicates,FCEEXT,AdmissionDatetime,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_ADT_EPISODES,must,FCEEXT,AdmissionDatetime,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_ADT_EPISODES,indicates,SMREPISODE,AdmissionFrom,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_ADT_EPISODES,must,SMREPISODE,AdmissionFrom,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_EPISODES,ge_date,FCEEXT,FCEEndDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_ADT_EPISODES,record_number,FCEEXT,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_ADT_EPISODES,adt_adm_record_number,FCEEXT,AdmissionDatetime,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_ADT_EPISODES,record_number,SMREPISODE,EpisodeNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_ADT_EPISODES,adt_adm_record_number,SMREPISODE,AdmissionFrom,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_EPISODES,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_ADT_EPISODES,external_system_id,FCEEXT,ContractId,0.360,SYSTEM_FIELD,Y,Y,
 LOAD_ADT_EPISODES,patient_category,FCEEXT,PatientCategory,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_ADT_EPISODES,actual_management,SMREPISODE,IntendManagement,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_EPISODES,episode_start,SMREPISODE,EpisodeStartDate,0.777,PROBABLE,Y,Y,
 LOAD_ADT_EPISODES,episode_end,CONSEPISODE,EpisodeEndDt,0.667,LOW_CONFIDENCE,N,N,Best candidate is outside the 13 priority source tables.
-LOAD_ADT_EPISODES,episode_order,FCEEXT,EpisodeNumber,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_ADT_EPISODES,episode_order,SMREPISODE,EpisodeNumber,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_EPISODES,duration_of_episode,AECLINICMF,Duration,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_ADT_EPISODES,age_at_start_of_episode,FCEEXT,AgeAtStartOfEpisode,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_ADT_EPISODES,specialty,FCEEXT,Specialty,1.000,HIGH_CONFIDENCE,Y,Y,
@@ -196,12 +196,12 @@ LOAD_CASENOTELOCS,description,AEACCBY,Description,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_CASENOTELOCS,active_flag,ICD10,AccidentFlag,0.333,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,diagnosed_by,OPA,CancelBy,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,diagnosis_date,CANCERSUMMARY,DateOfDiagnosis,1.000,HIGH_CONFIDENCE,N,N,
-LOAD_CMTY_APPOINTMENTS,must,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_CMTY_APPOINTMENTS,record_number,OPA,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_CMTY_APPOINTMENTS,loadowl_record_number,OPA,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_CMTY_APPOINTMENTS,loadrttpwy_record_number,OPA,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_CMTY_APPOINTMENTS,loadrttprd_record_number,OPA,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_CMTY_APPOINTMENTS,loadrttprd_action,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_CMTY_APPOINTMENTS,must,CPSGREFERRAL,Casenote,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_CMTY_APPOINTMENTS,record_number,CPSGREFERRAL,EpisodeNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_CMTY_APPOINTMENTS,loadowl_record_number,CPSGREFERRAL,EpisodeNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_CMTY_APPOINTMENTS,loadrttpwy_record_number,CPSGREFERRAL,EpisodeNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_CMTY_APPOINTMENTS,loadrttprd_record_number,CPSGREFERRAL,EpisodeNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_CMTY_APPOINTMENTS,loadrttprd_action,CPSGREFERRAL,Casenote,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_CMTY_APPOINTMENTS,external_system_id,CPSGREFERRAL,ReferrerId,0.360,SYSTEM_FIELD,Y,Y,
 LOAD_CMTY_APPOINTMENTS,main_crn_type,CPSGREFERRAL,Type,0.610,LOW_CONFIDENCE,Y,Y,
@@ -211,7 +211,7 @@ LOAD_CMTY_APPOINTMENTS,first_seen,CANCERSUMMARY,DateFirstSeen,0.667,LOW_CONFIDEN
 LOAD_CMTY_APPOINTMENTS,override_wait_reset_date,OPREFERRAL,QM08StartWaitDate,0.480,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,ref_new_followup_flag,OPA,RefBy,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,ref_date,CPSGREFERRAL,RefDtTmInt,0.660,LOW_CONFIDENCE,Y,Y,
-LOAD_CMTY_APPOINTMENTS,appointments,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_CMTY_APPOINTMENTS,appointments,CPSGREFERRAL,Casenote,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,ref_received_date,CPSGREFERRAL,RefDtTmInt,0.560,LOW_CONFIDENCE,Y,Y,
 LOAD_CMTY_APPOINTMENTS,ref_source,CPSGREFERRAL,Source,0.610,LOW_CONFIDENCE,Y,Y,
 LOAD_CMTY_APPOINTMENTS,ref_gp_code,FCEEXT,GpCode,0.697,LOW_CONFIDENCE,Y,N,
@@ -224,8 +224,8 @@ LOAD_CMTY_APPOINTMENTS,ref_specialty,OPA,RefSpecialty,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_CMTY_APPOINTMENTS,ref_team,CPCLINACTIVITY,Team,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,ref_consultant,OPA,RefConsultant,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_CMTY_APPOINTMENTS,ref_outcome,CPSGREFERRAL,Outcome,0.610,LOW_CONFIDENCE,Y,Y,
-LOAD_CMTY_APPOINTMENTS,ref_discharge_date,OPA,DischDate,0.827,PROBABLE,Y,Y,
-LOAD_CMTY_APPOINTMENTS,ged_date,OPA,ApptDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_CMTY_APPOINTMENTS,ref_discharge_date,CPSGREFERRAL,DischargeDate,0.827,PROBABLE,Y,Y,
+LOAD_CMTY_APPOINTMENTS,ged_date,CPSGREFERRAL,DischargeDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,booked_date,OPA,ApptBookedDate,0.827,PROBABLE,Y,Y,
 LOAD_CMTY_APPOINTMENTS,booking_type,OPA,BookingType,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_CMTY_APPOINTMENTS,clinic_code_1,OPA,ClinicCode,0.777,PROBABLE,Y,Y,
@@ -234,11 +234,11 @@ LOAD_CMTY_APPOINTMENTS,appt_type,OPA,ApptType,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_CMTY_APPOINTMENTS,consultant_code,CONSEPISODE,ConsultantCode,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_CMTY_APPOINTMENTS,transport_required,OPA,Transport,0.610,LOW_CONFIDENCE,Y,Y,
 LOAD_CMTY_APPOINTMENTS,walkin_flag,OPREFERRAL,WalkinReferral,0.363,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_CMTY_APPOINTMENTS,time_arrived,OPA,ApptTime,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_CMTY_APPOINTMENTS,time_arrived,CPSGREFERRAL,DischargeTime,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,time_seen,AEADOCTOR,SeenTime,1.000,HIGH_CONFIDENCE,N,N,
-LOAD_CMTY_APPOINTMENTS,time_complete,OPA,ApptTime,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_CMTY_APPOINTMENTS,time_complete,CPSGREFERRAL,DischargeTime,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,outcome,CPSGREFERRAL,Outcome,1.000,HIGH_CONFIDENCE,Y,Y,
-LOAD_CMTY_APPOINTMENTS,ged,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_CMTY_APPOINTMENTS,ged,CPSGREFERRAL,Casenote,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_CMTY_APPOINTMENTS,cancelled_date,OCCANCEL,DateCancelled,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_CMTY_APPOINTMENTS,ref_comment,OPREFERRAL,RefComment,1.000,HIGH_CONFIDENCE,Y,N,
 LOAD_CMTY_APPOINTMENTS,appt_comment,OPA,ApptComment,1.000,HIGH_CONFIDENCE,Y,Y,
@@ -312,8 +312,8 @@ LOAD_IWL,removed,CLIDATA,RemovedFromScreen,0.333,UNMAPPED,N,N,No reliable semant
 LOAD_IWL,wl_entry_comment,OPWLREMENTRY,OpWlRemovalComment,0.400,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_IWL_DEFERRALS,admission_reason_comment,WLCURRENT,AdmReason,0.777,PROBABLE,Y,Y,
 LOAD_IWL_DEFERRALS,operation_text,WLCURRENT,Operation,0.610,LOW_CONFIDENCE,Y,Y,
-LOAD_IWL_DEFERRALS,record_number,WLCURRENT,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_IWL_DEFERRALS,loadiwl_record_number,WLCURRENT,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_IWL_DEFERRALS,record_number,WLACTIVITY,EpisodeNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_IWL_DEFERRALS,loadiwl_record_number,WLACTIVITY,EpisodeNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_IWL_DEFERRALS,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_IWL_DEFERRALS,external_system_id,WLCURRENT,ContractID,0.360,SYSTEM_FIELD,Y,Y,
 LOAD_IWL_DEFERRALS,deferral_start,SMREPISODE,StartReason,0.363,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
@@ -336,21 +336,21 @@ LOAD_IWL_PROFILES,operation_duration_mins,WLENTRY,Operation,0.443,REFERENCE_REQU
 LOAD_IWL_TCIS,deferral_end,WLACTIVITY,DefEndDate,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_IWL_TCIS,deferral_reason,WLACTIVITY,Reason,0.610,LOW_CONFIDENCE,Y,Y,
 LOAD_IWL_TCIS,deferral_comment,ADMITDISCH,Comment,0.530,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_IWL_TCIS,record_number,WLCURRENT,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_IWL_TCIS,loadiwl_record_number,WLCURRENT,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_IWL_TCIS,record_number,WLACTIVITY,EpisodeNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_IWL_TCIS,loadiwl_record_number,WLACTIVITY,EpisodeNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_IWL_TCIS,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_IWL_TCIS,external_system_id,WLCURRENT,ContractID,0.360,SYSTEM_FIELD,Y,Y,
 LOAD_IWL_TCIS,status,WLCURRENT,OsvStatus,0.610,LOW_CONFIDENCE,Y,Y,
-LOAD_IWL_TCIS,booking_type,WLCURRENT,BookingType,1.000,HIGH_CONFIDENCE,Y,Y,
-LOAD_IWL_TCIS,consultant_code,WLCURRENT,Consultant,0.610,LOW_CONFIDENCE,Y,Y,
+LOAD_IWL_TCIS,booking_type,WLACTIVITY,BookingType,1.000,HIGH_CONFIDENCE,Y,Y,
+LOAD_IWL_TCIS,consultant_code,WLACTIVITY,Consultant,0.610,LOW_CONFIDENCE,Y,Y,
 LOAD_IWL_TCIS,offer_date,OPA,A2ndOfferDate,0.747,PROBABLE,Y,N,
-LOAD_IWL_TCIS,agreed_date,WLCURRENT,AdmissionDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_IWL_TCIS,agreed_date,WLACTIVITY,ActivityDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_IWL_TCIS,agreed_flag,ICD10,AccidentFlag,0.333,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_IWL_TCIS,preassessment_date,WLCURRENT,AdmissionDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_IWL_TCIS,tci_date,WLCURRENT,AdmissionDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_IWL_TCIS,preassessment_date,WLACTIVITY,ActivityDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_IWL_TCIS,tci_date,WLACTIVITY,ActivityDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_IWL_TCIS,operation_date,WLCURRENT,OperationDate,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_IWL_TCIS,estimated_discharge_date,ADMITDISCH,DischargeDate,0.747,PROBABLE,Y,N,
-LOAD_IWL_TCIS,ge_date,WLCURRENT,AdmissionDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_IWL_TCIS,ge_date,WLACTIVITY,ActivityDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_MH_CPA_HISTORY,applies_end,SMREPISODE,EndCarePlan,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_MH_CPA_HISTORY,next_review_date,CPSCPADLPROBGOAL,ReviewDate,0.717,PROBABLE,N,N,
 LOAD_MH_CPA_HISTORY,table,SMREPISODE,AdmissionFrom,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
@@ -396,14 +396,14 @@ LOAD_MH_DETENTION_TRANSFERS,caseholder,SMREPISODE,AdmissionFrom,0.110,UNMAPPED,Y
 LOAD_MH_DETENTION_TRANSFERS,section_review_date,CPSCPADLPROBGOAL,ReviewDate,0.717,PROBABLE,N,N,
 LOAD_MH_DETENTION_TRANSFERS,consent_reminder_date,SMREPISODE,EpisodeStartDate,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_MH_DETENTION_TRANSFERS,consent_due_date,SMREPISODE,EpisodeStartDate,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_APPOINTMENTS,must,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_APPOINTMENTS,record_number,OPA,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_OPD_APPOINTMENTS,loadref_record_number,OPA,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_APPOINTMENTS,loadowl_record_number,OPA,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_APPOINTMENTS,rttpwy_recno_out_encounter,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_APPOINTMENTS,loadrttprd_record_number,OPA,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_APPOINTMENTS,loadrttprd_action,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_APPOINTMENTS,rttevent_recno_encounter,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_APPOINTMENTS,must,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_APPOINTMENTS,record_number,OPREFERRAL,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_OPD_APPOINTMENTS,loadref_record_number,OPREFERRAL,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_APPOINTMENTS,loadowl_record_number,OPREFERRAL,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_APPOINTMENTS,rttpwy_recno_out_encounter,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_APPOINTMENTS,loadrttprd_record_number,OPREFERRAL,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_APPOINTMENTS,loadrttprd_action,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_APPOINTMENTS,rttevent_recno_encounter,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_APPOINTMENTS,rttevent_recno_outcome,CPSGREFERRAL,Outcome,0.363,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_APPOINTMENTS,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_OPD_APPOINTMENTS,external_system_id,CPFCLINEFFDATA,Id,0.333,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
@@ -427,9 +427,9 @@ LOAD_OPD_APPOINTMENTS,time_complete,OPA,ApptTime,0.443,UNMAPPED,Y,Y,No reliable 
 LOAD_OPD_APPOINTMENTS,outcome,AEDIARY,Outcome,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_OPD_APPOINTMENTS,cancelled_date,OCCANCEL,DateCancelled,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_OPD_APPOINTMENTS,appt_comment,OPA,ApptComment,1.000,HIGH_CONFIDENCE,Y,Y,
-LOAD_OPD_APPOINTMENTS,cab_ubrn,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_APPOINTMENTS,cab_ubrn,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_APPOINTMENTS,cab_service,OCMLOCNPERF,Service,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_APPOINTMENTS,cab_usrn,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_APPOINTMENTS,cab_usrn,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,key_worker_staff_id,DISCHEXPECTED,ExpDischKeyWorker,0.333,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,care_coordinator,HWSAPP,ProgOfCare,0.363,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,next_review_date,CPSCPADLPROBGOAL,ReviewDate,0.717,PROBABLE,N,N,
@@ -446,25 +446,25 @@ LOAD_OPD_ARCHIVE,address_3,GDP,Address,0.500,UNMAPPED,N,N,No reliable semantic c
 LOAD_OPD_ARCHIVE,address_4,GDP,Address,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,address_5,GDP,Address,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,post_code,LOCATIONCODES,PostCode,1.000,HIGH_CONFIDENCE,N,N,
-LOAD_OPD_ARCHIVE,district,OPA,DistrictNumber,0.610,LOW_CONFIDENCE,Y,Y,
-LOAD_OPD_ARCHIVE,pct_codepct,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_ARCHIVE,contract_number,OPA,DistrictNumber,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_ARCHIVE,district,OPREFERRAL,DistrictNumber,0.610,LOW_CONFIDENCE,Y,Y,
+LOAD_OPD_ARCHIVE,pct_codepct,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_ARCHIVE,contract_number,OPREFERRAL,DistrictNumber,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,purchaser_ref,ALLOCATEDCONTRACT,PurchaserRef,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_OPD_ARCHIVE,provider_code,CONSMAST,ProviderCode,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_OPD_ARCHIVE,purchaser_code,CONTR,PurchaserCode,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_OPD_ARCHIVE,ref_source,CPSGREFERRAL,Source,0.530,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_ARCHIVE,gp_registration_codegp,OPA,EpiGp,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_ARCHIVE,gp_namegp,OPA,EpiGp,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_ARCHIVE,gp_fundholder_codegp,OPA,EpiGp,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_ARCHIVE,gp_registration_codegp,OPREFERRAL,GpDiagnosis,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_ARCHIVE,gp_namegp,OPREFERRAL,GpDiagnosis,0.443,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_ARCHIVE,gp_fundholder_codegp,OPREFERRAL,GpDiagnosis,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,gp_practice_code,OPA,PracticeCode,0.777,PROBABLE,Y,Y,
 LOAD_OPD_ARCHIVE,practice_name,CONSMAST,Name,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_ARCHIVE,referral_request_date,OPA,ReferralDate,0.827,PROBABLE,Y,Y,
+LOAD_OPD_ARCHIVE,referral_request_date,OPREFERRAL,ReferralDate,0.827,PROBABLE,Y,Y,
 LOAD_OPD_ARCHIVE,referral_reason,ADMITDISCH,ReasonForReferral,0.697,LOW_CONFIDENCE,Y,N,
 LOAD_OPD_ARCHIVE,referring_consultant_gmc,ADMITDISCH,Consultant,0.363,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,referring_consultant_name,JOINTCONSPEC,JointConsultantName,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,first_attendance,WARDATTENDER,FirstAttendance,1.000,HIGH_CONFIDENCE,N,N,
-LOAD_OPD_ARCHIVE,referral_discharge_date,OPA,DischDate,0.827,PROBABLE,Y,Y,
-LOAD_OPD_ARCHIVE,ge_date,OPA,ApptDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_ARCHIVE,referral_discharge_date,OPREFERRAL,DischargeDt,0.827,PROBABLE,Y,Y,
+LOAD_OPD_ARCHIVE,ge_date,OPREFERRAL,DischargeDt,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,ge_status,CPSGREFERRAL,Status,0.530,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,clinic_name,AECLINICMF,Clinic,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,specialty,OPREFERRAL,Specialty,1.000,HIGH_CONFIDENCE,Y,Y,
@@ -511,20 +511,20 @@ LOAD_OPD_ARCHIVE,procedure_8_desc,OPA,CABServiceDesc,0.360,UNMAPPED,Y,Y,No relia
 LOAD_OPD_ARCHIVE,procedure_9_code,OPA,ApptPrimaryProcedureCode,0.510,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,procedure_9_desc,OPA,CABServiceDesc,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_ARCHIVE,procedure_10_code,OPA,ApptPrimaryProcedureCode,0.510,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPD_CODING,record_number,FCEEXT,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_OPD_CODING,load_opd_record_number,FCEEXT,DistrictNumber,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPD_CODING,record_number,OPA,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_OPD_CODING,load_opd_record_number,OPA,DistrictNumber,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_CODING,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_OPD_CODING,external_system_id,FCEEXT,ContractId,0.360,SYSTEM_FIELD,Y,Y,
 LOAD_OPD_CODING,diagnosis_division,AEAUSERDIAG,Diagnosis,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_CODING,note_type,CPSGREFERRAL,Type,0.530,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPD_CODING,diagnosis,AEAUSERDIAG,Diagnosis,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_OPD_CODING,diagnosis_note,AEAUSERDIAG,Diagnosis,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPDWAITLIST,record_number,OPA,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_OPDWAITLIST,loadref_record_number,OPA,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPDWAITLIST,rttpwy_recno_out_encounter,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPDWAITLIST,loadrttprd_record_number,OPA,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPDWAITLIST,loadrttprd_action,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPDWAITLIST,rttevent_recno_encounter,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPDWAITLIST,record_number,OPREFERRAL,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_OPDWAITLIST,loadref_record_number,OPREFERRAL,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPDWAITLIST,rttpwy_recno_out_encounter,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPDWAITLIST,loadrttprd_record_number,OPREFERRAL,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPDWAITLIST,loadrttprd_action,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPDWAITLIST,rttevent_recno_encounter,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPDWAITLIST,rttevent_recno_outcome,CPSGREFERRAL,Outcome,0.363,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPDWAITLIST,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_OPDWAITLIST,external_system_id,WLCURRENT,ContractID,0.360,SYSTEM_FIELD,Y,Y,
@@ -535,19 +535,19 @@ LOAD_OPDWAITLIST,site,AEAUSERDIAG,AnatomicalSite,0.500,UNMAPPED,N,N,No reliable 
 LOAD_OPDWAITLIST,list_code,AEACCBY,Code,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPDWAITLIST,list_name,CONSMAST,Name,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPDWAITLIST,encounter_type,CPSGREFERRAL,Type,0.530,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_OPDWAITLIST,specialty,WLCURRENT,Specialty,1.000,HIGH_CONFIDENCE,Y,Y,
+LOAD_OPDWAITLIST,specialty,OPREFERRAL,Specialty,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_OPDWAITLIST,new_followup_flagn,HWMHEALTHPERSON,New,0.333,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPDWAITLIST,short_notice_flag,WLCURRENT,ShortNotice,0.777,PROBABLE,Y,Y,
-LOAD_OPDWAITLIST,status,OPA,ApptStatus,0.610,LOW_CONFIDENCE,Y,Y,
-LOAD_OPDWAITLIST,target_date,OPA,ApptDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPDWAITLIST,status,OPREFERRAL,CurrentStatus,0.610,LOW_CONFIDENCE,Y,Y,
+LOAD_OPDWAITLIST,target_date,OPREFERRAL,DischargeDt,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPDWAITLIST,consultant,WLCURRENT,Consultant,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_OPDWAITLIST,outcome,AEDIARY,Outcome,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_OPDWAITLIST,removed,CLIDATA,RemovedFromScreen,0.333,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPDWAITLIST,wl_comment,OPREFERRAL,Comment,0.610,LOW_CONFIDENCE,Y,Y,
-LOAD_OPDWAITLIST,ios_usercode,OPA,A2ndOfferDate,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPDWAITLIST,ios_usercode,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPDWAITLIST,transport_required,OPA,Transport,0.610,LOW_CONFIDENCE,Y,Y,
-LOAD_OPDWAITLISTDEF,record_number,WLCURRENT,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_OPDWAITLISTDEF,loadowl_record_number,WLCURRENT,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_OPDWAITLISTDEF,record_number,WLACTIVITY,EpisodeNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_OPDWAITLISTDEF,loadowl_record_number,WLACTIVITY,EpisodeNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_OPDWAITLISTDEF,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_OPDWAITLISTDEF,external_system_id,WLCURRENT,ContractID,0.360,SYSTEM_FIELD,Y,Y,
 LOAD_OPDWAITLISTDEF,deferral_start,SMREPISODE,StartReason,0.363,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
@@ -749,11 +749,11 @@ LOAD_PMISTAFFWARNINGS,warning_comment,ADMITDISCH,Comment,0.530,UNMAPPED,Y,N,No r
 LOAD_PMISTAFFWARNINGS,applies_start,SMREPISODE,StartReason,0.363,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_PMISTAFFWARNINGS,applies_end,CONSWARDSTAY,EndActivity,0.333,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_REFERRALS,pathway_end_event,OPA,ApptEndTime,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_REFERRALS,pathway_specialty,WLCURRENT,Specialty,0.610,LOW_CONFIDENCE,Y,Y,
+LOAD_REFERRALS,pathway_specialty,OPREFERRAL,Specialty,0.610,LOW_CONFIDENCE,Y,Y,
 LOAD_REFERRALS,pathway_status,CPSGREFERRAL,Status,0.530,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_REFERRALS,pathway_type,CPSGREFERRAL,Type,0.530,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_REFERRALS,record_number,OPA,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_REFERRALS,loadrttpwy_record_number,OPA,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_REFERRALS,record_number,OPREFERRAL,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_REFERRALS,loadrttpwy_record_number,OPREFERRAL,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_REFERRALS,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_REFERRALS,external_system_id,WLCURRENT,ContractID,0.360,SYSTEM_FIELD,Y,Y,
 LOAD_REFERRALS,main_crn_type,PATCHANGEBYDATE,Internalpatientnumber,0.600,LOW_CONFIDENCE,N,N,Best candidate is outside the 13 priority source tables.
@@ -761,7 +761,7 @@ LOAD_REFERRALS,main_crn,PATCHANGEBYDATE,Internalpatientnumber,1.000,HIGH_CONFIDE
 LOAD_REFERRALS,patient_category,OPA,PtCategory,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_REFERRALS,first_seen,CANCERSUMMARY,DateFirstSeen,0.667,LOW_CONFIDENCE,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_REFERRALS,override_wait_reset_date,OPREFERRAL,QM08StartWaitDate,0.560,LOW_CONFIDENCE,Y,Y,
-LOAD_REFERRALS,ref_new_followup_flag,OPA,RefBy,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_REFERRALS,ref_new_followup_flag,OPREFERRAL,RefBy,0.310,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_REFERRALS,ref_date,CPSGREFERRAL,RefDtTmInt,0.580,LOW_CONFIDENCE,Y,N,
 LOAD_REFERRALS,ref_received_date,ECRSTATUSHISTORY,DateReceived,0.717,PROBABLE,N,N,
 LOAD_REFERRALS,ref_source,CPSGREFERRAL,Source,0.530,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
@@ -770,40 +770,40 @@ LOAD_REFERRALS,ref_practice_code,OPA,PracticeCode,0.777,PROBABLE,Y,Y,
 LOAD_REFERRALS,ref_practice_postcode,OPTICIAN,PracticePostcode,0.667,LOW_CONFIDENCE,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_REFERRALS,ref_urgency,WLCURRENT,Urgency,0.610,LOW_CONFIDENCE,Y,Y,
 LOAD_REFERRALS,ref_type,CANCERSUMMARY,RefPriorityType,0.667,LOW_CONFIDENCE,N,N,Best candidate is outside the 13 priority source tables.
-LOAD_REFERRALS,ref_reason,OPA,ReasonForRef,0.777,PROBABLE,Y,Y,
+LOAD_REFERRALS,ref_reason,OPREFERRAL,ReasonForRef,0.777,PROBABLE,Y,Y,
 LOAD_REFERRALS,ref_specialty,OPA,RefSpecialty,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_REFERRALS,ref_team,CPCLINACTIVITY,Team,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_REFERRALS,ref_consultant,OPA,RefConsultant,1.000,HIGH_CONFIDENCE,Y,Y,
 LOAD_REFERRALS,ref_outcome,CPSGREFERRAL,Outcome,0.530,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_REFERRALS,ref_discharge_date,OPA,DischDate,0.827,PROBABLE,Y,Y,
-LOAD_REFERRALS,ged_date,OPA,ApptDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_REFERRALS,ref_discharge_date,OPREFERRAL,DischargeDt,0.827,PROBABLE,Y,Y,
+LOAD_REFERRALS,ged_date,OPREFERRAL,DischargeDt,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_REFERRALS,encounter_type,CPSGREFERRAL,Type,0.530,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_RTT_EVENTS,record_number,WLENTRY,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_RTT_EVENTS,loadrttprd_record_number,WLENTRY,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_RTT_EVENTS,record_number,WLACTIVITY,EpisodeNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_RTT_EVENTS,loadrttprd_record_number,WLACTIVITY,EpisodeNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_RTT_EVENTS,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_RTT_EVENTS,external_system_id,WLENTRY,ContractID,0.360,SYSTEM_FIELD,Y,Y,
-LOAD_RTT_EVENTS,event_date,WLENTRY,AdmissionDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_RTT_EVENTS,event_action_code,WLENTRY,WlCode,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_RTT_EVENTS,event_date,WLACTIVITY,ActivityDate,0.493,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_RTT_EVENTS,event_action_code,WLACTIVITY,EfgCode,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_RTT_EVENTS,event_reason_code,DIARY,ReasonCode,0.667,LOW_CONFIDENCE,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_RTT_EVENTS,rtt_status,ADMITDISCH,RttPeriodStatus,0.697,LOW_CONFIDENCE,Y,N,
 LOAD_RTT_EVENTS,event_text,ASFIELDMF,HelpText,0.333,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_RTT_EVENTS,must,WLENTRY,AdmEROD,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_RTT_EVENTS,must,WLACTIVITY,Activity,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_RTT_EVENTS,before,OUTP,DaysBeforeSession,0.333,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_RTT_EVENTS,ranges,WLENTRY,AdmEROD,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_RTT_PATHWAYS,record_number,WLENTRY,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_RTT_EVENTS,ranges,WLACTIVITY,Activity,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_RTT_PATHWAYS,record_number,OPREFERRAL,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
 LOAD_RTT_PATHWAYS,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_RTT_PATHWAYS,external_system_id,WLENTRY,ContractID,0.360,SYSTEM_FIELD,Y,Y,
 LOAD_RTT_PATHWAYS,main_crn_type,PATCHANGEBYDATE,Internalpatientnumber,0.600,LOW_CONFIDENCE,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_RTT_PATHWAYS,main_crn,PATCHANGEBYDATE,Internalpatientnumber,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_RTT_PATHWAYS,pathway_id,CPFCLINEFFDATA,Id,0.500,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_RTT_PATHWAYS,ubrn,WLENTRY,AdmEROD,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_RTT_PATHWAYS,ubrn,OPREFERRAL,AppointmentWithinTargetDays,0.110,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_RTT_PATHWAYS,pathway_start_date,CONSWARDSTAY,StartDate,0.717,PROBABLE,N,N,
 LOAD_RTT_PATHWAYS,pathway_end_date,CONSWARDSTAY,EndDate,0.717,PROBABLE,N,N,
 LOAD_RTT_PATHWAYS,description,AEACCBY,Description,1.000,HIGH_CONFIDENCE,N,N,
 LOAD_RTT_PATHWAYS,pathway_coded_desc_code,DIARYTIMESLOTCANC,CancellationCodeDesc,0.400,UNMAPPED,N,N,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_RTT_PERIODS,record_number,WLENTRY,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
-LOAD_RTT_PERIODS,loadrttpwy_record_number,WLENTRY,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
-LOAD_RTT_PERIODS,loadref_record_number,WLENTRY,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_RTT_PERIODS,record_number,OPREFERRAL,DistrictNumber,0.443,SYSTEM_FIELD,Y,Y,
+LOAD_RTT_PERIODS,loadrttpwy_record_number,OPREFERRAL,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
+LOAD_RTT_PERIODS,loadref_record_number,OPREFERRAL,DistrictNumber,0.360,UNMAPPED,Y,Y,No reliable semantic candidate in source catalog; requires manual mapping decision.
 LOAD_RTT_PERIODS,system_code,AEACCBY,Code,0.500,SYSTEM_FIELD,N,N,Best candidate is outside the 13 priority source tables.
 LOAD_RTT_PERIODS,external_system_id,WLENTRY,ContractID,0.360,SYSTEM_FIELD,Y,Y,
 LOAD_RTT_PERIODS,clock_start,SMREPISODE,StartReason,0.363,UNMAPPED,Y,N,No reliable semantic candidate in source catalog; requires manual mapping decision.

@@ -93,6 +93,13 @@ See `product/README.md` for running:
 - FastAPI backend (`product/backend`)
 - Next.js dynamic UI (`product/frontend`)
 
+UI lifecycle uplift (v0.0.2):
+- step-by-step execution console at `/lifecycle`
+- dynamic schema/table/field explorer
+- dynamic mapping contract filtering
+- run controls with profile/rows/seed/min-patient parameters
+- gate/reject operational review tabs
+
 Connector modes currently exposed in API/UI:
 - `cache_iris_emulator` (source, active)
 - `postgres_emulator` (target, active)

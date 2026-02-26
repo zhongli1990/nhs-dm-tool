@@ -27,6 +27,69 @@ app.add_middleware(
 )
 
 
+def _lifecycle_steps(rows: int, seed: int, min_patients: int, release_profile: str) -> List[Dict[str, object]]:
+    impute_mode = "pre_production" if release_profile in {"development", "pre_production"} else "strict"
+    return [
+        {
+            "id": "extract_specs",
+            "name": "Extract Specs",
+            "description": "Parse requirement specs into source/target schema catalogs.",
+            "command": ["python", "pipeline/extract_specs.py"],
+        },
+        {
+            "id": "generate_mock_data",
+            "name": "Generate Mock Data",
+            "description": "Generate coherent source/target mock data for configured patient cohort.",
+            "command": ["python", "pipeline/generate_all_mock_data.py", "--rows", str(rows), "--seed", str(seed)],
+        },
+        {
+            "id": "analyze_semantic_mapping",
+            "name": "Analyze Semantic Mapping",
+            "description": "Build source-to-target semantic mapping matrix and summary.",
+            "command": ["python", "pipeline/analyze_semantic_mapping.py"],
+        },
+        {
+            "id": "build_mapping_contract",
+            "name": "Build Mapping Contract",
+            "description": "Classify all target fields into strict contract mapping classes.",
+            "command": ["python", "pipeline/build_mapping_contract.py"],
+        },
+        {
+            "id": "run_contract_migration",
+            "name": "Run Contract Migration",
+            "description": "Execute contract-driven ETL from source extracts to target contract outputs.",
+            "command": [
+                "python",
+                "pipeline/run_contract_migration.py",
+                "--source-dir",
+                "mock_data/source",
+                "--output-dir",
+                "mock_data/target_contract",
+                "--contract-file",
+                "reports/mapping_contract.csv",
+                "--target-catalog-file",
+                "schemas/target_schema_catalog.csv",
+                "--crosswalk-dir",
+                "schemas/crosswalks",
+                "--impute-mode",
+                impute_mode,
+            ],
+        },
+        {
+            "id": "run_enterprise_quality",
+            "name": "Run Enterprise Quality",
+            "description": "Run enterprise validation checks and produce severity issues.",
+            "command": ["python", "pipeline/run_enterprise_pipeline.py", "--min-patients", str(min_patients)],
+        },
+        {
+            "id": "run_release_gates",
+            "name": "Run Release Gates",
+            "description": "Evaluate release profile gates for readiness decision.",
+            "command": ["python", "pipeline/run_release_gates.py", "--profile", release_profile],
+        },
+    ]
+
+
 @app.get("/health")
 def health() -> Dict[str, str]:
     return {"status": "ok"}
@@ -230,4 +293,49 @@ def execute_lifecycle(
         "stdout_tail": proc.stdout[-2000:],
         "stderr_tail": proc.stderr[-2000:],
         "report": payload,
+    }
+
+
+@app.get("/api/lifecycle/steps")
+def lifecycle_steps(
+    rows: int = Query(default=20, ge=1, le=100000),
+    seed: int = Query(default=42, ge=0, le=999999),
+    min_patients: int = Query(default=20, ge=1, le=100000),
+    release_profile: str = Query(default="pre_production"),
+):
+    return {
+        "rows": rows,
+        "seed": seed,
+        "min_patients": min_patients,
+        "release_profile": release_profile,
+        "steps": _lifecycle_steps(rows, seed, min_patients, release_profile),
+    }
+
+
+@app.post("/api/lifecycle/steps/{step_id}/execute")
+def execute_lifecycle_step(
+    step_id: str,
+    rows: int = Query(default=20, ge=1, le=100000),
+    seed: int = Query(default=42, ge=0, le=999999),
+    min_patients: int = Query(default=20, ge=1, le=100000),
+    release_profile: str = Query(default="pre_production"),
+):
+    steps = {s["id"]: s for s in _lifecycle_steps(rows, seed, min_patients, release_profile)}
+    if step_id not in steps:
+        raise HTTPException(status_code=404, detail=f"Unknown lifecycle step: {step_id}")
+    cmd = steps[step_id]["command"]
+    proc = subprocess.run(cmd, cwd=str(DATA_MIGRATION_ROOT), capture_output=True, text=True)
+    latest = {
+        "contract_migration": read_json(REPORTS_DIR / "contract_migration_report.json"),
+        "enterprise_quality": read_json(REPORTS_DIR / "enterprise_pipeline_report.json"),
+        "release_gates": read_json(REPORTS_DIR / "release_gate_report.json"),
+        "product_lifecycle": read_json(REPORTS_DIR / "product_lifecycle_run.json"),
+    }
+    return {
+        "step_id": step_id,
+        "command": " ".join(cmd),
+        "return_code": proc.returncode,
+        "stdout_tail": proc.stdout[-2000:],
+        "stderr_tail": proc.stderr[-2000:],
+        "latest_reports": latest,
     }

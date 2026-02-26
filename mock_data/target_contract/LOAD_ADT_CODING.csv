@@ -9,13 +9,3 @@ record_number,adt_eps_record_number,system_code,external_system_id,diagnosis_div
 8,8,SRC_PAS_V83,MRN10008,,Auto-derived value,M793
 9,9,SRC_PAS_V83,MRN10009,,Auto-derived value,L400
 10,10,SRC_PAS_V83,MRN10010,,Auto-derived value,Z966
-11,11,SRC_PAS_V83,MRN10011,,Auto-derived value,I251
-12,12,SRC_PAS_V83,MRN10012,,Auto-derived value,J189
-13,13,SRC_PAS_V83,MRN10013,,Auto-derived value,M161
-14,14,SRC_PAS_V83,MRN10014,,Auto-derived value,K802
-15,15,SRC_PAS_V83,MRN10015,,Auto-derived value,N183
-16,16,SRC_PAS_V83,MRN10016,,Auto-derived value,E119
-17,17,SRC_PAS_V83,MRN10017,,Auto-derived value,F321
-18,18,SRC_PAS_V83,MRN10018,,Auto-derived value,M793
-19,19,SRC_PAS_V83,MRN10019,,Auto-derived value,L400
-20,20,SRC_PAS_V83,MRN10020,,Auto-derived value,Z966
