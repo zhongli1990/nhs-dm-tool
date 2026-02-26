@@ -1,6 +1,6 @@
 # QVH PAS Migration Deliverables Summary
 
-Date: 2026-02-25  
+Date: 2026-02-26  
 Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
 
 ## 1. Delivered capability summary
@@ -33,6 +33,12 @@ Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
    - ERD relationship APIs + UI
    - quality trends history and dashboard
    - selective rerun-from-step + snapshot restore
+6. UX hardening for enterprise operations:
+   - workbench JSON recovery and resilient API read path
+   - server-side pagination for workbench editing (default 200/page)
+   - contract rows pagination with configurable page size
+   - ERD force-layout density controls and ID in relationship list
+   - dark/light visibility fixes for controls and logs
 
 ## 2. Code structure
 
@@ -117,7 +123,7 @@ Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
 3. Frontend uses backend API base:
    - `NEXT_PUBLIC_DM_API_BASE=http://localhost:8099`
 
-## 4.1 UI lifecycle uplift (v0.0.2)
+## 4.1 UI lifecycle uplift (v0.0.5)
 
 1. Sidebar-based workflow navigation for mission-critical operations.
 2. Lifecycle orchestration page with parameter controls and stage execution.
@@ -133,6 +139,14 @@ Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
    - auto-refresh
    - manual refresh
    - demo trend seeding
+8. Mappings workbench controls:
+   - server-side paged edit/approve table
+   - page size + page up/down
+   - row ID for operator reference
+9. ERD controls:
+   - searchable table selector
+   - layout density control (`compact`, `normal`, `sparse`)
+   - relationship list row ID and cardinality labels
 
 ## 4.2 Feature uplift status matrix
 

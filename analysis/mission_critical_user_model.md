@@ -1,6 +1,14 @@
-# Mission-Critical User Model and Lifecycle Ownership
+﻿# Mission-Critical User Model and Lifecycle Ownership
 
-Date: 2026-02-25
+Date: 2026-02-26
+
+## Product vision context
+
+The control plane supports dual operation modes:
+1. UI-driven lifecycle execution for operational users.
+2. CLI/API-driven execution for engineering teams.
+
+Both modes must produce the same governed artifacts and gate decisions.
 
 ## Primary user groups
 
@@ -11,14 +19,14 @@ Date: 2026-02-25
 
 2. Data Architect
 - governs source-target schema alignment
-- approves mapping classes and policy overrides
+- reviews and approves mapping contract logic
 
 3. Clinical Informatics Lead
 - validates clinical coding and safety-critical transformations
-- approves code crosswalk logic for clinical fields
+- approves high-risk crosswalk and rule behavior
 
 4. DBA / Platform Engineer
-- manages data-access security and connector runtime controls
+- manages connector/runtime controls and read-only access posture
 - validates DB performance and operational reliability
 
 5. Programme / Release Manager
@@ -47,9 +55,28 @@ Date: 2026-02-25
 - Owner: Programme / Release Manager
 - Inputs: Architect, Clinical Lead, DBA
 
-## UI support expectations
+## UI support expectations by role
+
+1. Mapping Analyst / Architect
+- high-volume mapping review with pagination and bulk actions
+- status transitions (`DRAFT`, `IN_REVIEW`, `APPROVED`, `REJECTED`)
+
+2. DM Engineer
+- run lifecycle steps, rerun-from-step, restore snapshots
+- inspect contract and enterprise issues quickly
+
+3. DQ and Clinical roles
+- use quality dashboard/KPI widgets/issue explorer for sign-off evidence
+- use ERD context to validate relationship integrity assumptions
+
+4. Release Manager
+- evaluate run outcomes and release profile gate results
+- approve promotion only when evidence pack is complete
+
+## Governance expectations
 
 The control plane should allow each role to:
-- view only relevant lifecycle status and evidence
-- execute approved actions with audit traces
-- export decision artifacts for governance meetings
+1. view relevant lifecycle status and evidence.
+2. execute approved actions with audit traces.
+3. export decision artifacts for governance boards.
+4. operate consistently across UI, API, and CLI channels.

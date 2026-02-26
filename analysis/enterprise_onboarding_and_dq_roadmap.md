@@ -6,6 +6,21 @@ Date: 2026-02-26
 
 Define the product roadmap for onboarding any NHS PAS/EPR estate (different schemas/vendors) and add a high-clarity data quality experience with KPI cards and trend charts.
 
+## Current implementation status (v0.0.5)
+
+Implemented now:
+1. Mapping workbench approval model and bulk workflow controls.
+2. ERD visual explorer with inferred relationships and cardinality labels.
+3. Quality command centre with KPI widgets, trend controls, and KPI config persistence.
+4. Lifecycle rerun-from-step and snapshot restore controls.
+5. ODBC/JDBC experimental introspection path.
+6. Enterprise-scale pagination patterns in mappings workflows.
+
+In-progress/pending hardening:
+1. Full production security controls (RBAC/SSO, secret vault, audit hardening).
+2. Rich ERD interaction (zoom/pan/minimap/drag pinning).
+3. Production-grade async execution engine for long-running jobs.
+
 ## A. Enterprise PAS/EPR onboarding model
 
 ## A1. Onboarding phases

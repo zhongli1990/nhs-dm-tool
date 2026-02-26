@@ -1,5 +1,13 @@
 # Data Migration Product Control Plane
 
+## Product vision
+
+Enterprise NHS migration control plane for PAS/EPR transitions:
+- one governed lifecycle across design, execution, quality, and release
+- synchronized CLI + API + UI operations
+- safety-first quality visibility and traceable approvals
+- scalable interaction patterns for high-volume migration artifacts
+
 ## Components
 
 1. `backend/`
@@ -54,8 +62,14 @@ powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\produc
 
 - `/` dashboard
 - `/schemas` dynamic source/target explorer with table filter and field drill-down
-- `/erd` visual ERD and inferred relationship explorer
-- `/mappings` mapping contract explorer (summary + filtered field rows)
+- `/erd` visual ERD and inferred relationship explorer:
+  - searchable table filter
+  - force-layout density controls
+  - relationship list IDs and cardinality display
+- `/mappings` mapping contract explorer (summary + filtered field rows):
+  - paged contract rows (default 200/page)
+  - paged edit/approve workbench (default 200/page)
+  - bulk edit and bulk status transitions
 - `/lifecycle` step-by-step lifecycle orchestration (run each stage or all stages with run controls)
 - `/runs` execution console with profile controls, gate checks and reject review tabs
 - `/quality` data quality command centre:
@@ -100,6 +114,20 @@ Production hardening still required:
 - read-only query policy
 - timeout/query governance
 - audit and telemetry
+
+## Current maturity snapshot (v0.0.5)
+
+Implemented:
+- mapping workbench approvals and bulk operations
+- ERD relationship graph with inferred cardinality
+- quality command centre with KPI widgets and trend controls
+- lifecycle rerun-from-step and snapshot restore
+- enterprise pagination and UI rendering hardening
+
+Pending for production-grade cutover:
+- RBAC and federated auth
+- secrets vault and secure connector credentials
+- async job orchestration and audit event stream
 
 ## Best-practice runtime approach
 

@@ -20,6 +20,14 @@ Requirement inputs:
 - `reports/` machine-readable run reports and issue exports
 - `product/` full-stack control plane (FastAPI backend + Next.js frontend)
 
+## Product vision
+
+Build a reusable NHS-grade PAS/EPR migration platform that is:
+- clinically safe by design (explicit quality gates and reject visibility)
+- operationally governed (approval workflow, rerun controls, evidence packs)
+- vendor-agnostic (dynamic schema handling and connector extensibility)
+- engineer-productive and operator-friendly (UI and API parity across lifecycle)
+
 ## End-to-end lifecycle run
 
 Run from the project root:
@@ -36,7 +44,7 @@ python .\pipeline\run_release_gates.py --profile pre_production
 python .\pipeline\run_product_lifecycle.py --rows 20 --seed 42 --min-patients 20 --release-profile pre_production
 ```
 
-## Current dry-run status (2026-02-25)
+## Current dry-run status (2026-02-26)
 
 - Schema extraction: PASS
   - 417 source tables, 5,387 source fields
@@ -94,7 +102,7 @@ See `product/README.md` for running:
 - FastAPI backend (`product/backend`)
 - Next.js dynamic UI (`product/frontend`)
 
-UI lifecycle uplift (v0.0.2):
+UI lifecycle uplift (v0.0.5):
 - step-by-step execution console at `/lifecycle`
 - dynamic schema/table/field explorer
 - visual schema ERD page at `/erd` (PK/FK/inferred lineage graph MVP)
@@ -106,6 +114,9 @@ UI lifecycle uplift (v0.0.2):
   - KPI Widgets
   - Issue Explorer
 - lifecycle rerun and snapshot restore controls
+- dark/light rendering hardening across controls and logs
+- mappings workbench enterprise pagination (default 200/page)
+- ERD relationship list row IDs and improved filter behavior
 
 Connector modes currently exposed in API/UI:
 - `cache_iris_emulator` (source, active)

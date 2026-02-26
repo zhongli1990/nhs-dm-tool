@@ -1,6 +1,6 @@
 # NHS PAS Migration Productization Blueprint
 
-Date: 2026-02-25
+Date: 2026-02-26
 
 ## Product objective
 
@@ -9,6 +9,26 @@ Evolve this migration workspace into a reusable NHS migration product:
 - auditable governance and release controls
 - full-stack UI control plane for DM engineers and stakeholders
 - pluggable data connectors (CSV now, ODBC/JDBC next)
+
+## Product vision pillars
+
+1. Clinical safety and migration integrity
+- explicit DQ/reject evidence at every stage
+- no hidden coercion in critical code transforms
+
+2. Governed execution at enterprise scale
+- approval workflow for mapping contracts
+- replayable runs with profile-based gates
+- snapshot and restore controls for operational rollback
+
+3. Dynamic onboarding for heterogeneous NHS estates
+- adaptable schema metadata model
+- connector abstraction across file and DB sources
+
+4. Operator-grade user experience
+- high-density yet readable workflows
+- pagination and bulk actions for large data volumes
+- ERD and quality visualizations for rapid triage
 
 ## Product architecture
 
@@ -40,6 +60,7 @@ Evolve this migration workspace into a reusable NHS migration product:
   - Lifecycle (run, rerun-from-step, snapshot restore)
   - Runs/Gates
   - Connectors
+  - Roles
 
 API specification:
 - `analysis/api_surface_spec.md`
@@ -94,6 +115,11 @@ Planned:
 Current outcome:
 - pre-production profile: PASS
 - cutover-ready profile: intentionally stricter for final governance readiness
+- v0.0.5 UX/state hardening delivered:
+  - workbench JSON recovery
+  - paged mapping workbench and contract rows
+  - ERD density controls and improved filtering
+  - dark/light rendering fixes for operational controls
 
 ## Recommended next iteration
 

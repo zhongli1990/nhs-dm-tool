@@ -1,6 +1,6 @@
-# Control Plane API Surface (Frontend Use Cases)
+﻿# Control Plane API Surface (Frontend Use Cases)
 
-Date: 2026-02-25
+Date: 2026-02-26
 
 Backend: `product/backend/app/main.py`
 
@@ -8,10 +8,11 @@ Backend: `product/backend/app/main.py`
 
 Provide enterprise-grade API coverage for DM engineer and stakeholder UI workflows:
 - schema exploration
-- mapping inspection
+- ERD relationship visualization
+- mapping inspection and approval workflows
 - run execution and monitoring
 - quality/reject triage
-- release gate and profile visibility
+- release gate profile visibility
 - connector exploration
 
 ## Endpoints
@@ -29,19 +30,21 @@ Provide enterprise-grade API coverage for DM engineer and stakeholder UI workflo
 - `GET /api/schema-graph/{domain}/relationships`
 - `GET /api/schema-graph/{domain}/erd?table_filter=`
 
-### Mapping explorer
+### Mapping explorer and workbench
 - `GET /api/mappings/contract`
 - `GET /api/mappings/contract/query?target_table=&mapping_class=&limit=`
-- `GET /api/mappings/workbench?target_table=&status=&mapping_class=&limit=`
+- `GET /api/mappings/workbench?target_table=&status=&mapping_class=&offset=&limit=`
 - `POST /api/mappings/workbench/upsert`
 - `POST /api/mappings/workbench/transition`
 
-### Runs and reports
+### Runs and lifecycle orchestration
 - `GET /api/runs/latest`
 - `GET /api/runs/history`
 - `POST /api/runs/execute?rows=&seed=&min_patients=&release_profile=`
+- `GET /api/lifecycle/steps?rows=&seed=&min_patients=&release_profile=`
+- `POST /api/lifecycle/steps/{step_id}/execute?rows=&seed=&min_patients=&release_profile=`
 - `POST /api/lifecycle/execute-from/{step_id}?rows=&seed=&min_patients=&release_profile=`
-- `GET /api/lifecycle/snapshots`
+- `GET /api/lifecycle/snapshots?limit=`
 - `POST /api/lifecycle/snapshots/{snapshot_id}/restore`
 
 ### Quality and rejects
@@ -68,39 +71,33 @@ Provide enterprise-grade API coverage for DM engineer and stakeholder UI workflo
 CSV:
 - active and usable in this build.
 
-ODBC:
-- adapter implemented in experimental mode for:
-  - connection string
-  - schema selection
-  - table listing
-  - table description
-  - row sampling
+PostgreSQL emulator:
+- active emulator over target CSV artifacts.
 
-JDBC:
-- adapter implemented in experimental mode with same contract shape as ODBC.
+Cache/IRIS emulator:
+- active emulator over source CSV artifacts.
+
+JSON dummy:
+- active placeholder connector for JSON integration flows.
+
+ODBC/JDBC:
+- experimental introspection adapters.
+- intended for metadata discovery and sample reads before full production hardening.
+
+## UX/API parity notes
+
+1. Mappings pages use server-side pagination via workbench `offset` and `limit`.
+2. Contract row filtering and mapping-class filtering are API-driven.
+3. Lifecycle UI actions call the same backend command orchestration used for CLI artifacts.
+4. ERD filters rely on `table_filter` query to render focused subgraphs.
 
 ## Security and operational notes
 
 1. Current build is local/sandbox-oriented; production must add:
 - RBAC
 - secret vault integration
-- API auth and audit
+- API auth and audit logging
 
-2. Execute-run endpoint currently shells to pipeline command:
-- acceptable for internal engineering setup
+2. Execute-run endpoints currently shell pipeline commands:
+- acceptable for internal engineering/pre-production simulation
 - should migrate to controlled async job executor before production.
-3. ERD endpoints require connector/schema metadata expansion to include:
-- primary keys
-- foreign keys
-- inferred relationship confidence
-PostgreSQL emulator:
-- active emulator over target CSV artifacts
-- schema-qualified table naming (`public.load_*`)
-
-Cache/IRIS emulator:
-- active emulator over source CSV artifacts
-- uppercase legacy-style table naming (`INQUIRE.PATDATA`)
-
-JSON dummy:
-- active placeholder for JSON payload integrations
-- synthetic metadata and sample rows
