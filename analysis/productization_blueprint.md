@@ -33,6 +33,7 @@ Evolve this migration workspace into a reusable NHS migration product:
 - Views:
   - Dashboard
   - Schemas
+  - Visual ERD (planned integration)
   - Mappings
   - Runs/Gates
   - Connectors
@@ -41,6 +42,10 @@ API specification:
 - `analysis/api_surface_spec.md`
 User operating model:
 - `analysis/mission_critical_user_model.md`
+Future onboarding + DQ roadmap:
+- `analysis/enterprise_onboarding_and_dq_roadmap.md`
+NHS enterprise feature roadmap:
+- `analysis/enterprise_onboarding_and_dq_roadmap.md` (section G)
 
 ## Connector strategy
 
@@ -97,3 +102,7 @@ Current outcome:
 - null-rate
 - reject-rate
 - FK chain completeness
+5. Add interactive schema ERD UI:
+- PK/FK and inferred relationship graph
+- domain filter and lineage tracing
+- deep links from ERD node to schema/mapping/dq views

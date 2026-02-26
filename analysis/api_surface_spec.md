@@ -25,6 +25,11 @@ Provide enterprise-grade API coverage for DM engineer and stakeholder UI workflo
 - `GET /api/schema/source/{table_name}`
 - `GET /api/schema/target/{table_name}`
 
+### ERD / relationship graph (planned)
+- `GET /api/schema/source/relationships`
+- `GET /api/schema/target/relationships`
+- `GET /api/schema/{domain}/erd?schema_name=&table_filter=`
+
 ### Mapping explorer
 - `GET /api/mappings/contract`
 - `GET /api/mappings/contract/query?target_table=&mapping_class=&limit=`
@@ -74,6 +79,10 @@ JDBC:
 2. Execute-run endpoint currently shells to pipeline command:
 - acceptable for internal engineering setup
 - should migrate to controlled async job executor before production.
+3. ERD endpoints require connector/schema metadata expansion to include:
+- primary keys
+- foreign keys
+- inferred relationship confidence
 PostgreSQL emulator:
 - active emulator over target CSV artifacts
 - schema-qualified table naming (`public.load_*`)

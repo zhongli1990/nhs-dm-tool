@@ -77,6 +77,7 @@ python .\pipeline\run_product_lifecycle.py --rows 20 --seed 42 --min-patients 20
 - Deliverables summary index: `analysis/deliverables_summary.md`
 - Deployment guide: `analysis/deployment_guide.md`
 - Enterprise user guide: `analysis/enterprise_user_guide.md`
+- Enterprise onboarding and DQ roadmap: `analysis/enterprise_onboarding_and_dq_roadmap.md`
 
 ## Implementation notes
 
@@ -96,6 +97,7 @@ See `product/README.md` for running:
 UI lifecycle uplift (v0.0.2):
 - step-by-step execution console at `/lifecycle`
 - dynamic schema/table/field explorer
+- visual schema ERD integration roadmap defined (PK/FK/inferred lineage graph)
 - dynamic mapping contract filtering
 - run controls with profile/rows/seed/min-patient parameters
 - gate/reject operational review tabs

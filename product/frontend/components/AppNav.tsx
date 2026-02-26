@@ -18,6 +18,7 @@ const MENU = [
     items: [
       { href: "/lifecycle", label: "Lifecycle" },
       { href: "/runs", label: "Runs" },
+      { href: "/quality", label: "Quality" },
     ],
   },
   { header: "Ops", items: [{ href: "/users", label: "Roles" }] },

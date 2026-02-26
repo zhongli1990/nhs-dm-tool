@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { ReactNode } from "react";
 import AppNav from "../components/AppNav";
+import ThemeModeSwitch from "../components/ThemeModeSwitch";
 
 export const metadata = {
   title: "NHS Data Migration Control Plane",
@@ -17,7 +18,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <div className="title">NHS Migration Control Plane</div>
               <div className="subtitle">Enterprise PAS to EPR Data Migration Lifecycle</div>
             </div>
-            <div className="topbar-meta">Mission-critical mode</div>
+            <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+              <ThemeModeSwitch />
+              <div className="topbar-meta">Mission-critical mode</div>
+            </div>
           </header>
           <div className="app-main">
             <AppNav />

@@ -9,3 +9,13 @@ record_number,load_opd_record_number,system_code,external_system_id,diagnosis_di
 8,8,SRC_PAS_V83,MRN10008,1,,M79.3,Coded by clinician post-encounter
 9,9,SRC_PAS_V83,MRN10009,1,,L40.0,Coded by clinician post-encounter
 10,10,SRC_PAS_V83,MRN10010,1,,Z96.6,Coded by clinician post-encounter
+11,11,SRC_PAS_V83,MRN10011,1,,I25.1,Coded by clinician post-encounter
+12,12,SRC_PAS_V83,MRN10012,1,,J18.9,Coded by clinician post-encounter
+13,13,SRC_PAS_V83,MRN10013,1,,M16.1,Coded by clinician post-encounter
+14,14,SRC_PAS_V83,MRN10014,1,,K80.2,Coded by clinician post-encounter
+15,15,SRC_PAS_V83,MRN10015,1,,N18.3,Coded by clinician post-encounter
+16,16,SRC_PAS_V83,MRN10016,1,,E11.9,Coded by clinician post-encounter
+17,17,SRC_PAS_V83,MRN10017,1,,F32.1,Coded by clinician post-encounter
+18,18,SRC_PAS_V83,MRN10018,1,,M79.3,Coded by clinician post-encounter
+19,19,SRC_PAS_V83,MRN10019,1,,L40.0,Coded by clinician post-encounter
+20,20,SRC_PAS_V83,MRN10020,1,,Z96.6,Coded by clinician post-encounter

@@ -57,6 +57,7 @@ powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\produc
 - `/mappings` mapping contract explorer (summary + filtered field rows)
 - `/lifecycle` step-by-step lifecycle orchestration (run each stage or all stages with run controls)
 - `/runs` execution console with profile controls, gate checks and reject review tabs
+- `/quality` data quality command centre with configurable KPIs and issue charts
 - `/connectors` connector strategy and dynamic connector config/test/preview console
 - `/users` mission-critical user roles and lifecycle task ownership
 
