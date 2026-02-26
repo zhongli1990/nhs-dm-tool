@@ -395,6 +395,18 @@ def _read_workbench() -> List[Dict[str, object]]:
     if not MAPPING_WORKBENCH_FILE.exists():
         return _bootstrap_workbench()
     payload = read_json(MAPPING_WORKBENCH_FILE)
+    if not payload:
+        # Attempt salvage for partially-corrupted JSON by trimming trailing bytes after final ']'.
+        try:
+            raw = MAPPING_WORKBENCH_FILE.read_text(encoding="utf-8")
+            end = raw.rfind("]")
+            if end > 0:
+                repaired = json.loads(raw[: end + 1])
+                if isinstance(repaired, list):
+                    MAPPING_WORKBENCH_FILE.write_text(json.dumps(repaired, indent=2), encoding="utf-8")
+                    payload = repaired
+        except Exception:
+            payload = {}
     if isinstance(payload, list):
         now = datetime.now(timezone.utc).isoformat()
         normalized = []
@@ -444,7 +456,16 @@ def _infer_schema_relationships(domain: str) -> Dict[str, object]:
             key = ("PATDATA", table, "InternalPatientNumber")
             if key not in seen and "PATDATA" in table_map:
                 seen.add(key)
-                edges.append({"source": "PATDATA", "target": table, "field": "InternalPatientNumber", "confidence": "inferred", "reason": "shared patient key"})
+                edges.append(
+                    {
+                        "source": "PATDATA",
+                        "target": table,
+                        "field": "InternalPatientNumber",
+                        "confidence": "inferred",
+                        "reason": "shared patient key",
+                        "cardinality": "1:N",
+                    }
+                )
 
         if domain == "target":
             for c in cols:
@@ -456,14 +477,32 @@ def _infer_schema_relationships(domain: str) -> Dict[str, object]:
                         key = (parent, table, c)
                         if key not in seen:
                             seen.add(key)
-                            edges.append({"source": parent, "target": table, "field": c, "confidence": "inferred", "reason": "record-number reference naming"})
+                            edges.append(
+                                {
+                                    "source": parent,
+                                    "target": table,
+                                    "field": c,
+                                    "confidence": "inferred",
+                                    "reason": "record-number reference naming",
+                                    "cardinality": "1:N",
+                                }
+                            )
 
             if "record_number" in cols and table.startswith("LOAD_") and table != "LOAD_PMI":
                 if "LOAD_PMI" in table_map:
                     key = ("LOAD_PMI", table, "record_number")
                     if key not in seen:
                         seen.add(key)
-                        edges.append({"source": "LOAD_PMI", "target": table, "field": "record_number", "confidence": "inferred", "reason": "shared record_number"})
+                        edges.append(
+                            {
+                                "source": "LOAD_PMI",
+                                "target": table,
+                                "field": "record_number",
+                                "confidence": "inferred",
+                                "reason": "shared record_number",
+                                "cardinality": "1:N",
+                            }
+                        )
 
     return {"domain": domain, "nodes": [{"id": t["table_name"], "label": t["table_name"], "column_count": t["column_count"]} for t in tables], "edges": edges}
 
@@ -529,7 +568,8 @@ def mapping_workbench(
     target_table: Optional[str] = Query(default=None),
     status: Optional[str] = Query(default=None),
     mapping_class: Optional[str] = Query(default=None),
-    limit: int = Query(default=5000, ge=1, le=20000),
+    offset: int = Query(default=0, ge=0, le=1000000),
+    limit: int = Query(default=500, ge=1, le=5000),
 ):
     rows = _read_workbench()
     if target_table:
@@ -542,7 +582,9 @@ def mapping_workbench(
     for r in rows:
         s = str(r.get("status", "DRAFT")).upper()
         status_counts[s] = status_counts.get(s, 0) + 1
-    return {"row_count": len(rows), "rows": rows[:limit], "status_counts": status_counts}
+    total = len(rows)
+    page_rows = rows[offset : offset + limit]
+    return {"row_count": total, "offset": offset, "limit": limit, "rows": page_rows, "status_counts": status_counts}
 
 
 @app.post("/api/mappings/workbench/upsert")

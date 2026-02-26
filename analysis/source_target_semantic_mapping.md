@@ -45,19 +45,19 @@ They do not represent the full source estate (417 tables), and some target table
 
 | Source Table | Total Fields | Mapped Fields | Unmapped Fields | Coverage % |
 |---|---:|---:|---:|---:|
-| ADMITDISCH | 69 | 6 | 63 | 8.7 |
+| ADMITDISCH | 69 | 8 | 61 | 11.6 |
 | ADTLADDCOR | 23 | 0 | 23 | 0.0 |
 | AEA | 69 | 1 | 68 | 1.4 |
 | CPSGREFERRAL | 46 | 1 | 45 | 2.2 |
 | FCEEXT | 68 | 8 | 60 | 11.8 |
-| HWSAPP | 90 | 0 | 90 | 0.0 |
+| HWSAPP | 90 | 11 | 79 | 12.2 |
 | OPA | 107 | 20 | 87 | 18.7 |
 | OPREFERRAL | 47 | 3 | 44 | 6.4 |
 | PATDATA | 131 | 10 | 121 | 7.6 |
 | SMREPISODE | 52 | 2 | 50 | 3.8 |
-| WLACTIVITY | 68 | 1 | 67 | 1.5 |
-| WLCURRENT | 90 | 4 | 86 | 4.4 |
-| WLENTRY | 90 | 11 | 79 | 12.2 |
+| WLACTIVITY | 68 | 0 | 68 | 0.0 |
+| WLCURRENT | 90 | 6 | 84 | 6.7 |
+| WLENTRY | 90 | 10 | 80 | 11.1 |
 
 ## Outputs
 

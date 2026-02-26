@@ -14,9 +14,9 @@
   "priority_source_coverage": {
     "ADMITDISCH": {
       "total_fields": 69,
-      "mapped_fields": 6,
-      "unmapped_fields": 63,
-      "coverage_pct": 8.7
+      "mapped_fields": 8,
+      "unmapped_fields": 61,
+      "coverage_pct": 11.6
     },
     "ADTLADDCOR": {
       "total_fields": 23,
@@ -44,9 +44,9 @@
     },
     "HWSAPP": {
       "total_fields": 90,
-      "mapped_fields": 0,
-      "unmapped_fields": 90,
-      "coverage_pct": 0.0
+      "mapped_fields": 11,
+      "unmapped_fields": 79,
+      "coverage_pct": 12.2
     },
     "OPA": {
       "total_fields": 107,
@@ -74,21 +74,21 @@
     },
     "WLACTIVITY": {
       "total_fields": 68,
-      "mapped_fields": 1,
-      "unmapped_fields": 67,
-      "coverage_pct": 1.5
+      "mapped_fields": 0,
+      "unmapped_fields": 68,
+      "coverage_pct": 0.0
     },
     "WLCURRENT": {
       "total_fields": 90,
-      "mapped_fields": 4,
-      "unmapped_fields": 86,
-      "coverage_pct": 4.4
+      "mapped_fields": 6,
+      "unmapped_fields": 84,
+      "coverage_pct": 6.7
     },
     "WLENTRY": {
       "total_fields": 90,
-      "mapped_fields": 11,
-      "unmapped_fields": 79,
-      "coverage_pct": 12.2
+      "mapped_fields": 10,
+      "unmapped_fields": 80,
+      "coverage_pct": 11.1
     }
   }
 }

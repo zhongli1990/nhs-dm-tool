@@ -1,0 +1,6 @@
+severity,category,table_name,field_name,record_id,message
+WARN,SOURCE_BASE_UNRESOLVED,LOAD_IWL_PROFILES,,,No available base source table found. Using synthetic rows for LOAD_IWL_PROFILES.
+WARN,SOURCE_BASE_UNRESOLVED,LOAD_PMIIDS,,,No available base source table found. Using synthetic rows for LOAD_PMIIDS.
+WARN,SOURCE_BASE_UNRESOLVED,LOAD_SITES,,,No available base source table found. Using synthetic rows for LOAD_SITES.
+WARN,SOURCE_BASE_UNRESOLVED,LOAD_STAFF,,,No available base source table found. Using synthetic rows for LOAD_STAFF.
+WARN,SOURCE_BASE_UNRESOLVED,LOAD_USERS,,,No available base source table found. Using synthetic rows for LOAD_USERS.

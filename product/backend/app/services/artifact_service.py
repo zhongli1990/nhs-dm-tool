@@ -8,7 +8,10 @@ from typing import Dict, List
 def read_json(path: Path) -> Dict:
     if not path.exists():
         return {}
-    return json.loads(path.read_text(encoding="utf-8"))
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
 
 
 def read_csv(path: Path) -> List[Dict[str, str]]:

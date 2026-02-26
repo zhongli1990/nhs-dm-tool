@@ -200,16 +200,18 @@ select {
   width: 100%;
   padding: 8px;
   margin-top: 4px;
-  border: 1px solid #b8ccd1;
+  border: 1px solid var(--border);
   border-radius: 9px;
-  background: #fff;
+  background: var(--surface);
+  color: var(--ink);
 }
 
 button {
   padding: 8px 11px;
   border-radius: 9px;
-  border: 1px solid #a9c5c9;
-  background: #f1faf8;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+  color: var(--ink);
   cursor: pointer;
 }
 
@@ -232,8 +234,9 @@ button:disabled {
 }
 
 .section-tab {
-  background: #f4f9fb;
+  background: var(--surface-soft);
   border: 1px solid var(--border);
+  color: var(--ink);
 }
 
 .section-tab.active {
@@ -265,7 +268,17 @@ td {
 }
 
 th {
-  background: #edf4f6;
+  background: var(--surface-soft);
+  color: var(--ink);
+}
+
+option {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+input::placeholder {
+  color: var(--muted);
 }
 
 .status-pass {
@@ -299,7 +312,8 @@ th {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px;
-  background: #f8fbfc;
+  background: var(--surface-soft);
+  color: var(--ink);
 }
 
 .kpi-bar {

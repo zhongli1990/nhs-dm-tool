@@ -130,5 +130,27 @@
     "unresolved_mapping": 3,
     "release_status": "PASS",
     "event": "seed_quality_trend"
+  },
+  {
+    "ts_utc": "2026-02-26T21:25:04.299736+00:00",
+    "error_count": 0,
+    "warning_count": 5,
+    "crosswalk_rejects": 0,
+    "population_ratio": 0.6784,
+    "tables_written": 38,
+    "unresolved_mapping": 0,
+    "release_status": "PASS",
+    "event": "run_execute"
+  },
+  {
+    "ts_utc": "2026-02-26T22:16:03.914132+00:00",
+    "error_count": 0,
+    "warning_count": 5,
+    "crosswalk_rejects": 0,
+    "population_ratio": 0.6784,
+    "tables_written": 38,
+    "unresolved_mapping": 0,
+    "release_status": "PASS",
+    "event": "step_build_mapping_contract"
   }
 ]

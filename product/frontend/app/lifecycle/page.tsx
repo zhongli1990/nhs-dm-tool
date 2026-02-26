@@ -163,11 +163,10 @@ export default function LifecyclePage() {
       <section className="card" style={{ gridColumn: "1 / -1" }}>
         <h3>Lifecycle Steps</h3>
         <DataTable
-          columns={["name", "description", "command", "status", "action"]}
+          columns={["name", "description", "status", "action", "command"]}
           rows={steps.map((s) => ({
             name: s.name,
             description: s.description,
-            command: s.command.join(" "),
             status: stepStatus[s.id] || "PENDING",
             action: (
               <div style={{ display: "flex", gap: 6 }}>
@@ -179,6 +178,7 @@ export default function LifecyclePage() {
                   </button>
               </div>
             ),
+            command: s.command.join(" "),
               }))}
           emptyLabel="No lifecycle steps loaded."
         />
