@@ -4,7 +4,7 @@
 
 1. `backend/`
 - FastAPI control-plane API over migration artifacts
-- connector plugin framework (CSV active, ODBC/JDBC stubs)
+- connector plugin framework (CSV active, ODBC/JDBC experimental)
   - PostgreSQL emulator (target) active
   - Cache/IRIS emulator (source) active
   - JSON dummy connector active
@@ -54,10 +54,14 @@ powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\produc
 
 - `/` dashboard
 - `/schemas` dynamic source/target explorer with table filter and field drill-down
+- `/erd` visual ERD and inferred relationship explorer
 - `/mappings` mapping contract explorer (summary + filtered field rows)
 - `/lifecycle` step-by-step lifecycle orchestration (run each stage or all stages with run controls)
 - `/runs` execution console with profile controls, gate checks and reject review tabs
-- `/quality` data quality command centre with configurable KPIs and issue charts
+- `/quality` data quality command centre:
+  - Dashboard
+  - KPI Widgets (sparkline, this-week value, threshold bar)
+  - Issue Explorer
 - `/connectors` connector strategy and dynamic connector config/test/preview console
 - `/users` mission-critical user roles and lifecycle task ownership
 
@@ -70,8 +74,13 @@ Highlights:
 - schema APIs for dynamic table/column rendering
 - mapping APIs with filtering
 - lifecycle step APIs (`/api/lifecycle/steps`, `/api/lifecycle/steps/{step_id}/execute`)
+- lifecycle rerun/snapshot APIs (`/api/lifecycle/execute-from/{step_id}`, `/api/lifecycle/snapshots`, `/api/lifecycle/snapshots/{snapshot_id}/restore`)
 - run APIs (latest/history/execute)
-- quality/reject APIs
+- quality/reject APIs:
+  - `/api/quality/trends`
+  - `/api/quality/trends/seed`
+  - `/api/quality/kpis`
+  - `/api/quality/kpi-widgets`
 - gate profile APIs
 - connector exploration APIs
 
@@ -84,12 +93,13 @@ python .\pipeline\run_product_lifecycle.py --rows 20 --seed 42 --min-patients 20
 
 ## Connector placeholders
 
-ODBC/JDBC connectors are implemented as structured stubs with full interface contracts.
-They are intentionally non-executable in this build and are ready for:
+ODBC/JDBC connectors are implemented as experimental connectors.
+They support metadata introspection and row sampling where drivers are available.
+Production hardening still required:
 - secure credential integration
 - read-only query policy
-- metadata introspection
-- paged sampling
+- timeout/query governance
+- audit and telemetry
 
 ## Best-practice runtime approach
 

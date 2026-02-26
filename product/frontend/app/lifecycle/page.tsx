@@ -21,6 +21,7 @@ export default function LifecyclePage() {
   const [log, setLog] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [stepStatus, setStepStatus] = useState<Record<string, "PASS" | "FAIL" | "PENDING">>({});
+  const [snapshots, setSnapshots] = useState<any[]>([]);
 
   const query = useMemo(
     () => `rows=${rows}&seed=${seed}&min_patients=${minPatients}&release_profile=${profile}`,
@@ -38,8 +39,14 @@ export default function LifecyclePage() {
     );
   }
 
+  async function loadSnapshots() {
+    const payload = await apiGet<{ snapshots: any[] }>("/api/lifecycle/snapshots?limit=40");
+    setSnapshots(payload.snapshots || []);
+  }
+
   useEffect(() => {
     loadSteps().catch(() => undefined);
+    loadSnapshots().catch(() => undefined);
   }, [query]);
 
   async function runStep(stepId: string) {
@@ -76,6 +83,44 @@ export default function LifecyclePage() {
       } catch {
         break;
       }
+    }
+  }
+
+  async function runFromStep(stepId: string) {
+    setRunningStep(stepId);
+    setError("");
+    try {
+      const payload = await apiPost<any>(`/api/lifecycle/execute-from/${stepId}?${query}`);
+      const lines = [
+        `RUN FROM STEP: ${stepId}`,
+        `STATUS: ${payload.overall_status}`,
+        `SNAPSHOT PRE: ${payload.snapshots?.pre || "-"}`,
+        `SNAPSHOT POST: ${payload.snapshots?.post || "-"}`,
+        "",
+      ];
+      for (const s of payload.steps_executed || []) {
+        lines.push(`${s.step_id} => rc=${s.return_code}`);
+      }
+      setLog(lines.join("\n"));
+      await loadSnapshots();
+    } catch (ex: any) {
+      setError(ex?.message || "execute-from-step failed");
+    } finally {
+      setRunningStep("");
+    }
+  }
+
+  async function restoreSnapshot(snapshotId: string) {
+    setError("");
+    setRunningStep("restore");
+    try {
+      const payload = await apiPost<any>(`/api/lifecycle/snapshots/${encodeURIComponent(snapshotId)}/restore`);
+      setLog(`RESTORE OK\nsnapshot=${payload.snapshot_id}`);
+      await loadSnapshots();
+    } catch (ex: any) {
+      setError(ex?.message || "snapshot restore failed");
+    } finally {
+      setRunningStep("");
     }
   }
 
@@ -125,12 +170,36 @@ export default function LifecyclePage() {
             command: s.command.join(" "),
             status: stepStatus[s.id] || "PENDING",
             action: (
-              <button type="button" disabled={!!runningStep} onClick={() => runStep(s.id).catch(() => undefined)}>
-                {runningStep === s.id ? "Running..." : "Run Step"}
+              <div style={{ display: "flex", gap: 6 }}>
+                  <button type="button" disabled={!!runningStep} onClick={() => runStep(s.id).catch(() => undefined)}>
+                    {runningStep === s.id ? "Running..." : "Run Step"}
+                  </button>
+                  <button type="button" disabled={!!runningStep} onClick={() => runFromStep(s.id).catch(() => undefined)}>
+                    Run From Here
+                  </button>
+              </div>
+            ),
+              }))}
+          emptyLabel="No lifecycle steps loaded."
+        />
+      </section>
+
+      <section className="card" style={{ gridColumn: "1 / -1" }}>
+        <h3>Snapshots (Restore / Undo)</h3>
+        <DataTable
+          columns={["snapshot_id", "label", "created_at_utc", "quality", "action"]}
+          rows={snapshots.map((s) => ({
+            snapshot_id: s.snapshot_id,
+            label: s.label,
+            created_at_utc: s.created_at_utc,
+            quality: `errors=${s.quality?.error_count ?? 0}, warns=${s.quality?.warning_count ?? 0}, ratio=${s.quality?.population_ratio ?? 0}`,
+            action: (
+              <button type="button" disabled={!!runningStep} onClick={() => restoreSnapshot(s.snapshot_id).catch(() => undefined)}>
+                Restore
               </button>
             ),
           }))}
-          emptyLabel="No lifecycle steps loaded."
+          emptyLabel="No snapshots available yet."
         />
       </section>
 

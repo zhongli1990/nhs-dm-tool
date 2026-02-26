@@ -1,0 +1,50 @@
+[
+  {
+    "id": "error_count",
+    "label": "DQ Errors",
+    "threshold": 0.0,
+    "direction": "max",
+    "enabled": true,
+    "format": "int"
+  },
+  {
+    "id": "warning_count",
+    "label": "DQ Warnings",
+    "threshold": 20.0,
+    "direction": "max",
+    "enabled": true,
+    "format": "int"
+  },
+  {
+    "id": "crosswalk_rejects",
+    "label": "Crosswalk Rejects",
+    "threshold": 0.0,
+    "direction": "max",
+    "enabled": true,
+    "format": "int"
+  },
+  {
+    "id": "population_ratio",
+    "label": "Population Ratio",
+    "threshold": 0.55,
+    "direction": "min",
+    "enabled": true,
+    "format": "pct"
+  },
+  {
+    "id": "tables_written",
+    "label": "Tables Written",
+    "threshold": 38.0,
+    "direction": "min",
+    "enabled": true,
+    "format": "int"
+  },
+  {
+    "id": "unresolved_mapping",
+    "label": "Unresolved Mapping",
+    "threshold": 10.0,
+    "direction": "max",
+    "enabled": true,
+    "format": "int"
+  }
+]

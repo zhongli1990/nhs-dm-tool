@@ -44,6 +44,11 @@ Audience: NHS migration program teams running mission-critical PAS/EPR migration
    - connector type selection/config and schema discovery.
 6. `/users`:
    - mission-critical role ownership model.
+7. `/quality`:
+   - tabbed quality operations:
+     - `Dashboard`
+     - `KPI Widgets`
+     - `Issue Explorer`
 
 ## 3.1 UI operation model (uplifted)
 
@@ -149,7 +154,12 @@ Open:
    - OUT_OF_SCOPE
 4. `/lifecycle`: run step-by-step lifecycle stages or run-all with controlled parameters.
 5. `/runs`: trigger full lifecycle, inspect outputs, gates, and rejects.
-6. `/runs` + `/mappings`: investigate warnings/rejects and loop to resolution.
+6. `/quality`:
+   - set weeks window and auto-refresh policy.
+   - run `Seed demo trend` when rehearsal environments have low history.
+   - adjust KPI thresholds and save governance config.
+   - review source runtime KPI widgets and gate KPI widgets.
+7. `/runs` + `/mappings`: investigate warnings/rejects and loop to resolution.
 
 ## 6. Connector operation model
 
@@ -159,8 +169,8 @@ Open:
    - `cache_iris_emulator` (source)
    - `postgres_emulator` (target)
 3. Placeholders/stubs:
-   - `odbc`
-   - `jdbc`
+   - `odbc` (experimental)
+   - `jdbc` (experimental)
    - `json_dummy`
 
 Usage policy for enterprise runs:

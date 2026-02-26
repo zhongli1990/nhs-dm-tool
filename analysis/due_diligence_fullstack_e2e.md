@@ -26,6 +26,11 @@ Current state is **not yet production-safe** for mission-critical deployment wit
 3. API-triggered lifecycle execution:
 - `POST /api/runs/execute?rows=20&seed=42&min_patients=20&release_profile=pre_production`
 - Result: return_code `0`, lifecycle status `PASS`
+4. Uplifted mission-critical APIs verified:
+- mapping workbench (`/api/mappings/workbench*`)
+- ERD (`/api/schema-graph/{domain}/erd`)
+- quality KPI widgets (`/api/quality/kpi-widgets`)
+- lifecycle snapshot controls (`/api/lifecycle/snapshots*`)
 
 ## Data and emulator checks
 
@@ -85,8 +90,9 @@ Current state is **not yet production-safe** for mission-critical deployment wit
 
 ### Medium findings
 
-3. ODBC/JDBC are structured stubs
-- connectors are intentionally placeholders and non-operational
+3. ODBC/JDBC are experimental
+- metadata and sampling paths are available where drivers are installed
+- not yet production-hardened for mission-critical DB connectivity
 - required action:
   - implement read-only DB credentials
   - add secret vault integration

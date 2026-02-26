@@ -82,17 +82,25 @@ Define the product roadmap for onboarding any NHS PAS/EPR estate (different sche
 
 Add a dedicated `/quality` page with three sub-tabs:
 
-1. `KPI Overview`
-- pass/fail gate status
-- error count, warning count
-- crosswalk reject rate
-- completeness/population ratio
-- FK chain completeness
+1. `Dashboard`
+- release gate status and mission-critical KPI cards
+- top failing tables bars for fast triage
+- operational summary aligned to run outputs
 
-2. `Trends`
-- run-over-run error/warning trends
-- reject trends by mapping class/table/domain
-- population ratio trend line by run id/date
+2. `KPI Widgets`
+- KPI scorecard table with:
+  - KPI name
+  - 12-week sparkline
+  - this-week value
+  - threshold percentage bar
+- split views:
+  - source runtime profile KPIs
+  - migration gate KPIs
+- user controls:
+  - weeks window selector
+  - auto-refresh interval selector
+  - manual refresh button
+  - demo trend seed button for rehearsal rendering
 
 3. `Issue Explorer`
 - filterable issue table by severity, domain, table, field, owner
@@ -109,11 +117,53 @@ Add a dedicated `/quality` page with three sub-tabs:
 6. `FK_COMPLETENESS`: valid child-parent references / expected references
 7. `UNRESOLVED_MAPPING`: unresolved required mapping items
 
+## B2.1 Source runtime profile KPIs (operational scorecard)
+
+1. `DUPLICATE_NHS_NUMBERS`
+2. `INCOMPLETE_NHS_NUMBERS`
+3. `INVALID_NHS_NUMBERS`
+4. `INCOMPLETE_POSTCODES`
+5. `INVALID_POSTCODES`
+6. `INCOMPLETE_CURRENT_GP`
+7. `INCOMPLETE_GP_PRACTICE`
+8. `INCOMPLETE_DATE_OF_BIRTH`
+9. `INCOMPLETE_ETHNIC_CATEGORY`
+10. `UNOUTCOMED_APPOINTMENTS_HISTORICAL`
+11. `ADDRESS_POSTCODE_LENGTH_BREACH`
+
+## B2.2 KPI research and governance method
+
+1. Define KPI domains:
+- patient identity
+- demographics
+- pathway integrity
+- coding quality
+- referential integrity
+- transformation quality
+
+2. For each KPI define:
+- formula and denominator
+- source of truth table(s)/field(s)
+- threshold by environment (`development`, `pre_production`, `cutover_ready`)
+- severity and release gate impact
+- accountable owner role
+
+3. Validate with SME panel:
+- DM delivery lead
+- data quality lead
+- PAS analyst
+- clinical safety reviewer
+
+4. Operate in quarterly KPI review cycle:
+- retire low-value KPIs
+- introduce new risk indicators
+- recalibrate thresholds after rehearsals/cutovers
+
 ## B3. Visual design direction (NHS style)
 
 1. Clean NHS-blue palette with accessible contrast
 2. KPI cards for executive summary
-3. Sparkline/trend components for run history
+3. Sparkline/trend components for run history and KPI widget rows
 4. Severity color system:
 - pass (green)
 - warn (amber)

@@ -19,13 +19,14 @@ Evolve this migration workspace into a reusable NHS migration product:
 
 2. Control-plane backend (`product/backend/`)
 - FastAPI endpoints for schemas, mappings, runs, rejects
+- mapping workbench approvals, quality trends/KPI widgets, and lifecycle snapshots
 - Connector plugin registry:
   - CSV connector active
   - PostgreSQL emulator active (target)
   - Cache/IRIS emulator active (source)
   - JSON dummy connector active
-  - ODBC connector adapter stub
-  - JDBC connector adapter stub
+  - ODBC connector adapter (experimental)
+  - JDBC connector adapter (experimental)
 
 3. Control-plane frontend (`product/frontend/`)
 - Next.js app router UI
@@ -33,8 +34,10 @@ Evolve this migration workspace into a reusable NHS migration product:
 - Views:
   - Dashboard
   - Schemas
-  - Visual ERD (planned integration)
+  - Visual ERD
   - Mappings
+  - Quality (Dashboard/KPI Widgets/Issue Explorer)
+  - Lifecycle (run, rerun-from-step, snapshot restore)
   - Runs/Gates
   - Connectors
 

@@ -70,7 +70,7 @@ python .\pipeline\run_product_lifecycle.py --rows 20 --seed 42 --min-patients 20
 - Lifecycle narrative and steps: `analysis/qvh_pas_migration_e2e_lifecycle.md`
 - Product blueprint: `analysis/productization_blueprint.md`
 - API surface: `analysis/api_surface_spec.md`
-- Connector stubs: `analysis/connector_stub_spec.md`
+- Connector experimental spec: `analysis/connector_stub_spec.md`
 - User model and lifecycle ownership: `analysis/mission_critical_user_model.md`
 - Runtime strategy: `analysis/fullstack_runtime_strategy.md`
 - Full-stack due diligence: `analysis/due_diligence_fullstack_e2e.md`
@@ -97,14 +97,19 @@ See `product/README.md` for running:
 UI lifecycle uplift (v0.0.2):
 - step-by-step execution console at `/lifecycle`
 - dynamic schema/table/field explorer
-- visual schema ERD integration roadmap defined (PK/FK/inferred lineage graph)
+- visual schema ERD page at `/erd` (PK/FK/inferred lineage graph MVP)
 - dynamic mapping contract filtering
 - run controls with profile/rows/seed/min-patient parameters
 - gate/reject operational review tabs
+- quality command centre tabs:
+  - Dashboard
+  - KPI Widgets
+  - Issue Explorer
+- lifecycle rerun and snapshot restore controls
 
 Connector modes currently exposed in API/UI:
 - `cache_iris_emulator` (source, active)
 - `postgres_emulator` (target, active)
 - `csv` (real file connector, active)
 - `json_dummy` (dummy placeholder, active)
-- `odbc` / `jdbc` (structured stubs for next phase)
+- `odbc` / `jdbc` (experimental introspection connectors)

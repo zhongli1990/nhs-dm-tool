@@ -24,7 +24,7 @@ def build_connector(connector_type: str, connection_string: str, schema_name: st
     if t in {"json", "json_dummy"}:
         return JsonDummyConnector(connection_string=connection_string, schema_name=schema_name or options.get("schema_name", "json"))
     if t == "odbc":
-        return OdbcConnector(connection_string=connection_string, schema_name=schema_name)
+        return OdbcConnector(connection_string=connection_string, schema_name=schema_name, options=options)
     if t == "jdbc":
-        return JdbcConnector(connection_string=connection_string, schema_name=schema_name)
+        return JdbcConnector(connection_string=connection_string, schema_name=schema_name, options=options)
     raise ValueError(f"Unsupported connector_type: {connector_type}")

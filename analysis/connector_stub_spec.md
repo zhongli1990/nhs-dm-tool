@@ -1,10 +1,10 @@
-# ODBC/JDBC Connector Stub Specification
+# ODBC/JDBC Connector Experimental Specification
 
 Date: 2026-02-25
 
 ## Scope
 
-Define production-ready placeholder contracts for connector adapters while DB driver integration is pending.
+Define experimental connector contracts and hardening requirements while full production DB integration is pending.
 
 Implemented modules:
 - `product/backend/app/connectors/odbc_connector.py`
@@ -48,7 +48,7 @@ Assumed behavior:
 - returns synthetic JSON payload/event table structures
 - supports UI/API integration testing without live JSON source
 
-## JDBC/ODBC stubs
+## JDBC/ODBC experimental implementation
 
 ### ODBC
 

@@ -25,8 +25,14 @@ Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
    - CSV real connector
    - Cache/IRIS emulator connector
    - PostgreSQL emulator connector
-   - ODBC/JDBC stubs
+   - ODBC/JDBC experimental introspection connectors
    - JSON dummy connector
+5. Priority feature uplift (1-5) implemented:
+   - mapping workbench + approval workflow
+   - ODBC/JDBC introspection path
+   - ERD relationship APIs + UI
+   - quality trends history and dashboard
+   - selective rerun-from-step + snapshot restore
 
 ## 2. Code structure
 
@@ -68,7 +74,10 @@ Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
 3. Frontend:
    - [app/page.tsx](c:/Zhong/Windsurf/data_migration/product/frontend/app/page.tsx)
    - `app/schemas/page.tsx`
+   - `app/erd/page.tsx`
    - `app/mappings/page.tsx`
+   - `app/quality/page.tsx`
+   - `app/lifecycle/page.tsx`
    - `app/runs/page.tsx`
    - `app/connectors/page.tsx`
    - `app/users/page.tsx`
@@ -115,6 +124,39 @@ Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
 3. Runs console with release profile controls and gate/reject tabs.
 4. Dynamic schema and mapping explorers with filtering and drill-down.
 5. Connector console with discovery, preview and operational setup flow.
+6. Quality command centre with tabbed views:
+   - Dashboard
+   - KPI Widgets
+   - Issue Explorer
+7. KPI widget controls:
+   - weeks window
+   - auto-refresh
+   - manual refresh
+   - demo trend seeding
+
+## 4.2 Feature uplift status matrix
+
+1. Mapping workbench and approvals: Implemented (MVP)
+- APIs: `/api/mappings/workbench*`
+- status model: `DRAFT`, `IN_REVIEW`, `APPROVED`, `REJECTED`
+
+2. ODBC/JDBC introspection: Implemented (experimental)
+- adapters support list/describe/sample where drivers are available
+- production hardening pending secret vault + auth + query governance
+
+3. ERD and relationship graph: Implemented (MVP)
+- APIs: `/api/schema-graph/{domain}/relationships`, `/api/schema-graph/{domain}/erd`
+- UI route: `/erd`
+
+4. Quality trends and KPI dashboard: Implemented (MVP+)
+- trend history file + APIs
+- tabbed quality UI with sparkline widget scorecards
+
+5. Selective rerun and snapshot restore: Implemented (MVP)
+- APIs:
+  - `/api/lifecycle/execute-from/{step_id}`
+  - `/api/lifecycle/snapshots`
+  - `/api/lifecycle/snapshots/{snapshot_id}/restore`
 
 ## 5. Document index
 

@@ -9,6 +9,7 @@ const MENU = [
     header: "Design",
     items: [
       { href: "/schemas", label: "Schemas" },
+      { href: "/erd", label: "ERD" },
       { href: "/mappings", label: "Mappings" },
       { href: "/connectors", label: "Connectors" },
     ],

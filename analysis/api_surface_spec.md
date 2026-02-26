@@ -25,23 +25,33 @@ Provide enterprise-grade API coverage for DM engineer and stakeholder UI workflo
 - `GET /api/schema/source/{table_name}`
 - `GET /api/schema/target/{table_name}`
 
-### ERD / relationship graph (planned)
-- `GET /api/schema/source/relationships`
-- `GET /api/schema/target/relationships`
-- `GET /api/schema/{domain}/erd?schema_name=&table_filter=`
+### ERD / relationship graph
+- `GET /api/schema-graph/{domain}/relationships`
+- `GET /api/schema-graph/{domain}/erd?table_filter=`
 
 ### Mapping explorer
 - `GET /api/mappings/contract`
 - `GET /api/mappings/contract/query?target_table=&mapping_class=&limit=`
+- `GET /api/mappings/workbench?target_table=&status=&mapping_class=&limit=`
+- `POST /api/mappings/workbench/upsert`
+- `POST /api/mappings/workbench/transition`
 
 ### Runs and reports
 - `GET /api/runs/latest`
 - `GET /api/runs/history`
 - `POST /api/runs/execute?rows=&seed=&min_patients=&release_profile=`
+- `POST /api/lifecycle/execute-from/{step_id}?rows=&seed=&min_patients=&release_profile=`
+- `GET /api/lifecycle/snapshots`
+- `POST /api/lifecycle/snapshots/{snapshot_id}/restore`
 
 ### Quality and rejects
 - `GET /api/quality/issues?kind=enterprise|contract|crosswalk_reject`
 - `GET /api/rejects/crosswalk`
+- `GET /api/quality/trends?limit=`
+- `POST /api/quality/trends/seed?weeks=&replace=`
+- `GET /api/quality/kpis`
+- `POST /api/quality/kpis`
+- `GET /api/quality/kpi-widgets?weeks=`
 
 ### Release gates
 - `GET /api/gates/profiles`
@@ -59,7 +69,7 @@ CSV:
 - active and usable in this build.
 
 ODBC:
-- adapter stub implemented with detailed placeholder contract for:
+- adapter implemented in experimental mode for:
   - connection string
   - schema selection
   - table listing
@@ -67,7 +77,7 @@ ODBC:
   - row sampling
 
 JDBC:
-- adapter stub implemented with same contract shape as ODBC.
+- adapter implemented in experimental mode with same contract shape as ODBC.
 
 ## Security and operational notes
 

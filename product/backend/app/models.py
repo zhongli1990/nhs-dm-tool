@@ -15,3 +15,20 @@ class TableProfile(BaseModel):
     table_name: str
     column_count: int
     field_count: int
+
+
+class MappingWorkbenchUpdate(BaseModel):
+    workbench_id: str
+    mapping_class: Optional[str] = None
+    primary_source_table: Optional[str] = None
+    primary_source_field: Optional[str] = None
+    transformation_rule: Optional[str] = None
+    notes: Optional[str] = None
+    updated_by: str = "ui_user"
+
+
+class MappingWorkbenchTransition(BaseModel):
+    workbench_id: str
+    status: str
+    updated_by: str = "ui_user"
+    notes: Optional[str] = None

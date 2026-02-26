@@ -203,16 +203,24 @@ Pending hardening:
 
 Implemented full-stack control-plane components:
 1. Backend API (`product/backend/app/main.py`) with schema/mapping/run/connector endpoints.
+2. Priority mission-critical uplift (1-5):
+- mapping workbench + approval states
+- ODBC/JDBC experimental introspection
+- ERD relationship APIs and UI
+- quality trend history and KPI widgets
+- rerun-from-step and snapshot restore
 2. Connector modes:
 - `cache_iris_emulator` (source)
 - `postgres_emulator` (target)
 - `csv` (real file connector)
 - `json_dummy` (dummy)
-- `odbc` and `jdbc` (structured stubs)
+- `odbc` and `jdbc` (experimental introspection connectors)
 3. Next.js UI pages for operations:
 - dashboard
 - schemas
+- erd
 - mappings
+- quality (Dashboard/KPI Widgets/Issue Explorer)
 - lifecycle (stage-by-stage orchestration, run-all, parameter controls)
 - runs
 - connectors (dynamic configure/test/explore)

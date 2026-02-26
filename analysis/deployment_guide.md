@@ -9,7 +9,7 @@ Deploy and operate the full migration control plane and pipeline stack for missi
 - pipeline batch lifecycle (schema, mapping, ETL, quality, gates)
 - FastAPI control-plane backend
 - Next.js operational frontend
-- connector modes (CSV real, Cache/IRIS emulator, PostgreSQL emulator, ODBC/JDBC stubs)
+- connector modes (CSV real, Cache/IRIS emulator, PostgreSQL emulator, ODBC/JDBC experimental)
 
 ## 2. Environment prerequisites
 
@@ -151,8 +151,14 @@ Validate these operational pages after startup:
    - summary and field-row filters work
 5. `/lifecycle`:
    - parameterized stage execution works (`rows`, `seed`, `min_patients`, `release_profile`)
+   - rerun-from-step and snapshot restore controls work
 6. `/runs`:
    - full lifecycle trigger works and gate/reject tabs refresh
+7. `/quality`:
+   - Dashboard/KPI Widgets/Issue Explorer tabs load
+   - weeks window, auto-refresh, and KPI save actions work
+8. `/erd`:
+   - relationship graph and table-filter drill-down load
 
 UI and CLI synchronization rule:
 
