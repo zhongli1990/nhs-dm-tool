@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
-import { API_BASE } from "../../lib/api";
+import { buildApiUrl } from "../../lib/api";
 import ThemeModeSwitch from "../../components/ThemeModeSwitch";
 import { APP_VERSION } from "../../lib/version";
 
@@ -20,7 +20,7 @@ export default function RegisterPage() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/auth/orgs`)
+    fetch(buildApiUrl("/api/auth/orgs"))
       .then((r) => r.json())
       .then((p) => {
         const rows = (p?.rows || []) as OrgRow[];
@@ -36,7 +36,7 @@ export default function RegisterPage() {
     setError("");
     setMessage("");
     try {
-      const res = await fetch(`${API_BASE}/api/auth/register`, {
+      const res = await fetch(buildApiUrl("/api/auth/register"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

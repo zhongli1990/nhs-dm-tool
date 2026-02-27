@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import AppNav from "./AppNav";
 import ThemeModeSwitch from "./ThemeModeSwitch";
 import AuthToolbar from "./AuthToolbar";
-import { API_BASE, getTokenFromBrowser } from "../lib/api";
+import { buildApiUrl, getTokenFromBrowser } from "../lib/api";
 import { APP_VERSION } from "../lib/version";
 
 export default function AppShell({ children }: { children: ReactNode }) {
@@ -32,7 +32,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
         return;
       }
       try {
-        const res = await fetch(`${API_BASE}/api/auth/me`, {
+        const res = await fetch(buildApiUrl("/api/auth/me"), {
           cache: "no-store",
           headers: { Authorization: `Bearer ${token}` },
         });

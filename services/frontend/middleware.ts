@@ -5,6 +5,15 @@ const PUBLIC_PATHS = ["/login", "/register", "/favicon.ico"];
 // Middleware runs server-side in the frontend container. Prefer internal service DNS.
 const API_BASE = process.env.DM_INTERNAL_API_BASE || process.env.NEXT_PUBLIC_DM_API_BASE || "http://backend:9134";
 
+function buildApiUrl(path: string): string {
+  const base = API_BASE.replace(/\/+$/, "");
+  let p = path.startsWith("/") ? path : `/${path}`;
+  if (base.endsWith("/api") && p.startsWith("/api/")) {
+    p = p.slice(4);
+  }
+  return `${base}${p}`;
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (pathname.startsWith("/_next") || pathname.startsWith("/api")) {
@@ -21,7 +30,7 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
-    const me = await fetch(`${API_BASE}/api/auth/me`, {
+    const me = await fetch(buildApiUrl("/api/auth/me"), {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
       cache: "no-store",

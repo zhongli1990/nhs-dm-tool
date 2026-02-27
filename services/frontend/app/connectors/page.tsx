@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { API_BASE, apiGet, getTokenFromBrowser } from "../../lib/api";
+import { apiGet, buildApiUrl, getTokenFromBrowser } from "../../lib/api";
 import DataTable from "../../components/DataTable";
 
 type ConnectorType = { id: string; label: string; mode: string; direction: string };
@@ -62,7 +62,7 @@ export default function ConnectorsPage() {
     setError("");
     try {
       const token = getTokenFromBrowser();
-      const res = await fetch(`${API_BASE}/api/connectors/preview`, {
+      const res = await fetch(buildApiUrl("/api/connectors/preview"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -99,7 +99,7 @@ export default function ConnectorsPage() {
     setTablePage(1);
     try {
       const token = getTokenFromBrowser();
-      const res = await fetch(`${API_BASE}/api/connectors/explore`, {
+      const res = await fetch(buildApiUrl("/api/connectors/explore"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
