@@ -81,7 +81,6 @@ export default function AppShell({ children }: { children: ReactNode }) {
           <ThemeModeSwitch />
           <AuthToolbar />
           <div className="topbar-meta">v{APP_VERSION}</div>
-          <div className="topbar-meta">Mission-critical mode</div>
         </div>
       </header>
       <div className="app-main">
