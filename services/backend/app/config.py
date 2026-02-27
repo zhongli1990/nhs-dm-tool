@@ -1,8 +1,11 @@
+import os
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[4]
-DATA_MIGRATION_ROOT = ROOT / "data_migration"
+# Resolve project root: prefer DM_DATA_ROOT env var, fallback to parents[3]
+# parents[3] from services/backend/app/config.py -> project root
+_default_root = Path(__file__).resolve().parents[3]
+DATA_MIGRATION_ROOT = Path(os.environ.get("DM_DATA_ROOT", str(_default_root)))
 SCHEMAS_DIR = DATA_MIGRATION_ROOT / "schemas"
 REPORTS_DIR = DATA_MIGRATION_ROOT / "reports"
 MOCK_SOURCE_DIR = DATA_MIGRATION_ROOT / "mock_data" / "source"

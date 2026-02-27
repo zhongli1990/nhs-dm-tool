@@ -1,0 +1,105 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: dmm-postgres
+    env_file: .env
+    environment:
+      - POSTGRES_DB=${DMM_POSTGRES_DB:-dmm}
+      - POSTGRES_USER=${DMM_POSTGRES_USER:-dmm_app}
+      - POSTGRES_PASSWORD=${DMM_POSTGRES_PASSWORD:-change_me_postgres_password}
+    ports:
+      - "${DMM_POSTGRES_PORT:-9136}:5432"
+    volumes:
+      - dmm-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DMM_POSTGRES_USER:-dmm_app} -d ${DMM_POSTGRES_DB:-dmm}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - dmm-internal
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    container_name: dmm-backend
+    env_file: .env
+    environment:
+      - DM_DATA_ROOT=/app
+      - DM_API_HOST=0.0.0.0
+      - DM_API_PORT=9134
+      - DM_DATABASE_URL=${DM_DATABASE_URL:-postgresql://dmm_app:change_me_postgres_password@postgres:5432/dmm}
+    ports:
+      - "${DMM_BACKEND_PORT:-9134}:9134"
+    volumes:
+      - dmm-reports:/app/reports
+      - dmm-mock-data:/app/mock_data
+      - dmm-saas-store:/app/services/backend/data
+      - dmm-schemas:/app/schemas
+    networks:
+      - dmm-internal
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+      args:
+        - NEXT_PUBLIC_DM_API_BASE=${NEXT_PUBLIC_DM_API_BASE:-http://localhost:9134}
+        - DM_INTERNAL_API_BASE=${DM_INTERNAL_API_BASE:-http://backend:9134}
+        - NEXT_PUBLIC_DMM_VERSION=${NEXT_PUBLIC_DMM_VERSION:-0.2.2}
+    container_name: dmm-frontend
+    env_file: .env
+    environment:
+      - DM_DATA_ROOT=/app
+      - NEXT_PUBLIC_DM_API_BASE=${NEXT_PUBLIC_DM_API_BASE:-http://localhost:9134}
+      - DM_INTERNAL_API_BASE=${DM_INTERNAL_API_BASE:-http://backend:9134}
+      - NEXT_PUBLIC_DMM_VERSION=${NEXT_PUBLIC_DMM_VERSION:-0.2.2}
+      - NODE_ENV=production
+    ports:
+      - "${DMM_FRONTEND_PORT:-9133}:3000"
+    volumes:
+      - dmm-reports:/app/reports:ro
+      - dmm-mock-data:/app/mock_data:ro
+      - dmm-schemas:/app/schemas:ro
+    networks:
+      - dmm-internal
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: dmm-nginx
+    ports:
+      - "${DMM_HTTP_PORT:-9135}:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - dmm-internal
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+
+volumes:
+  dmm-postgres:
+    driver: local
+  dmm-reports:
+    driver: local
+  dmm-mock-data:
+    driver: local
+  dmm-saas-store:
+    driver: local
+  dmm-schemas:
+    driver: local
+
+networks:
+  dmm-internal:
+    driver: bridge

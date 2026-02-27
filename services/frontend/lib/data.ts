@@ -3,8 +3,8 @@ import path from "path";
 
 type Row = Record<string, string>;
 
-const ROOT = path.resolve(process.cwd(), "..", "..");
-const DATA_MIGRATION_ROOT = path.join(ROOT);
+// Resolve project root: prefer DM_DATA_ROOT env var, fallback to 2 levels up from CWD
+const DATA_MIGRATION_ROOT = process.env.DM_DATA_ROOT || path.resolve(process.cwd(), "..", "..");
 
 function parseCsv(content: string): Row[] {
   const lines = content.split(/\r?\n/).filter((l) => l.length > 0);

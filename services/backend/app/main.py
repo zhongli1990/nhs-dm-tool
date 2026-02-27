@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import subprocess
 import random
@@ -34,9 +35,10 @@ app = FastAPI(
     description="OpenLI DMM multi-tenant migration API for schema, mapping, quality, lifecycle, and enterprise onboarding.",
 )
 
+_allow_origins = os.environ.get("DM_ALLOW_ORIGINS", "*").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -46,8 +48,8 @@ MAPPING_WORKBENCH_FILE = REPORTS_DIR / "mapping_workbench.json"
 QUALITY_HISTORY_FILE = REPORTS_DIR / "quality_history.json"
 QUALITY_KPI_CONFIG_FILE = REPORTS_DIR / "quality_kpi_config.json"
 SNAPSHOT_DIR = REPORTS_DIR / "snapshots"
-SAAS_STORE_FILE = DATA_MIGRATION_ROOT / "product" / "backend" / "data" / "saas_store.json"
-VERSION_MANIFEST_FILE = DATA_MIGRATION_ROOT / "product" / "version_manifest.json"
+SAAS_STORE_FILE = DATA_MIGRATION_ROOT / "services" / "backend" / "data" / "saas_store.json"
+VERSION_MANIFEST_FILE = DATA_MIGRATION_ROOT / "services" / "version_manifest.json"
 saas_store = SaaSStore(SAAS_STORE_FILE)
 PUBLIC_API_PATHS = {
     "/api/auth/login",
@@ -75,18 +77,21 @@ DEFAULT_QUALITY_KPIS = [
 
 DEFAULT_VERSION_MANIFEST = {
     "product_name": "OpenLI DMM",
-    "current_version": "0.2.0",
+    "current_version": "0.2.2",
     "released_on": "2026-02-27",
     "history": [
         {"version": "0.0.1", "released_on": "2026-02-26", "summary": "Baseline lifecycle control plane and migration pipeline."},
         {"version": "0.0.5", "released_on": "2026-02-27", "summary": "UX hardening, mapping workbench scale features, ERD and quality upgrades."},
         {"version": "0.2.0", "released_on": "2026-02-27", "summary": "SaaS baseline: auth, tenancy model, onboarding/settings, compact context UX."},
+        {"version": "0.2.1", "released_on": "2026-02-27", "summary": "Connector preview UX fix, table pagination default 10, version metadata display, lifecycle doc alignment."},
+        {"version": "0.2.2", "released_on": "2026-02-27", "summary": "Dockerized enterprise full-stack architecture, postgres integration, and merged 0.2.1 feature line into services runtime."},
     ],
 }
 
 
 def _read_version_manifest() -> Dict[str, object]:
     if not VERSION_MANIFEST_FILE.exists():
+        VERSION_MANIFEST_FILE.parent.mkdir(parents=True, exist_ok=True)
         VERSION_MANIFEST_FILE.write_text(json.dumps(DEFAULT_VERSION_MANIFEST, indent=2), encoding="utf-8")
         return DEFAULT_VERSION_MANIFEST
     payload = read_json(VERSION_MANIFEST_FILE)

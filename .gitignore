@@ -14,17 +14,22 @@ env/
 node_modules/
 .next/
 npm-debug.log*
-product/frontend/*.log
+services/frontend/*.log
 
 # OS / editor
 .DS_Store
 Thumbs.db
+*.swp
+*.swo
 
 # Local runtime artifacts
 *.out.log
 *.err.log
-product/backend/data/
+services/backend/data/
 
-# Safety exclusion requested by user scope
+# Docker
+.env
+
+# Safety exclusion
 new_requirement/
 */new_requirement/

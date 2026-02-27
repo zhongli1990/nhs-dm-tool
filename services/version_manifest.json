@@ -1,0 +1,32 @@
+{
+  "product_name": "OpenLI DMM",
+  "current_version": "0.2.2",
+  "released_on": "2026-02-27",
+  "history": [
+    {
+      "version": "0.0.1",
+      "released_on": "2026-02-26",
+      "summary": "Baseline lifecycle control plane and migration pipeline."
+    },
+    {
+      "version": "0.0.5",
+      "released_on": "2026-02-27",
+      "summary": "UX hardening, mapping workbench scale features, ERD and quality upgrades."
+    },
+    {
+      "version": "0.2.0",
+      "released_on": "2026-02-27",
+      "summary": "SaaS baseline: auth, tenancy model, onboarding/settings, compact context UX."
+    },
+    {
+      "version": "0.2.1",
+      "released_on": "2026-02-27",
+      "summary": "Connector preview UX fix, table pagination default 10, version metadata display, lifecycle doc alignment."
+    },
+    {
+      "version": "0.2.2",
+      "released_on": "2026-02-27",
+      "summary": "Dockerized enterprise full-stack architecture, postgres integration, and merged 0.2.1 feature line into services runtime."
+    }
+  ]
+}

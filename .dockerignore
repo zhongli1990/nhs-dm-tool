@@ -1,0 +1,41 @@
+# Git
+.git
+.gitignore
+
+# Documentation (not needed in images)
+docs/
+!docs/specs/
+!docs/specs/**
+
+# Node artifacts
+services/frontend/node_modules
+services/frontend/.next
+
+# Python artifacts
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.venv
+venv
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose*.yml
+.dockerignore
+.env
+.env.*
+
+# Scripts (deployment only)
+scripts/
+
+# Requirement specs are needed for lifecycle extraction in backend runtime.

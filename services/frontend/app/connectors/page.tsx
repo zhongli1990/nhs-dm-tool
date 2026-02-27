@@ -236,14 +236,14 @@ export default function ConnectorsPage() {
           rows={pagedTables.map((t: string) => {
             const p = result?.previews?.[t];
             return {
-            table: (
-              <button type="button" onClick={() => loadTablePreview(String(t))} className="topbar-meta-btn">
-                {String(t)}
-              </button>
-            ),
-            columns: p ? (p?.columns || []).length : "on-demand",
-            sample_rows: p ? (p?.sample_rows || []).length : "on-demand",
-          };
+              table: (
+                <button type="button" onClick={() => loadTablePreview(String(t))} className="topbar-meta-btn">
+                  {String(t)}
+                </button>
+              ),
+              columns: p ? (p?.columns || []).length : "on-demand",
+              sample_rows: p ? (p?.sample_rows || []).length : "on-demand",
+            };
           })}
           emptyLabel="Run connector exploration to load tables. Click a table name to load sample rows."
         />

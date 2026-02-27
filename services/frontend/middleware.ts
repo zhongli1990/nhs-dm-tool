@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const PUBLIC_PATHS = ["/login", "/register", "/favicon.ico"];
-const API_BASE = process.env.NEXT_PUBLIC_DM_API_BASE || "http://127.0.0.1:9134";
+// Middleware runs server-side in the frontend container. Prefer internal service DNS.
+const API_BASE = process.env.DM_INTERNAL_API_BASE || process.env.NEXT_PUBLIC_DM_API_BASE || "http://backend:9134";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

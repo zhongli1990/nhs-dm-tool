@@ -1,133 +1,218 @@
-﻿# NHS QVH PAS Data Migration Workspace
+# OpenLI DMM - NHS PAS Data Migration Platform
 
-Metadata-driven migration tooling for Queen Victoria Hospital PAS migration:
-- Source: PC60/V83 legacy PAS
-- Target: PAS 18.4
+Enterprise-grade data migration platform for NHS PAS/EPR system migrations.
 
-Requirement inputs:
-- `requirement_spec/Source PAS - Data Dictionary V83 INQuire DD PC83.xlsx`
-- `requirement_spec/Source PAS - PAS_PC60_DataDictionary.docx`
-- `requirement_spec/Target PAS - PAS 18.4 Data Migration Technical Guide - FOR REF ONLY NOT TO BE USED.pdf`
+- **Source**: PC60/V83 Legacy PAS (417 tables, 5,387 fields)
+- **Target**: PAS 18.4 (38 LOAD tables, 880 fields)
+- **Stack**: FastAPI + Next.js + Python ETL Pipeline
+- **Deployment**: Docker Compose on AWS Ubuntu 24.04 / Windows Server manual runtime
 
-## Repository layout
+## Quick Start (Docker)
 
-- `analysis/` design documents, schema profiling, gap analysis, mapping findings
-- `schemas/` extracted source/target catalogs and summary metadata
-- `mock_data/source/` generated source test extracts
-- `mock_data/target/` generated target fixture tables
-- `mock_data/target_contract/` contract-driven ETL outputs
-- `pipeline/` extract, mapping, generation, ETL, and quality gate scripts
-- `reports/` machine-readable run reports and issue exports
-- `product/` full-stack control plane (FastAPI backend + Next.js frontend)
+```bash
+# 1. Clone and configure
+cp .env.example .env
+# Edit .env - at minimum change DMM_TOKEN_SECRET
 
-## Product vision
+# 2. Build and deploy
+bash scripts/deploy.sh
 
-Build a reusable NHS-grade PAS/EPR migration platform that is:
-- clinically safe by design (explicit quality gates and reject visibility)
-- operationally governed (approval workflow, rerun controls, evidence packs)
-- vendor-agnostic (dynamic schema handling and connector extensibility)
-- engineer-productive and operator-friendly (UI and API parity across lifecycle)
-
-## End-to-end lifecycle run
-
-Run from the project root:
-
-```powershell
-cd c:\Zhong\Windsurf\data_migration
-python .\pipeline\extract_specs.py
-python .\pipeline\generate_all_mock_data.py --rows 20 --seed 42
-python .\pipeline\analyze_semantic_mapping.py
-python .\pipeline\build_mapping_contract.py
-python .\pipeline\run_contract_migration.py --source-dir mock_data/source --output-dir mock_data/target_contract --contract-file reports/mapping_contract.csv --target-catalog-file schemas/target_schema_catalog.csv --crosswalk-dir schemas/crosswalks --impute-mode pre_production
-python .\pipeline\run_enterprise_pipeline.py --min-patients 20
-python .\pipeline\run_release_gates.py --profile pre_production
-python .\pipeline\run_product_lifecycle.py --rows 20 --seed 42 --min-patients 20 --release-profile pre_production
+# 3. Access
+# Application:  http://localhost:9135
+# Backend API:  http://localhost:9134/health
+# Frontend:     http://localhost:9133
+# Login:        superadmin / Admin@123
 ```
 
-## Current dry-run status (2026-02-26)
+## AWS Ubuntu 24.04 Deployment
 
-- Schema extraction: PASS
-  - 417 source tables, 5,387 source fields
-  - 38 target tables, 880 target fields
-- Mock generation: PASS
-  - 38 target tables with 20 rows each
-  - 13 priority source tables plus expanded reference/context set
-- Semantic mapping analysis: PASS
-- Mapping contract build: PASS
-  - 919 target fields classified
-- Contract-driven ETL execution: PASS
-  - 38 target tables materialized to `mock_data/target_contract`
-  - crosswalk rejects: 0
-  - population ratio: 0.6784
-- Enterprise quality gate: PASS
-  - 0 errors, 0 warnings
-- Release gates:
-  - pre-production profile: PASS
-  - cutover-ready profile: pending governance thresholds and final clinical sign-off
+```bash
+# 1. Provision Ubuntu 24.04 EC2 instance (t3.medium or larger)
 
-## Core outputs
+# 2. Install prerequisites
+sudo bash scripts/setup-ubuntu.sh
 
-- Schema summary: `schemas/schema_catalog_summary.json`
-- Mapping contract: `reports/mapping_contract.csv`
-- Semantic matrix: `reports/semantic_mapping_matrix.csv`
-- Contract ETL report: `reports/contract_migration_report.json`
-- Contract ETL rejects: `reports/contract_migration_rejects.csv`
-- Enterprise gate report: `reports/enterprise_pipeline_report.json`
-- Release gate report: `reports/release_gate_report.json`
-- Product lifecycle report: `reports/product_lifecycle_run.json`
-- Lifecycle narrative and steps: `analysis/qvh_pas_migration_e2e_lifecycle.md`
-- Product blueprint: `analysis/productization_blueprint.md`
-- API surface: `analysis/api_surface_spec.md`
-- Connector experimental spec: `analysis/connector_stub_spec.md`
-- User model and lifecycle ownership: `analysis/mission_critical_user_model.md`
-- Runtime strategy: `analysis/fullstack_runtime_strategy.md`
-- Full-stack due diligence: `analysis/due_diligence_fullstack_e2e.md`
-- Deliverables summary index: `analysis/deliverables_summary.md`
-- Deployment guide (Windows): `analysis/deployment_guide.md`
-- Deployment guide (Ubuntu/AWS): `analysis/deployment_guide_ubuntu.md`
-- Enterprise user guide: `analysis/enterprise_user_guide.md`
-- Enterprise onboarding and DQ roadmap: `analysis/enterprise_onboarding_and_dq_roadmap.md`
-- SaaS uplift requirements (approval draft): `analysis/saas_product_uplift_requirements.md`
-- SaaS multitenancy/RBAC design (approval draft): `analysis/saas_multitenancy_rbac_design.md`
+# 3. Clone project
+sudo mkdir -p /opt/dmm && sudo chown $USER:$USER /opt/dmm
+git clone <repo-url> /opt/dmm
+cd /opt/dmm
 
-## Implementation notes
+# 4. Configure
+cp .env.example .env
+nano .env   # Set DMM_TOKEN_SECRET, DM_ALLOW_ORIGINS, NEXT_PUBLIC_DM_API_BASE
 
-- `run_migration.py` is legacy baseline and retained for reference.
-- Production-direction flow is contract-driven:
-  - extract -> generate/profile -> semantic map -> contract classify -> contract ETL -> quality gate -> release gates.
-- Crosswalk dictionaries are in `schemas/crosswalks/*.csv` and drive strict lookup translation.
-- Release gate profiles are in `pipeline/release_gate_profiles.json`.
-- Policy overrides for unresolved business fields are in `pipeline/mapping_resolution_policy.json`.
+# 5. Deploy
+bash scripts/deploy.sh --prod
 
-## Productization UI
+# 6. Verify
+bash scripts/healthcheck.sh
+```
 
-See `product/README.md` for running:
-- FastAPI backend (`product/backend`)
-- Next.js dynamic UI (`product/frontend`)
+## Project Structure
 
-UI lifecycle uplift (v0.0.5):
-- OpenLI DMM branding in control plane shell
-- SaaS foundation with login/register and admin approval flow
-- tenant context model (`organization -> workspace -> project`)
-- step-by-step execution console at `/lifecycle`
-- dynamic schema/table/field explorer
-- visual schema ERD page at `/erd` (PK/FK/inferred lineage graph MVP)
-- dynamic mapping contract filtering
-- run controls with profile/rows/seed/min-patient parameters
-- gate/reject operational review tabs
-- quality command centre tabs:
-  - Dashboard
-  - KPI Widgets
-  - Issue Explorer
-- lifecycle rerun and snapshot restore controls
-- dark/light rendering hardening across controls and logs
-- mappings workbench enterprise pagination (default 200/page)
-- ERD relationship list row IDs and improved filter behavior
+```
+.
+├── docker-compose.yml          # Docker Compose services
+├── docker-compose.prod.yml     # Production overrides
+├── .env.example                # Environment template
+│
+├── docker/                     # Docker build infrastructure
+│   ├── backend.Dockerfile      # Python 3.11 + FastAPI
+│   ├── frontend.Dockerfile     # Node 20 + Next.js (multi-stage)
+│   └── nginx/
+│       └── default.conf        # Reverse proxy configuration
+│
+├── services/                   # Application services
+│   ├── backend/                # FastAPI control-plane API
+│   │   ├── app/                # API endpoints, models, connectors, security
+│   │   └── requirements.txt
+│   └── frontend/               # Next.js control-plane UI
+│       ├── app/                # 13+ page routes
+│       ├── components/         # Shared UI components
+│       └── lib/                # API client and data utilities
+│
+├── pipeline/                   # Core ETL pipeline
+│   ├── enterprise/             # Enterprise ETL modules (checks, crosswalks, transforms)
+│   └── *.py                    # Pipeline scripts (extract, map, migrate, gate)
+│
+├── schemas/                    # Data schemas and crosswalks
+│   ├── crosswalks/             # Code translation dictionaries
+│   ├── source_schema_catalog.csv
+│   └── target_schema_catalog.csv
+│
+├── mock_data/                  # Test and mock data
+│   ├── source/                 # Source system extracts
+│   ├── target/                 # Target fixture tables
+│   └── target_contract/        # Contract-driven ETL outputs
+│
+├── reports/                    # Generated pipeline reports
+│   └── snapshots/              # Lifecycle snapshots
+│
+├── docs/                       # Documentation
+│   ├── analysis/               # Design, architecture, gap analysis
+│   ├── specs/                  # Source/target requirement specs
+│   ├── release-notes/          # Version release notes
+│   └── guides/                 # Deployment and user guides
+│
+└── scripts/                    # Deployment and operations
+    ├── deploy.sh               # Docker compose deploy with health checks
+    ├── setup-ubuntu.sh         # Ubuntu 24.04 prerequisites installer
+    └── healthcheck.sh          # Service health verification
+```
 
-Connector modes currently exposed in API/UI:
-- `cache_iris_emulator` (source, active)
-- `postgres_emulator` (target, active)
-- `csv` (real file connector, active)
-- `json_dummy` (dummy placeholder, active)
-- `odbc` / `jdbc` (experimental introspection connectors)
+## Docker Architecture
 
+| Service | Image | Port | Purpose |
+|---------|-------|------|---------|
+| `backend` | python:3.11-slim | 9134 | FastAPI API server |
+| `frontend` | node:20-alpine | 3000 (mapped 9133) | Next.js UI server |
+| `postgres` | postgres:16-alpine | 5432 (mapped 9136) | App relational database |
+| `nginx` | nginx:alpine | 80 (mapped 9135) | Reverse proxy |
+
+### Persistent Volumes
+
+| Volume | Purpose |
+|--------|---------|
+| `dmm-reports` | Pipeline reports and snapshots |
+| `dmm-mock-data` | Source/target mock data |
+| `dmm-saas-store` | Multi-tenant user/org data |
+| `dmm-schemas` | Schema catalogs and crosswalks |
+| `dmm-postgres` | PostgreSQL data files |
+
+### Port Allocation Policy
+
+All exposed host ports are constrained to `9133-9139`:
+
+- `9133` frontend
+- `9134` backend
+- `9135` nginx ingress
+- `9136` postgres
+- `9137-9139` reserved for future services
+
+## Migration Pipeline
+
+```
+Extract Specs → Generate Mock Data → Semantic Mapping → Mapping Contract
+    → Contract ETL → Enterprise Quality Gate → Release Gates
+```
+
+Run the full lifecycle via CLI:
+```bash
+python pipeline/run_product_lifecycle.py --rows 20 --seed 42 \
+    --min-patients 20 --release-profile pre_production
+```
+
+Or via the UI: Navigate to `/lifecycle` and execute steps interactively.
+
+## Current Status (v0.2.0)
+
+- Schema extraction: **PASS** (417 source / 38 target tables)
+- Contract-driven ETL: **PASS** (38 tables, 0 crosswalk rejects)
+- Enterprise quality gate: **PASS** (0 errors, 0 warnings)
+- Release gates: **pre_production PASS**
+- SaaS foundation: Multi-tenant auth, RBAC, org/workspace/project context
+- UI: Dashboard, Schemas, ERD, Mappings, Lifecycle, Runs, Quality, Connectors
+
+## Operations
+
+```bash
+# View logs
+docker compose logs -f
+docker compose logs backend
+
+# Restart services
+docker compose restart
+
+# Stop all services
+docker compose down
+
+# Rebuild after code changes
+docker compose build --no-cache && docker compose up -d
+
+# Production deployment with resource limits
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+```
+
+## Key Documentation
+
+| Document | Location |
+|----------|----------|
+| Product blueprint | `docs/analysis/productization_blueprint.md` |
+| API surface spec | `docs/analysis/api_surface_spec.md` |
+| Deployment guide (Ubuntu) | `docs/analysis/deployment_guide_ubuntu.md` |
+| Deployment guide (Windows Server, non-Docker) | `docs/guides/deployment_windows_server_manual.md` |
+| Runtime data layout decision | `docs/guides/runtime_data_layout.md` |
+| Enterprise user guide | `docs/analysis/enterprise_user_guide.md` |
+| Gap register | `docs/analysis/gap_register.md` |
+| E2E lifecycle | `docs/analysis/qvh_pas_migration_e2e_lifecycle.md` |
+| SaaS RBAC design | `docs/analysis/saas_multitenancy_rbac_design.md` |
+| Due diligence report | `docs/analysis/due_diligence_fullstack_e2e.md` |
+
+## Licensing and IP
+
+This product is proprietary software and is not open-source.
+
+- Legal owner: Lightweight Integration Limited
+- Copyright: Copyright (c) Lightweight Integration Limited. All rights reserved.
+- Licensing terms: Enterprise commercial licensing only, under executed agreement.
+- Contact: Zhong@li-ai.co.uk
+
+See `LICENSE-ENTERPRISE.md` for enterprise licensing and IP terms.
+
+## Default Credentials
+
+| User | Password | Role |
+|------|----------|------|
+| `superadmin` | `Admin@123` | Super Admin |
+| `qvh_admin` | `Admin@123` | Org Admin (QVH) |
+
+## Connector Types
+
+| Type | Status | Direction |
+|------|--------|-----------|
+| CSV | Active | Source/Target |
+| Cache/IRIS Emulator | Active | Source |
+| PostgreSQL Emulator | Active | Target |
+| JSON Dummy | Active | Test |
+| ODBC | Experimental | Source/Target |
+| JDBC | Experimental | Source/Target |
