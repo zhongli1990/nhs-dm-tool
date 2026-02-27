@@ -31,6 +31,11 @@ services:
       - DM_API_HOST=0.0.0.0
       - DM_API_PORT=9134
       - DM_DATABASE_URL=${DM_DATABASE_URL:-postgresql://dmm_app:change_me_postgres_password@postgres:5432/dmm}
+      - DM_AUTH_BACKEND=${DM_AUTH_BACKEND:-postgres}
+      - DM_STATE_BACKEND=${DM_STATE_BACKEND:-postgres}
+      - DMM_BOOTSTRAP_ADMIN_USERNAME=${DMM_BOOTSTRAP_ADMIN_USERNAME:-superadmin}
+      - DMM_BOOTSTRAP_ADMIN_EMAIL=${DMM_BOOTSTRAP_ADMIN_EMAIL:-superadmin@openli.local}
+      - DMM_BOOTSTRAP_ADMIN_PASSWORD=${DMM_BOOTSTRAP_ADMIN_PASSWORD:-ChangeMeNow!123}
     ports:
       - "${DMM_BACKEND_PORT:-9134}:9134"
     volumes:

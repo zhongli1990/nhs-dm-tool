@@ -1,9 +1,14 @@
 import json
+import os
 import threading
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Set
+
+from sqlalchemy import Boolean, ForeignKey, Integer, String, Text, UniqueConstraint, create_engine, delete, select
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Mapped, Session, declarative_base, mapped_column, sessionmaker
 
 from .security import hash_password, verify_password
 
@@ -16,7 +21,103 @@ def _slugify(value: str) -> str:
     return "".join(ch.lower() if ch.isalnum() else "-" for ch in value).strip("-")
 
 
-class SaaSStore:
+DEFAULT_DMM_PERMISSIONS: Dict[str, Set[str]] = {
+    "super_admin": {"*"},
+    "org_admin": {"org.manage", "workspace.manage", "project.manage", "project.execute", "project.design", "project.quality", "registration.review"},
+    "org_dm_engineer": {"project.execute", "project.design", "project.quality"},
+    "org_data_architect": {"project.execute", "project.design", "project.quality"},
+    "org_dq_lead": {"project.execute", "project.design", "project.quality"},
+    "org_clinical_reviewer": {"project.execute", "project.design", "project.quality"},
+    "org_release_manager": {"project.execute", "project.design", "project.quality"},
+}
+
+
+Base = declarative_base()
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    username: Mapped[str] = mapped_column(String(128), unique=True, index=True)
+    email: Mapped[str] = mapped_column(String(320), unique=True, index=True)
+    display_name: Mapped[str] = mapped_column(String(256), default="")
+    password_hash: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(32), default="ACTIVE", index=True)
+    is_super_admin: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+    created_at_utc: Mapped[str] = mapped_column(String(64), default=_now)
+
+
+class Organization(Base):
+    __tablename__ = "organizations"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    name: Mapped[str] = mapped_column(String(256))
+    slug: Mapped[str] = mapped_column(String(256), unique=True, index=True)
+    status: Mapped[str] = mapped_column(String(32), default="ACTIVE", index=True)
+    created_at_utc: Mapped[str] = mapped_column(String(64), default=_now)
+
+
+class Workspace(Base):
+    __tablename__ = "workspaces"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    org_id: Mapped[str] = mapped_column(String(64), ForeignKey("organizations.id"), index=True)
+    name: Mapped[str] = mapped_column(String(256))
+    slug: Mapped[str] = mapped_column(String(256), index=True)
+    status: Mapped[str] = mapped_column(String(32), default="ACTIVE", index=True)
+    created_at_utc: Mapped[str] = mapped_column(String(64), default=_now)
+
+
+class Project(Base):
+    __tablename__ = "projects"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    workspace_id: Mapped[str] = mapped_column(String(64), ForeignKey("workspaces.id"), index=True)
+    name: Mapped[str] = mapped_column(String(256))
+    slug: Mapped[str] = mapped_column(String(256), index=True)
+    status: Mapped[str] = mapped_column(String(32), default="ACTIVE", index=True)
+    created_at_utc: Mapped[str] = mapped_column(String(64), default=_now)
+
+
+class OrganizationMembership(Base):
+    __tablename__ = "organization_memberships"
+    __table_args__ = (UniqueConstraint("user_id", "org_id", name="uq_membership_user_org"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[str] = mapped_column(String(64), ForeignKey("users.id"), index=True)
+    org_id: Mapped[str] = mapped_column(String(64), ForeignKey("organizations.id"), index=True)
+    role: Mapped[str] = mapped_column(String(64), index=True)
+    status: Mapped[str] = mapped_column(String(32), default="ACTIVE", index=True)
+    created_at_utc: Mapped[str] = mapped_column(String(64), default=_now)
+
+
+class RegistrationRequest(Base):
+    __tablename__ = "registration_requests"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    username: Mapped[str] = mapped_column(String(128), index=True)
+    email: Mapped[str] = mapped_column(String(320), index=True)
+    display_name: Mapped[str] = mapped_column(String(256), default="")
+    password_hash: Mapped[str] = mapped_column(Text)
+    requested_org_id: Mapped[str] = mapped_column(String(64), ForeignKey("organizations.id"), index=True)
+    status: Mapped[str] = mapped_column(String(64), default="PENDING_APPROVAL", index=True)
+    reviewed_by: Mapped[str] = mapped_column(String(64), default="")
+    reviewed_at_utc: Mapped[str] = mapped_column(String(64), default="")
+    review_reason: Mapped[str] = mapped_column(Text, default="")
+    created_at_utc: Mapped[str] = mapped_column(String(64), default=_now)
+
+
+class RolePermission(Base):
+    __tablename__ = "role_permissions"
+    __table_args__ = (UniqueConstraint("role", "permission", name="uq_role_permission"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    role: Mapped[str] = mapped_column(String(64), index=True)
+    permission: Mapped[str] = mapped_column(String(128), index=True)
+
+
+class _FileSaaSStore:
     def __init__(self, path: Path):
         self.path = path
         self.lock = threading.Lock()
@@ -30,14 +131,15 @@ class SaaSStore:
         project_id = str(uuid.uuid4())
         super_id = str(uuid.uuid4())
         org_admin_id = str(uuid.uuid4())
+        password = os.environ.get("DMM_BOOTSTRAP_ADMIN_PASSWORD", "ChangeMeNow!123")
         return {
             "users": [
                 {
                     "id": super_id,
-                    "username": "superadmin",
-                    "email": "superadmin@openli.local",
+                    "username": os.environ.get("DMM_BOOTSTRAP_ADMIN_USERNAME", "superadmin"),
+                    "email": os.environ.get("DMM_BOOTSTRAP_ADMIN_EMAIL", "superadmin@openli.local"),
                     "display_name": "OpenLI Super Admin",
-                    "password_hash": hash_password("Admin@123"),
+                    "password_hash": hash_password(password),
                     "status": "ACTIVE",
                     "is_super_admin": True,
                     "created_at_utc": _now(),
@@ -47,7 +149,7 @@ class SaaSStore:
                     "username": "qvh_admin",
                     "email": "qvh.admin@openli.local",
                     "display_name": "QVH Org Admin",
-                    "password_hash": hash_password("Admin@123"),
+                    "password_hash": hash_password(password),
                     "status": "ACTIVE",
                     "is_super_admin": False,
                     "created_at_utc": _now(),
@@ -125,18 +227,12 @@ class SaaSStore:
     def workspace_belongs_to_org(self, workspace_id: str, org_id: str) -> bool:
         with self.lock:
             data = self._read()
-            for w in data["workspaces"]:
-                if w.get("id") == workspace_id and w.get("org_id") == org_id:
-                    return True
-            return False
+            return any(w.get("id") == workspace_id and w.get("org_id") == org_id for w in data["workspaces"])
 
     def project_belongs_to_workspace(self, project_id: str, workspace_id: str) -> bool:
         with self.lock:
             data = self._read()
-            for p in data["projects"]:
-                if p.get("id") == project_id and p.get("workspace_id") == workspace_id:
-                    return True
-            return False
+            return any(p.get("id") == project_id and p.get("workspace_id") == workspace_id for p in data["projects"])
 
     def list_workspaces_for_org(self, org_id: str) -> List[Dict[str, object]]:
         with self.lock:
@@ -151,11 +247,13 @@ class SaaSStore:
     def create_registration_request(self, username: str, email: str, display_name: str, password: str, requested_org_id: str) -> Dict[str, object]:
         with self.lock:
             data = self._read()
-            existing_users = {(u.get("username", "").lower(), u.get("email", "").lower()) for u in data["users"]}
-            if any(username.lower() == u[0] or email.lower() == u[1] for u in existing_users):
-                raise ValueError("username or email already exists")
+            for u in data["users"]:
+                if username.lower() == str(u.get("username", "")).lower() or email.lower() == str(u.get("email", "")).lower():
+                    raise ValueError("username or email already exists")
             for req in data["registration_requests"]:
-                if req.get("status") == "PENDING_APPROVAL" and (req.get("username", "").lower() == username.lower() or req.get("email", "").lower() == email.lower()):
+                if req.get("status") == "PENDING_APPROVAL" and (
+                    req.get("username", "").lower() == username.lower() or req.get("email", "").lower() == email.lower()
+                ):
                     raise ValueError("pending registration already exists")
             org_ids = {o["id"] for o in data["organizations"]}
             if requested_org_id not in org_ids:
@@ -187,11 +285,7 @@ class SaaSStore:
     def approve_registration(self, request_id: str, reviewer_user_id: str, role: str = "org_dm_engineer") -> Dict[str, object]:
         with self.lock:
             data = self._read()
-            req = None
-            for row in data["registration_requests"]:
-                if row.get("id") == request_id:
-                    req = row
-                    break
+            req = next((row for row in data["registration_requests"] if row.get("id") == request_id), None)
             if not req:
                 raise ValueError("request not found")
             if req.get("status") != "PENDING_APPROVAL":
@@ -286,3 +380,414 @@ class SaaSStore:
                     }
                 )
             return result
+
+    def list_permissions_for_role(self, role: str) -> List[str]:
+        return sorted(DEFAULT_DMM_PERMISSIONS.get(role, set()))
+
+
+class _PostgresSaaSStore:
+    def __init__(self, database_url: str):
+        self.engine = create_engine(database_url, pool_pre_ping=True)
+        self.SessionLocal = sessionmaker(bind=self.engine, expire_on_commit=False)
+        Base.metadata.create_all(self.engine)
+        self._seed_if_empty()
+
+    def _session(self) -> Session:
+        return self.SessionLocal()
+
+    def _seed_if_empty(self) -> None:
+        with self._session() as session:
+            if session.scalar(select(User.id).limit(1)):
+                self._seed_role_permissions(session)
+                session.commit()
+                return
+
+            try:
+                # Recover safely from a partial bootstrap attempt.
+                session.execute(delete(OrganizationMembership))
+                session.execute(delete(Project))
+                session.execute(delete(Workspace))
+                session.execute(delete(Organization))
+                session.execute(delete(RegistrationRequest))
+                session.commit()
+
+                org_id = str(uuid.uuid4())
+                ws_id = str(uuid.uuid4())
+                project_id = str(uuid.uuid4())
+                super_id = str(uuid.uuid4())
+                org_admin_id = str(uuid.uuid4())
+                now = _now()
+
+                admin_username = os.environ.get("DMM_BOOTSTRAP_ADMIN_USERNAME", "superadmin")
+                admin_email = os.environ.get("DMM_BOOTSTRAP_ADMIN_EMAIL", "superadmin@openli.local")
+                admin_password = os.environ.get("DMM_BOOTSTRAP_ADMIN_PASSWORD", "ChangeMeNow!123")
+                if admin_password == "ChangeMeNow!123":
+                    print("[DMM][WARN] DMM_BOOTSTRAP_ADMIN_PASSWORD is using default value; set a strong secret for production.")
+
+                session.add(
+                    User(
+                        id=super_id,
+                        username=admin_username,
+                        email=admin_email,
+                        display_name="OpenLI Super Admin",
+                        password_hash=hash_password(admin_password),
+                        status="ACTIVE",
+                        is_super_admin=True,
+                        created_at_utc=now,
+                    )
+                )
+                session.add(
+                    User(
+                        id=org_admin_id,
+                        username="qvh_admin",
+                        email="qvh.admin@openli.local",
+                        display_name="QVH Org Admin",
+                        password_hash=hash_password(admin_password),
+                        status="ACTIVE",
+                        is_super_admin=False,
+                        created_at_utc=now,
+                    )
+                )
+                session.add(Organization(id=org_id, name="QVH", slug="qvh", status="ACTIVE", created_at_utc=now))
+                session.commit()
+                session.add(Workspace(id=ws_id, org_id=org_id, name="PAS EPR", slug="pas-epr", status="ACTIVE", created_at_utc=now))
+                session.commit()
+                session.add(Project(id=project_id, workspace_id=ws_id, name="PAS18.4 Migration", slug="pas18-4-migration", status="ACTIVE", created_at_utc=now))
+                session.commit()
+                session.add_all(
+                    [
+                        OrganizationMembership(user_id=super_id, org_id=org_id, role="super_admin", status="ACTIVE", created_at_utc=now),
+                        OrganizationMembership(user_id=org_admin_id, org_id=org_id, role="org_admin", status="ACTIVE", created_at_utc=now),
+                    ]
+                )
+                self._seed_role_permissions(session)
+                session.commit()
+            except IntegrityError:
+                session.rollback()
+                self._seed_role_permissions(session)
+                session.commit()
+
+    def _seed_role_permissions(self, session: Session) -> None:
+        existing = {
+            (row.role, row.permission)
+            for row in session.scalars(select(RolePermission)).all()
+        }
+        for role, perms in DEFAULT_DMM_PERMISSIONS.items():
+            for permission in perms:
+                key = (role, permission)
+                if key in existing:
+                    continue
+                session.add(RolePermission(role=role, permission=permission))
+
+    def authenticate(self, username_or_email: str, password: str) -> Optional[Dict[str, object]]:
+        ident = username_or_email.strip().lower()
+        with self._session() as session:
+            users = session.scalars(select(User).where(User.status == "ACTIVE")).all()
+            for user in users:
+                if ident in {str(user.username).lower(), str(user.email).lower()} and verify_password(password, user.password_hash):
+                    return {
+                        "id": user.id,
+                        "username": user.username,
+                        "email": user.email,
+                        "display_name": user.display_name,
+                        "status": user.status,
+                        "is_super_admin": bool(user.is_super_admin),
+                        "created_at_utc": user.created_at_utc,
+                    }
+            return None
+
+    def list_user_memberships(self, user_id: str) -> List[Dict[str, object]]:
+        with self._session() as session:
+            rows = session.execute(
+                select(OrganizationMembership, Organization)
+                .join(Organization, OrganizationMembership.org_id == Organization.id)
+                .where(OrganizationMembership.user_id == user_id, OrganizationMembership.status == "ACTIVE")
+            ).all()
+            return [{"org_id": org.id, "org_name": org.name, "role": m.role} for m, org in rows]
+
+    def list_orgs_for_user(self, user: Dict[str, object]) -> List[Dict[str, object]]:
+        with self._session() as session:
+            if user.get("is_super_admin"):
+                rows = session.scalars(select(Organization)).all()
+                return [self._org_row(r) for r in rows]
+            memberships = session.scalars(
+                select(OrganizationMembership).where(
+                    OrganizationMembership.user_id == str(user.get("id", "")),
+                    OrganizationMembership.status == "ACTIVE",
+                )
+            ).all()
+            org_ids = {m.org_id for m in memberships}
+            if not org_ids:
+                return []
+            rows = session.scalars(select(Organization).where(Organization.id.in_(org_ids))).all()
+            return [self._org_row(r) for r in rows]
+
+    def get_user_by_id(self, user_id: str) -> Optional[Dict[str, object]]:
+        with self._session() as session:
+            user = session.get(User, user_id)
+            if not user:
+                return None
+            return {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "display_name": user.display_name,
+                "status": user.status,
+                "is_super_admin": bool(user.is_super_admin),
+                "created_at_utc": user.created_at_utc,
+            }
+
+    def user_has_org(self, user_id: str, org_id: str) -> bool:
+        with self._session() as session:
+            user = session.get(User, user_id)
+            if not user:
+                return False
+            if user.is_super_admin:
+                return True
+            membership = session.scalar(
+                select(OrganizationMembership.id).where(
+                    OrganizationMembership.user_id == user_id,
+                    OrganizationMembership.org_id == org_id,
+                    OrganizationMembership.status == "ACTIVE",
+                )
+            )
+            return bool(membership)
+
+    def workspace_belongs_to_org(self, workspace_id: str, org_id: str) -> bool:
+        with self._session() as session:
+            hit = session.scalar(select(Workspace.id).where(Workspace.id == workspace_id, Workspace.org_id == org_id))
+            return bool(hit)
+
+    def project_belongs_to_workspace(self, project_id: str, workspace_id: str) -> bool:
+        with self._session() as session:
+            hit = session.scalar(select(Project.id).where(Project.id == project_id, Project.workspace_id == workspace_id))
+            return bool(hit)
+
+    def list_workspaces_for_org(self, org_id: str) -> List[Dict[str, object]]:
+        with self._session() as session:
+            rows = session.scalars(select(Workspace).where(Workspace.org_id == org_id)).all()
+            return [self._workspace_row(r) for r in rows]
+
+    def list_projects_for_workspace(self, workspace_id: str) -> List[Dict[str, object]]:
+        with self._session() as session:
+            rows = session.scalars(select(Project).where(Project.workspace_id == workspace_id)).all()
+            return [self._project_row(r) for r in rows]
+
+    def create_registration_request(self, username: str, email: str, display_name: str, password: str, requested_org_id: str) -> Dict[str, object]:
+        with self._session() as session:
+            org = session.get(Organization, requested_org_id)
+            if not org:
+                raise ValueError("requested organization not found")
+            lower_username = username.strip().lower()
+            lower_email = email.strip().lower()
+
+            users = session.scalars(select(User)).all()
+            if any(u.username.lower() == lower_username or u.email.lower() == lower_email for u in users):
+                raise ValueError("username or email already exists")
+
+            pending = session.scalars(select(RegistrationRequest).where(RegistrationRequest.status == "PENDING_APPROVAL")).all()
+            if any(r.username.lower() == lower_username or r.email.lower() == lower_email for r in pending):
+                raise ValueError("pending registration already exists")
+
+            req = RegistrationRequest(
+                id=str(uuid.uuid4()),
+                username=username,
+                email=email,
+                display_name=display_name,
+                password_hash=hash_password(password),
+                requested_org_id=requested_org_id,
+                status="PENDING_APPROVAL",
+                reviewed_by="",
+                reviewed_at_utc="",
+                review_reason="",
+                created_at_utc=_now(),
+            )
+            session.add(req)
+            session.commit()
+            return self._registration_row(req)
+
+    def list_registration_requests(self, status: Optional[str] = None) -> List[Dict[str, object]]:
+        with self._session() as session:
+            stmt = select(RegistrationRequest)
+            if status:
+                stmt = stmt.where(RegistrationRequest.status == status.upper())
+            rows = session.scalars(stmt).all()
+            return [self._registration_row(r) for r in rows]
+
+    def approve_registration(self, request_id: str, reviewer_user_id: str, role: str = "org_dm_engineer") -> Dict[str, object]:
+        with self._session() as session:
+            req = session.get(RegistrationRequest, request_id)
+            if not req:
+                raise ValueError("request not found")
+            if req.status != "PENDING_APPROVAL":
+                raise ValueError("request is not pending approval")
+
+            now = _now()
+            user = User(
+                id=str(uuid.uuid4()),
+                username=req.username,
+                email=req.email,
+                display_name=req.display_name,
+                password_hash=req.password_hash,
+                status="ACTIVE",
+                is_super_admin=False,
+                created_at_utc=now,
+            )
+            session.add(user)
+            session.add(
+                OrganizationMembership(
+                    user_id=user.id,
+                    org_id=req.requested_org_id,
+                    role=role,
+                    status="ACTIVE",
+                    created_at_utc=now,
+                )
+            )
+            req.status = "APPROVED"
+            req.reviewed_by = reviewer_user_id
+            req.reviewed_at_utc = now
+            session.commit()
+            return {"request": self._registration_row(req), "user": self._user_row(user)}
+
+    def reject_registration(self, request_id: str, reviewer_user_id: str, reason: str = "") -> Dict[str, object]:
+        with self._session() as session:
+            req = session.get(RegistrationRequest, request_id)
+            if not req:
+                raise ValueError("request not found")
+            if req.status != "PENDING_APPROVAL":
+                raise ValueError("request is not pending approval")
+            req.status = "REJECTED"
+            req.reviewed_by = reviewer_user_id
+            req.reviewed_at_utc = _now()
+            req.review_reason = reason
+            session.commit()
+            return self._registration_row(req)
+
+    def create_org(self, name: str) -> Dict[str, object]:
+        slug = _slugify(name)
+        with self._session() as session:
+            dup = session.scalar(select(Organization.id).where(Organization.slug == slug))
+            if dup:
+                raise ValueError("organization slug already exists")
+            row = Organization(id=str(uuid.uuid4()), name=name, slug=slug, status="ACTIVE", created_at_utc=_now())
+            session.add(row)
+            session.commit()
+            return self._org_row(row)
+
+    def create_workspace(self, org_id: str, name: str) -> Dict[str, object]:
+        slug = _slugify(name)
+        with self._session() as session:
+            org = session.get(Organization, org_id)
+            if not org:
+                raise ValueError("organization not found")
+            row = Workspace(id=str(uuid.uuid4()), org_id=org_id, name=name, slug=slug, status="ACTIVE", created_at_utc=_now())
+            session.add(row)
+            session.commit()
+            return self._workspace_row(row)
+
+    def create_project(self, workspace_id: str, name: str) -> Dict[str, object]:
+        slug = _slugify(name)
+        with self._session() as session:
+            ws = session.get(Workspace, workspace_id)
+            if not ws:
+                raise ValueError("workspace not found")
+            row = Project(id=str(uuid.uuid4()), workspace_id=workspace_id, name=name, slug=slug, status="ACTIVE", created_at_utc=_now())
+            session.add(row)
+            session.commit()
+            return self._project_row(row)
+
+    def list_org_users(self, org_id: str) -> List[Dict[str, object]]:
+        with self._session() as session:
+            rows = session.execute(
+                select(OrganizationMembership, User)
+                .join(User, OrganizationMembership.user_id == User.id)
+                .where(OrganizationMembership.org_id == org_id, OrganizationMembership.status == "ACTIVE")
+            ).all()
+            out = []
+            for m, u in rows:
+                out.append(
+                    {
+                        "user_id": u.id,
+                        "username": u.username,
+                        "email": u.email,
+                        "display_name": u.display_name,
+                        "role": m.role,
+                        "status": u.status,
+                    }
+                )
+            return out
+
+    def list_permissions_for_role(self, role: str) -> List[str]:
+        with self._session() as session:
+            perms = session.scalars(select(RolePermission.permission).where(RolePermission.role == role)).all()
+            if perms:
+                return sorted(set(perms))
+            return sorted(DEFAULT_DMM_PERMISSIONS.get(role, set()))
+
+    @staticmethod
+    def _user_row(user: User) -> Dict[str, object]:
+        return {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "display_name": user.display_name,
+            "status": user.status,
+            "is_super_admin": bool(user.is_super_admin),
+            "created_at_utc": user.created_at_utc,
+        }
+
+    @staticmethod
+    def _org_row(row: Organization) -> Dict[str, object]:
+        return {"id": row.id, "name": row.name, "slug": row.slug, "status": row.status, "created_at_utc": row.created_at_utc}
+
+    @staticmethod
+    def _workspace_row(row: Workspace) -> Dict[str, object]:
+        return {
+            "id": row.id,
+            "org_id": row.org_id,
+            "name": row.name,
+            "slug": row.slug,
+            "status": row.status,
+            "created_at_utc": row.created_at_utc,
+        }
+
+    @staticmethod
+    def _project_row(row: Project) -> Dict[str, object]:
+        return {
+            "id": row.id,
+            "workspace_id": row.workspace_id,
+            "name": row.name,
+            "slug": row.slug,
+            "status": row.status,
+            "created_at_utc": row.created_at_utc,
+        }
+
+    @staticmethod
+    def _registration_row(req: RegistrationRequest) -> Dict[str, object]:
+        return {
+            "id": req.id,
+            "username": req.username,
+            "email": req.email,
+            "display_name": req.display_name,
+            "password_hash": req.password_hash,
+            "requested_org_id": req.requested_org_id,
+            "status": req.status,
+            "reviewed_by": req.reviewed_by,
+            "reviewed_at_utc": req.reviewed_at_utc,
+            "review_reason": req.review_reason,
+            "created_at_utc": req.created_at_utc,
+        }
+
+
+class SaaSStore:
+    def __init__(self, path: Path):
+        backend = os.environ.get("DM_AUTH_BACKEND", "postgres").strip().lower()
+        database_url = os.environ.get("DM_DATABASE_URL", "").strip()
+
+        if backend == "file" or (backend == "postgres" and not database_url):
+            self.impl = _FileSaaSStore(path)
+        else:
+            self.impl = _PostgresSaaSStore(database_url)
+
+    def __getattr__(self, item):
+        return getattr(self.impl, item)

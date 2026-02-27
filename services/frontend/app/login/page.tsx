@@ -7,8 +7,8 @@ import ThemeModeSwitch from "../../components/ThemeModeSwitch";
 import { APP_VERSION } from "../../lib/version";
 
 export default function LoginPage() {
-  const [usernameOrEmail, setUsernameOrEmail] = useState("superadmin");
-  const [password, setPassword] = useState("Admin@123");
+  const [usernameOrEmail, setUsernameOrEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [debug, setDebug] = useState<string[]>([]);
@@ -90,11 +90,11 @@ export default function LoginPage() {
               <div className="controls">
                 <label>
                   Username or email
-                  <input value={usernameOrEmail} onChange={(e) => setUsernameOrEmail(e.target.value)} />
+                  <input autoComplete="username" value={usernameOrEmail} onChange={(e) => setUsernameOrEmail(e.target.value)} />
                 </label>
                 <label>
                   Password
-                  <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                  <input autoComplete="current-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </label>
               </div>
               <div style={{ display: "flex", gap: 8, marginTop: 10, alignItems: "center" }}>

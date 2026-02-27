@@ -24,14 +24,15 @@ from .models import (
     MappingWorkbenchUpdate,
     RegistrationReviewRequest,
 )
-from .saas_store import SaaSStore
+from .saas_store import DEFAULT_DMM_PERMISSIONS, SaaSStore
 from .security import create_token, decode_token, parse_bearer_token
 from .services.artifact_service import profile_schema, read_csv, read_json
+from .state_store import RuntimeStateStore
 
 
 app = FastAPI(
     title="OpenLI DMM API",
-    version="0.2.1",
+    version="0.2.2",
     description="OpenLI DMM multi-tenant migration API for schema, mapping, quality, lifecycle, and enterprise onboarding.",
 )
 
@@ -51,21 +52,18 @@ SNAPSHOT_DIR = REPORTS_DIR / "snapshots"
 SAAS_STORE_FILE = DATA_MIGRATION_ROOT / "services" / "backend" / "data" / "saas_store.json"
 VERSION_MANIFEST_FILE = DATA_MIGRATION_ROOT / "services" / "version_manifest.json"
 saas_store = SaaSStore(SAAS_STORE_FILE)
+state_store = RuntimeStateStore(
+    backend=os.environ.get("DM_STATE_BACKEND", "postgres"),
+    database_url=os.environ.get("DM_DATABASE_URL", ""),
+    mapping_workbench_file=MAPPING_WORKBENCH_FILE,
+    quality_history_file=QUALITY_HISTORY_FILE,
+    quality_kpi_config_file=QUALITY_KPI_CONFIG_FILE,
+)
 PUBLIC_API_PATHS = {
     "/api/auth/login",
     "/api/auth/register",
     "/api/auth/orgs",
 }
-DEFAULT_DMM_PERMISSIONS = {
-    "super_admin": {"*"},
-    "org_admin": {"org.manage", "workspace.manage", "project.manage", "project.execute", "project.design", "project.quality", "registration.review"},
-    "org_dm_engineer": {"project.execute", "project.design", "project.quality"},
-    "org_data_architect": {"project.execute", "project.design", "project.quality"},
-    "org_dq_lead": {"project.execute", "project.design", "project.quality"},
-    "org_clinical_reviewer": {"project.execute", "project.design", "project.quality"},
-    "org_release_manager": {"project.execute", "project.design", "project.quality"},
-}
-
 DEFAULT_QUALITY_KPIS = [
     {"id": "error_count", "label": "DQ Errors", "threshold": 0, "direction": "max", "enabled": True, "format": "int"},
     {"id": "warning_count", "label": "DQ Warnings", "threshold": 20, "direction": "max", "enabled": True, "format": "int"},
@@ -105,8 +103,14 @@ def _read_version_manifest() -> Dict[str, object]:
 
 
 def _permissions_for_actor(actor: Dict[str, object]) -> set:
+    token_permissions = actor.get("permissions")
+    if isinstance(token_permissions, list) and token_permissions:
+        return set(str(p) for p in token_permissions)
     role = str(actor.get("role", "org_dm_engineer"))
-    return set(DEFAULT_DMM_PERMISSIONS.get(role, set()))
+    try:
+        return set(saas_store.list_permissions_for_role(role))
+    except Exception:
+        return set(DEFAULT_DMM_PERMISSIONS.get(role, set()))
 
 
 def _require_permission(request: Request, permission: str) -> Dict[str, object]:
@@ -202,23 +206,15 @@ def _lifecycle_steps(rows: int, seed: int, min_patients: int, release_profile: s
 
 
 def _read_quality_history() -> List[Dict[str, object]]:
-    if not QUALITY_HISTORY_FILE.exists():
-        return []
-    return read_json(QUALITY_HISTORY_FILE) or []
+    return state_store.read_quality_history()
 
 
 def _write_quality_history(history: List[Dict[str, object]]) -> None:
-    QUALITY_HISTORY_FILE.write_text(json.dumps(history[-300:], indent=2), encoding="utf-8")
+    state_store.write_quality_history(history)
 
 
 def _read_quality_kpis() -> List[Dict[str, object]]:
-    if not QUALITY_KPI_CONFIG_FILE.exists():
-        QUALITY_KPI_CONFIG_FILE.write_text(json.dumps(DEFAULT_QUALITY_KPIS, indent=2), encoding="utf-8")
-        return DEFAULT_QUALITY_KPIS
-    payload = read_json(QUALITY_KPI_CONFIG_FILE)
-    if not isinstance(payload, list):
-        QUALITY_KPI_CONFIG_FILE.write_text(json.dumps(DEFAULT_QUALITY_KPIS, indent=2), encoding="utf-8")
-        return DEFAULT_QUALITY_KPIS
+    payload = state_store.read_quality_kpis(DEFAULT_QUALITY_KPIS)
     normalized = []
     for row in payload:
         if not isinstance(row, dict):
@@ -234,13 +230,13 @@ def _read_quality_kpis() -> List[Dict[str, object]]:
             }
         )
     if not normalized:
-        QUALITY_KPI_CONFIG_FILE.write_text(json.dumps(DEFAULT_QUALITY_KPIS, indent=2), encoding="utf-8")
+        state_store.write_quality_kpis(DEFAULT_QUALITY_KPIS)
         return DEFAULT_QUALITY_KPIS
     return normalized
 
 
 def _write_quality_kpis(rows: List[Dict[str, object]]) -> None:
-    QUALITY_KPI_CONFIG_FILE.write_text(json.dumps(rows, indent=2), encoding="utf-8")
+    state_store.write_quality_kpis(rows)
 
 
 def _snapshot_payload() -> Dict[str, object]:
@@ -480,26 +476,14 @@ def _bootstrap_workbench() -> List[Dict[str, object]]:
                 "last_updated_at_utc": now,
             }
         )
-    MAPPING_WORKBENCH_FILE.write_text(json.dumps(out, indent=2), encoding="utf-8")
+    state_store.write_workbench(out)
     return out
 
 
 def _read_workbench() -> List[Dict[str, object]]:
-    if not MAPPING_WORKBENCH_FILE.exists():
-        return _bootstrap_workbench()
-    payload = read_json(MAPPING_WORKBENCH_FILE)
+    payload = state_store.read_workbench()
     if not payload:
-        # Attempt salvage for partially-corrupted JSON by trimming trailing bytes after final ']'.
-        try:
-            raw = MAPPING_WORKBENCH_FILE.read_text(encoding="utf-8")
-            end = raw.rfind("]")
-            if end > 0:
-                repaired = json.loads(raw[: end + 1])
-                if isinstance(repaired, list):
-                    MAPPING_WORKBENCH_FILE.write_text(json.dumps(repaired, indent=2), encoding="utf-8")
-                    payload = repaired
-        except Exception:
-            payload = {}
+        return _bootstrap_workbench()
     if isinstance(payload, list):
         now = datetime.now(timezone.utc).isoformat()
         normalized = []
@@ -515,7 +499,7 @@ def _read_workbench() -> List[Dict[str, object]]:
 
 
 def _write_workbench(rows: List[Dict[str, object]]) -> None:
-    MAPPING_WORKBENCH_FILE.write_text(json.dumps(rows, indent=2), encoding="utf-8")
+    state_store.write_workbench(rows)
 
 
 def _infer_schema_relationships(domain: str) -> Dict[str, object]:
@@ -618,6 +602,7 @@ def auth_login(payload: AuthLoginRequest):
         raise HTTPException(status_code=401, detail="invalid credentials")
     memberships = saas_store.list_user_memberships(str(user.get("id")))
     role = "super_admin" if user.get("is_super_admin") else (memberships[0]["role"] if memberships else "org_dm_engineer")
+    permissions = sorted(_permissions_for_actor({"role": role}))
     org_id = payload.org_id or (memberships[0]["org_id"] if memberships else "")
     workspace_id = payload.workspace_id
     project_id = payload.project_id
@@ -637,6 +622,7 @@ def auth_login(payload: AuthLoginRequest):
             "org_id": org_id,
             "workspace_id": workspace_id or "",
             "project_id": project_id or "",
+            "permissions": permissions,
         }
     )
     return {
@@ -651,6 +637,7 @@ def auth_login(payload: AuthLoginRequest):
             "org_id": org_id,
             "workspace_id": workspace_id or "",
             "project_id": project_id or "",
+            "permissions": permissions,
         },
         "memberships": memberships,
     }
@@ -700,6 +687,7 @@ def auth_switch_context(payload: ContextSwitchRequest, request: Request):
     next_payload["org_id"] = payload.org_id
     next_payload["workspace_id"] = payload.workspace_id
     next_payload["project_id"] = payload.project_id
+    next_payload["permissions"] = sorted(_permissions_for_actor(next_payload))
     token = create_token(next_payload)
     return {"access_token": token, "token_type": "bearer", "user": next_payload}
 

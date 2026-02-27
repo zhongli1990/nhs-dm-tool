@@ -21,7 +21,7 @@ bash scripts/deploy.sh
 # Application:  http://localhost:9135
 # Backend API:  http://localhost:9134/health
 # Frontend:     http://localhost:9133
-# Login:        superadmin / Admin@123
+# Login:        superadmin / <DMM_BOOTSTRAP_ADMIN_PASSWORD from .env>
 ```
 
 ## AWS Ubuntu 24.04 Deployment
@@ -113,11 +113,13 @@ bash scripts/healthcheck.sh
 
 | Volume | Purpose |
 |--------|---------|
-| `dmm-reports` | Pipeline reports and snapshots |
+| `dmm-reports` | Pipeline reports and snapshots (artifacts) |
 | `dmm-mock-data` | Source/target mock data |
-| `dmm-saas-store` | Multi-tenant user/org data |
+| `dmm-saas-store` | Optional file-store fallback for auth context data |
 | `dmm-schemas` | Schema catalogs and crosswalks |
 | `dmm-postgres` | PostgreSQL data files |
+
+Runtime state (`mapping_workbench`, `quality_kpi_config`, `quality_history`) is persisted in PostgreSQL when `DM_STATE_BACKEND=postgres` (default).
 
 ### Port Allocation Policy
 
@@ -144,13 +146,13 @@ python pipeline/run_product_lifecycle.py --rows 20 --seed 42 \
 
 Or via the UI: Navigate to `/lifecycle` and execute steps interactively.
 
-## Current Status (v0.2.0)
+## Current Status (v0.2.2)
 
 - Schema extraction: **PASS** (417 source / 38 target tables)
 - Contract-driven ETL: **PASS** (38 tables, 0 crosswalk rejects)
 - Enterprise quality gate: **PASS** (0 errors, 0 warnings)
 - Release gates: **pre_production PASS**
-- SaaS foundation: Multi-tenant auth, RBAC, org/workspace/project context
+- SaaS foundation: Multi-tenant auth, RBAC, org/workspace/project context (PostgreSQL-backed)
 - UI: Dashboard, Schemas, ERD, Mappings, Lifecycle, Runs, Quality, Connectors
 
 ## Operations
@@ -203,8 +205,8 @@ See `LICENSE-ENTERPRISE.md` for enterprise licensing and IP terms.
 
 | User | Password | Role |
 |------|----------|------|
-| `superadmin` | `Admin@123` | Super Admin |
-| `qvh_admin` | `Admin@123` | Org Admin (QVH) |
+| `superadmin` | `DMM_BOOTSTRAP_ADMIN_PASSWORD` | Super Admin |
+| `qvh_admin` | `DMM_BOOTSTRAP_ADMIN_PASSWORD` | Org Admin (QVH) |
 
 ## Connector Types
 
