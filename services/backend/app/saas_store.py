@@ -389,7 +389,8 @@ class _PostgresSaaSStore:
     def __init__(self, database_url: str):
         self.engine = create_engine(database_url, pool_pre_ping=True)
         self.SessionLocal = sessionmaker(bind=self.engine, expire_on_commit=False)
-        Base.metadata.create_all(self.engine)
+        if os.environ.get("DM_SCHEMA_AUTOCREATE", "false").strip().lower() in {"true", "1", "yes"}:
+            Base.metadata.create_all(self.engine)
         self._seed_if_empty()
 
     def _session(self) -> Session:

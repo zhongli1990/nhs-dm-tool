@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Dict, List, Optional
@@ -74,7 +75,8 @@ class RuntimeStateStore:
         self.session_factory = None
         if self.backend == "postgres" and database_url:
             engine = create_engine(database_url, pool_pre_ping=True)
-            Base.metadata.create_all(engine)
+            if os.environ.get("DM_SCHEMA_AUTOCREATE", "false").strip().lower() in {"true", "1", "yes"}:
+                Base.metadata.create_all(engine)
             self.session_factory = sessionmaker(bind=engine, expire_on_commit=False)
         else:
             self.backend = "file"

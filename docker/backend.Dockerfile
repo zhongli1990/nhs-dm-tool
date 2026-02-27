@@ -32,6 +32,7 @@ ENV DM_LOG_LEVEL=INFO
 ENV DM_ALLOW_ORIGINS=*
 ENV DM_API_HOST=0.0.0.0
 ENV DM_API_PORT=9134
+ENV DM_RUN_MIGRATIONS=true
 ENV DMM_TOKEN_SECRET=change_me_in_production
 ENV DMM_TOKEN_TTL_SECONDS=43200
 
@@ -42,5 +43,4 @@ USER dmm
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD curl -f http://localhost:9134/health || exit 1
 
-CMD ["python", "-m", "uvicorn", "services.backend.app.main:app", \
-     "--host", "0.0.0.0", "--port", "9134", "--workers", "2"]
+CMD ["/app/services/backend/scripts/start_backend.sh"]

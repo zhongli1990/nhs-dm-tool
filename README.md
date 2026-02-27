@@ -12,7 +12,7 @@ Enterprise-grade data migration platform for NHS PAS/EPR system migrations.
 ```bash
 # 1. Clone and configure
 cp .env.example .env
-# Edit .env - at minimum change DMM_TOKEN_SECRET
+# Edit .env - at minimum change DMM_TOKEN_SECRET and DMM_BOOTSTRAP_ADMIN_PASSWORD
 
 # 2. Build and deploy
 bash scripts/deploy.sh
@@ -121,6 +121,16 @@ bash scripts/healthcheck.sh
 
 Runtime state (`mapping_workbench`, `quality_kpi_config`, `quality_history`) is persisted in PostgreSQL when `DM_STATE_BACKEND=postgres` (default).
 
+### Schema Migration Control
+
+- Alembic migrations are the primary schema management path.
+- Backend container startup runs `alembic upgrade head` when:
+  - `DM_RUN_MIGRATIONS=true`
+  - and either `DM_AUTH_BACKEND=postgres` or `DM_STATE_BACKEND=postgres`
+- Legacy auto-create fallback is disabled by default:
+  - `DM_SCHEMA_AUTOCREATE=false`
+  - set to `true` only for emergency recovery scenarios.
+
 ### Port Allocation Policy
 
 All exposed host ports are constrained to `9133-9139`:
@@ -170,6 +180,10 @@ docker compose down
 
 # Rebuild after code changes
 docker compose build --no-cache && docker compose up -d
+
+# Run DB migrations manually (non-Docker/manual deployment)
+cd services/backend
+alembic -c alembic.ini upgrade head
 
 # Production deployment with resource limits
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
