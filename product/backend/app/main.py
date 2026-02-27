@@ -5,7 +5,7 @@ import random
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 import shutil
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -30,7 +30,7 @@ from .services.artifact_service import profile_schema, read_csv, read_json
 
 app = FastAPI(
     title="OpenLI DMM API",
-    version="0.2.0",
+    version="0.2.1",
     description="OpenLI DMM multi-tenant migration API for schema, mapping, quality, lifecycle, and enterprise onboarding.",
 )
 
@@ -47,6 +47,7 @@ QUALITY_HISTORY_FILE = REPORTS_DIR / "quality_history.json"
 QUALITY_KPI_CONFIG_FILE = REPORTS_DIR / "quality_kpi_config.json"
 SNAPSHOT_DIR = REPORTS_DIR / "snapshots"
 SAAS_STORE_FILE = DATA_MIGRATION_ROOT / "product" / "backend" / "data" / "saas_store.json"
+VERSION_MANIFEST_FILE = DATA_MIGRATION_ROOT / "product" / "version_manifest.json"
 saas_store = SaaSStore(SAAS_STORE_FILE)
 PUBLIC_API_PATHS = {
     "/api/auth/login",
@@ -71,6 +72,31 @@ DEFAULT_QUALITY_KPIS = [
     {"id": "tables_written", "label": "Tables Written", "threshold": 38, "direction": "min", "enabled": True, "format": "int"},
     {"id": "unresolved_mapping", "label": "Unresolved Mapping", "threshold": 10, "direction": "max", "enabled": True, "format": "int"},
 ]
+
+DEFAULT_VERSION_MANIFEST = {
+    "product_name": "OpenLI DMM",
+    "current_version": "0.2.0",
+    "released_on": "2026-02-27",
+    "history": [
+        {"version": "0.0.1", "released_on": "2026-02-26", "summary": "Baseline lifecycle control plane and migration pipeline."},
+        {"version": "0.0.5", "released_on": "2026-02-27", "summary": "UX hardening, mapping workbench scale features, ERD and quality upgrades."},
+        {"version": "0.2.0", "released_on": "2026-02-27", "summary": "SaaS baseline: auth, tenancy model, onboarding/settings, compact context UX."},
+    ],
+}
+
+
+def _read_version_manifest() -> Dict[str, object]:
+    if not VERSION_MANIFEST_FILE.exists():
+        VERSION_MANIFEST_FILE.write_text(json.dumps(DEFAULT_VERSION_MANIFEST, indent=2), encoding="utf-8")
+        return DEFAULT_VERSION_MANIFEST
+    payload = read_json(VERSION_MANIFEST_FILE)
+    if not isinstance(payload, dict):
+        return DEFAULT_VERSION_MANIFEST
+    merged = dict(DEFAULT_VERSION_MANIFEST)
+    merged.update(payload)
+    if not isinstance(merged.get("history"), list):
+        merged["history"] = list(DEFAULT_VERSION_MANIFEST["history"])
+    return merged
 
 
 def _permissions_for_actor(actor: Dict[str, object]) -> set:
@@ -572,6 +598,12 @@ def _infer_schema_relationships(domain: str) -> Dict[str, object]:
 @app.get("/health")
 def health() -> Dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/api/meta/version")
+def api_meta_version(request: Request):
+    _require_permission(request, "project.design")
+    return _read_version_manifest()
 
 
 @app.post("/api/auth/login")
@@ -1102,6 +1134,44 @@ def connector_explore(spec: ConnectorSpec, request: Request):
         "table_count": len(tables),
         "tables": tables,
         "previews": previews,
+    }
+
+
+@app.post("/api/connectors/preview")
+def connector_preview(payload: Dict[str, Any], request: Request):
+    _require_permission(request, "project.design")
+    connector_type = str(payload.get("connector_type", "")).strip()
+    connection_string = str(payload.get("connection_string", "")).strip()
+    schema_name = str(payload.get("schema_name", "")).strip()
+    direction = str(payload.get("direction", "source")).strip() or "source"
+    table_name = str(payload.get("table_name", "")).strip()
+    options = payload.get("options") or {}
+    limit = int(payload.get("limit", 20) or 20)
+    if not connector_type or not connection_string or not table_name:
+        raise HTTPException(status_code=400, detail="connector_type, connection_string, and table_name are required")
+    limit = max(1, min(limit, 200))
+    try:
+        connector = build_connector(
+            connector_type,
+            connection_string,
+            schema_name,
+            direction=direction,
+            options=options,
+        )
+    except ValueError as ex:
+        raise HTTPException(status_code=400, detail=str(ex)) from ex
+    except NotImplementedError as ex:
+        raise HTTPException(status_code=501, detail=str(ex)) from ex
+
+    tables = connector.list_tables()
+    if table_name not in tables:
+        raise HTTPException(status_code=404, detail=f"table not found: {table_name}")
+
+    return {
+        "table_name": table_name,
+        "columns": connector.describe_table(table_name)[:200],
+        "sample_rows": connector.sample_rows(table_name, limit=limit),
+        "available_tables": len(tables),
     }
 
 

@@ -1,0 +1,21 @@
+crn,of_birth,sex,pat_name_1,pat_name_family,address_1,address_2,address_3,address_4,address_5,post_code,detention_start,detention_end,detention_location,caseholder,mental_category,legal_status,detention_notes
+,,U,AUTO_NAME_001,AUTO_NAME_001,,,,,,AUTO0001,,,,,03,03,Auto-derived value
+,,U,AUTO_NAME_002,AUTO_NAME_002,,,,,,AUTO0002,,,,,01,03,Auto-derived value
+,,U,AUTO_NAME_003,AUTO_NAME_003,,,,,,AUTO0003,,,,,03,03,Auto-derived value
+,,U,AUTO_NAME_004,AUTO_NAME_004,,,,,,AUTO0004,,,,,01,02,Auto-derived value
+,,U,AUTO_NAME_005,AUTO_NAME_005,,,,,,AUTO0005,,,,,02,02,Auto-derived value
+,,U,AUTO_NAME_006,AUTO_NAME_006,,,,,,AUTO0006,,,,,03,02,Auto-derived value
+,,U,AUTO_NAME_007,AUTO_NAME_007,,,,,,AUTO0007,,,,,02,03,Auto-derived value
+,,U,AUTO_NAME_008,AUTO_NAME_008,,,,,,AUTO0008,,,,,01,17,Auto-derived value
+,,U,AUTO_NAME_009,AUTO_NAME_009,,,,,,AUTO0009,,,,,02,17,Auto-derived value
+,,U,AUTO_NAME_010,AUTO_NAME_010,,,,,,AUTO0010,,,,,02,02,Auto-derived value
+,,U,AUTO_NAME_011,AUTO_NAME_011,,,,,,AUTO0011,,,,,03,07,Auto-derived value
+,,U,AUTO_NAME_012,AUTO_NAME_012,,,,,,AUTO0012,,,,,03,17,Auto-derived value
+,,U,AUTO_NAME_013,AUTO_NAME_013,,,,,,AUTO0013,,,,,02,07,Auto-derived value
+,,U,AUTO_NAME_014,AUTO_NAME_014,,,,,,AUTO0014,,,,,02,01,Auto-derived value
+,,U,AUTO_NAME_015,AUTO_NAME_015,,,,,,AUTO0015,,,,,02,01,Auto-derived value
+,,U,AUTO_NAME_016,AUTO_NAME_016,,,,,,AUTO0016,,,,,02,01,Auto-derived value
+,,U,AUTO_NAME_017,AUTO_NAME_017,,,,,,AUTO0017,,,,,01,01,Auto-derived value
+,,U,AUTO_NAME_018,AUTO_NAME_018,,,,,,AUTO0018,,,,,01,07,Auto-derived value
+,,U,AUTO_NAME_019,AUTO_NAME_019,,,,,,AUTO0019,,,,,03,02,Auto-derived value
+,,U,AUTO_NAME_020,AUTO_NAME_020,,,,,,AUTO0020,,,,,01,03,Auto-derived value

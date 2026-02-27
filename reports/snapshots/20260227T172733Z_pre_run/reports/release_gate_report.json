@@ -1,0 +1,61 @@
+{
+  "run_at_utc": "2026-02-27T17:16:41.563213+00:00",
+  "status": "PASS",
+  "inputs": {
+    "contract_report": "C:\\Zhong\\Windsurf\\data_migration\\reports\\contract_migration_report.json",
+    "enterprise_report": "C:\\Zhong\\Windsurf\\data_migration\\reports\\enterprise_pipeline_report.json"
+  },
+  "thresholds": {
+    "profile": "pre_production",
+    "max_errors": 0,
+    "max_warnings": 20,
+    "max_unresolved": 10,
+    "max_crosswalk_rejects": 0,
+    "min_population_ratio": 0.55,
+    "min_tables_written": 38
+  },
+  "checks": [
+    {
+      "gate": "NO_ERRORS",
+      "status": "PASS",
+      "actual": 0,
+      "expected": "<= 0",
+      "message": "Combined error count from ETL+quality gates."
+    },
+    {
+      "gate": "WARNINGS_THRESHOLD",
+      "status": "PASS",
+      "actual": 5,
+      "expected": "<= 20",
+      "message": "Combined warnings threshold."
+    },
+    {
+      "gate": "UNRESOLVED_MAPPING_THRESHOLD",
+      "status": "PASS",
+      "actual": 0,
+      "expected": "<= 10",
+      "message": "Unresolved mapping warnings must be within tolerance."
+    },
+    {
+      "gate": "CROSSWALK_REJECT_THRESHOLD",
+      "status": "PASS",
+      "actual": 0,
+      "expected": "<= 0",
+      "message": "Crosswalk rejects from translation engine."
+    },
+    {
+      "gate": "POPULATION_RATIO_MIN",
+      "status": "PASS",
+      "actual": 0.6784,
+      "expected": ">= 0.55",
+      "message": "Overall target column population ratio."
+    },
+    {
+      "gate": "TABLES_WRITTEN_MIN",
+      "status": "PASS",
+      "actual": 38,
+      "expected": ">= 38",
+      "message": "Expected number of target tables written."
+    }
+  ]
+}

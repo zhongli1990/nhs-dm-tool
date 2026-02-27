@@ -2,18 +2,34 @@
 
 import { useEffect, useState } from "react";
 import { API_BASE, apiGet } from "../../lib/api";
+import { APP_VERSION } from "../../lib/version";
+
+type VersionHistoryRow = {
+  version: string;
+  released_on: string;
+  summary: string;
+};
+
+type VersionManifest = {
+  product_name?: string;
+  current_version?: string;
+  released_on?: string;
+  history?: VersionHistoryRow[];
+};
 
 export default function SettingsPage() {
   const [profile, setProfile] = useState("pre_production");
   const [rowsPerPage, setRowsPerPage] = useState("200");
   const [apiBase, setApiBase] = useState(API_BASE);
   const [message, setMessage] = useState("");
+  const [manifest, setManifest] = useState<VersionManifest | null>(null);
 
   useEffect(() => {
     const p = localStorage.getItem("dmm_release_profile");
     const r = localStorage.getItem("dmm_rows_per_page");
     if (p) setProfile(p);
     if (r) setRowsPerPage(r);
+    apiGet<VersionManifest>("/api/meta/version").then(setManifest).catch(() => setManifest(null));
   }, []);
 
   async function saveSettings() {
@@ -30,6 +46,9 @@ export default function SettingsPage() {
       setMessage("Backend connectivity failed.");
     }
   }
+
+  const currentVersion = manifest?.current_version || APP_VERSION;
+  const history = manifest?.history || [];
 
   return (
     <main className="grid" style={{ gridTemplateColumns: "1fr" }}>
@@ -66,6 +85,36 @@ export default function SettingsPage() {
         <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
           <button className="primary" onClick={saveSettings}>Save settings</button>
           <button onClick={testApi}>Test backend connectivity</button>
+        </div>
+      </section>
+
+      <section className="card">
+        <h4>Version</h4>
+        <div className="muted">Current version: <strong>{currentVersion}</strong></div>
+        <div className="table-wrap" style={{ marginTop: 10 }}>
+          <table>
+            <thead>
+              <tr>
+                <th>Version</th>
+                <th>Released On</th>
+                <th>Summary</th>
+              </tr>
+            </thead>
+            <tbody>
+              {history.map((row, idx) => (
+                <tr key={`${row.version}-${idx}`}>
+                  <td>{row.version}</td>
+                  <td>{row.released_on}</td>
+                  <td>{row.summary}</td>
+                </tr>
+              ))}
+              {history.length === 0 ? (
+                <tr>
+                  <td colSpan={3} className="muted">No version history available.</td>
+                </tr>
+              ) : null}
+            </tbody>
+          </table>
         </div>
       </section>
 

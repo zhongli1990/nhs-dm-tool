@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import { API_BASE } from "../../lib/api";
 import ThemeModeSwitch from "../../components/ThemeModeSwitch";
+import { APP_VERSION } from "../../lib/version";
 
 type OrgRow = { id: string; name: string };
 
@@ -122,6 +123,7 @@ export default function RegisterPage() {
                   {error}
                 </p>
               ) : null}
+              <div className="muted" style={{ marginTop: 10 }}>Version {APP_VERSION}</div>
             </form>
           </section>
         </div>

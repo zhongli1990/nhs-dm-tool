@@ -152,5 +152,38 @@
     "unresolved_mapping": 0,
     "release_status": "PASS",
     "event": "step_build_mapping_contract"
+  },
+  {
+    "ts_utc": "2026-02-27T17:15:56.195734+00:00",
+    "error_count": 0,
+    "warning_count": 5,
+    "crosswalk_rejects": 0,
+    "population_ratio": 0.6784,
+    "tables_written": 38,
+    "unresolved_mapping": 0,
+    "release_status": "PASS",
+    "event": "step_run_release_gates"
+  },
+  {
+    "ts_utc": "2026-02-27T17:16:41.769847+00:00",
+    "error_count": 0,
+    "warning_count": 5,
+    "crosswalk_rejects": 0,
+    "population_ratio": 0.6784,
+    "tables_written": 38,
+    "unresolved_mapping": 0,
+    "release_status": "PASS",
+    "event": "run_execute"
+  },
+  {
+    "ts_utc": "2026-02-27T17:28:02.041916+00:00",
+    "error_count": 0,
+    "warning_count": 5,
+    "crosswalk_rejects": 0,
+    "population_ratio": 0.6784,
+    "tables_written": 38,
+    "unresolved_mapping": 0,
+    "release_status": "PASS",
+    "event": "run_execute"
   }
 ]

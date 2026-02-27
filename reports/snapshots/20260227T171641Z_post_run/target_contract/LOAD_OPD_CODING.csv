@@ -1,0 +1,21 @@
+record_number,load_opd_record_number,system_code,external_system_id,diagnosis_division,note_type,diagnosis,diagnosis_note
+1,1,SRC_PAS_V83,MRN10001,,Auto-derived value,I251,Auto-derived value
+2,2,SRC_PAS_V83,MRN10002,,Auto-derived value,J189,Auto-derived value
+3,3,SRC_PAS_V83,MRN10003,,Auto-derived value,M161,Auto-derived value
+4,4,SRC_PAS_V83,MRN10004,,Auto-derived value,K802,Auto-derived value
+5,5,SRC_PAS_V83,MRN10005,,Auto-derived value,N183,Auto-derived value
+6,6,SRC_PAS_V83,MRN10006,,Auto-derived value,E119,Auto-derived value
+7,7,SRC_PAS_V83,MRN10007,,Auto-derived value,F321,Auto-derived value
+8,8,SRC_PAS_V83,MRN10008,,Auto-derived value,M793,Auto-derived value
+9,9,SRC_PAS_V83,MRN10009,,Auto-derived value,L400,Auto-derived value
+10,10,SRC_PAS_V83,MRN10010,,Auto-derived value,Z966,Auto-derived value
+11,11,SRC_PAS_V83,MRN10011,,Auto-derived value,I251,Auto-derived value
+12,12,SRC_PAS_V83,MRN10012,,Auto-derived value,J189,Auto-derived value
+13,13,SRC_PAS_V83,MRN10013,,Auto-derived value,M161,Auto-derived value
+14,14,SRC_PAS_V83,MRN10014,,Auto-derived value,K802,Auto-derived value
+15,15,SRC_PAS_V83,MRN10015,,Auto-derived value,N183,Auto-derived value
+16,16,SRC_PAS_V83,MRN10016,,Auto-derived value,E119,Auto-derived value
+17,17,SRC_PAS_V83,MRN10017,,Auto-derived value,F321,Auto-derived value
+18,18,SRC_PAS_V83,MRN10018,,Auto-derived value,M793,Auto-derived value
+19,19,SRC_PAS_V83,MRN10019,,Auto-derived value,L400,Auto-derived value
+20,20,SRC_PAS_V83,MRN10020,,Auto-derived value,Z966,Auto-derived value

@@ -21,6 +21,12 @@ Enterprise NHS migration control plane for PAS/EPR transitions:
 2. `frontend/`
 - Next.js UI with dynamic rendering of schema/mapping/run artifacts
 - login/register/admin UX for OpenLI DMM SaaS foundation
+- title bar subtitle: `Data Migration Manager - Enterprise EPR Migration Lifecycle Management`
+
+3. Version configuration
+- single-source version manifest: `product/version_manifest.json`
+- frontend version string: `NEXT_PUBLIC_DMM_VERSION` (fallbacks to manifest default)
+- API endpoint: `GET /api/meta/version`
 
 ## Run backend
 

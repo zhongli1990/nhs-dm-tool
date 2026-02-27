@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { apiGet } from "../../lib/api";
+import { API_BASE, apiGet, getTokenFromBrowser } from "../../lib/api";
 import DataTable from "../../components/DataTable";
 
 type ConnectorType = { id: string; label: string; mode: string; direction: string };
@@ -15,6 +15,10 @@ export default function ConnectorsPage() {
   const [schemaName, setSchemaName] = useState("INQUIRE");
   const [result, setResult] = useState<any>(null);
   const [selectedTable, setSelectedTable] = useState("");
+  const [preview, setPreview] = useState<any>(null);
+  const [previewLoading, setPreviewLoading] = useState(false);
+  const [tablePage, setTablePage] = useState(1);
+  const [tablePageSize, setTablePageSize] = useState(10);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
@@ -52,14 +56,50 @@ export default function ConnectorsPage() {
     setDirection(tpl.direction || "source");
   }, [connectorType, templates]);
 
+  async function loadTablePreview(tableName: string) {
+    if (!tableName) return;
+    setPreviewLoading(true);
+    setError("");
+    try {
+      const token = getTokenFromBrowser();
+      const res = await fetch(`${API_BASE}/api/connectors/preview`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          connector_type: connectorType,
+          connection_string: connectionString,
+          schema_name: schemaName,
+          direction,
+          table_name: tableName,
+          options: {},
+          limit: 20,
+        }),
+      });
+      const payload = await res.json();
+      if (!res.ok) throw new Error(payload?.detail || "Preview load failed");
+      setSelectedTable(tableName);
+      setPreview(payload);
+    } catch (ex: any) {
+      setPreview(null);
+      setError(ex?.message || "Preview load failed");
+    } finally {
+      setPreviewLoading(false);
+    }
+  }
+
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError("");
     setResult(null);
+    setPreview(null);
+    setTablePage(1);
     try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("dmm_access_token") : "";
-      const res = await fetch(`${process.env.NEXT_PUBLIC_DM_API_BASE || "http://localhost:9134"}/api/connectors/explore`, {
+      const token = getTokenFromBrowser();
+      const res = await fetch(`${API_BASE}/api/connectors/explore`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,6 +118,9 @@ export default function ConnectorsPage() {
       setResult(payload);
       const first = (payload.tables || [])[0] || "";
       setSelectedTable(first);
+      if (first) {
+        await loadTablePreview(first);
+      }
     } catch (ex: any) {
       setError(ex?.message || "Unknown error");
     } finally {
@@ -85,9 +128,18 @@ export default function ConnectorsPage() {
     }
   }
 
-  const preview = selectedTable ? result?.previews?.[selectedTable] : null;
   const previewRows = preview?.sample_rows || [];
   const previewColumns = preview?.columns || [];
+  const previewColumnNames =
+    previewColumns.length > 0
+      ? previewColumns.map((c: any) => c.column_name || c.field_name || c.name || String(c))
+      : Object.keys((previewRows && previewRows[0]) || {});
+  const allTables: string[] = result?.tables || [];
+  const totalPages = Math.max(1, Math.ceil(allTables.length / tablePageSize));
+  const safePage = Math.min(tablePage, totalPages);
+  const startIdx = (safePage - 1) * tablePageSize;
+  const endIdx = Math.min(startIdx + tablePageSize, allTables.length);
+  const pagedTables = allTables.slice(startIdx, endIdx);
 
   return (
     <main className="grid">
@@ -140,8 +192,23 @@ export default function ConnectorsPage() {
         <div className="muted">Table count: {result?.table_count ?? 0}</div>
         <div className="controls">
           <label>
+            Rows per page
+            <select
+              value={tablePageSize}
+              onChange={(e) => {
+                setTablePageSize(Number(e.target.value));
+                setTablePage(1);
+              }}
+              disabled={!allTables.length}
+            >
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+            </select>
+          </label>
+          <label>
             Selected table
-            <select value={selectedTable} onChange={(e) => setSelectedTable(e.target.value)} disabled={!result?.tables?.length}>
+            <select value={selectedTable} onChange={(e) => loadTablePreview(e.target.value)} disabled={!result?.tables?.length}>
               {(result?.tables || []).map((t: string) => (
                 <option key={t} value={t}>
                   {t}
@@ -150,22 +217,47 @@ export default function ConnectorsPage() {
             </select>
           </label>
         </div>
+        <div className="quality-actions">
+          <span className="muted">
+            Showing {allTables.length ? startIdx + 1 : 0}-{endIdx} of {allTables.length}
+          </span>
+          <button type="button" onClick={() => setTablePage((p) => Math.max(1, p - 1))} disabled={safePage <= 1}>
+            Prev
+          </button>
+          <span className="pill">
+            Page {safePage}/{totalPages}
+          </span>
+          <button type="button" onClick={() => setTablePage((p) => Math.min(totalPages, p + 1))} disabled={safePage >= totalPages}>
+            Next
+          </button>
+        </div>
         <DataTable
           columns={["table", "columns", "sample_rows"]}
-          rows={Object.entries(result?.previews || {}).slice(0, 300).map(([t, p]: any) => ({
-            table: t,
-            columns: (p?.columns || []).length,
-            sample_rows: (p?.sample_rows || []).length,
-          }))}
-          emptyLabel="Run connector exploration to load tables."
+          rows={pagedTables.map((t: string) => {
+            const p = result?.previews?.[t];
+            return {
+            table: (
+              <button type="button" onClick={() => loadTablePreview(String(t))} className="topbar-meta-btn">
+                {String(t)}
+              </button>
+            ),
+            columns: p ? (p?.columns || []).length : "on-demand",
+            sample_rows: p ? (p?.sample_rows || []).length : "on-demand",
+          };
+          })}
+          emptyLabel="Run connector exploration to load tables. Click a table name to load sample rows."
         />
       </section>
 
       <section className="card" style={{ gridColumn: "1 / -1" }}>
         <h3>Selected Table Preview: {selectedTable || "-"}</h3>
-        <DataTable columns={previewColumns.length ? previewColumns.map((c: any) => c.field_name || c.name || String(c)) : ["field_name"]} rows={previewRows} emptyLabel="No preview rows." />
+        {previewLoading ? <div className="muted">Loading preview...</div> : null}
+        <DataTable
+          columns={previewColumnNames.length ? previewColumnNames : ["field_name"]}
+          rows={previewRows}
+          emptyLabel="No preview rows for selected table."
+        />
       </section>
     </main>
   );
 }
-

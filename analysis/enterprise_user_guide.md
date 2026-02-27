@@ -24,12 +24,37 @@ Core outcomes:
 5. Clinical Safety/Assurance Reviewer
 6. Cutover Manager
 
-## 2.2 Ownership by stage
+## 2.2 SaaS role tiers and tenant scope
+
+1. Super Admin:
+   - platform-wide access across all organizations, workspaces, and projects
+   - manages global governance controls, approvals, and platform operations
+2. Customer Org Admin (for example, QVH admin):
+   - full access inside own organization only
+   - manages organization users, workspaces, projects, and approval workflows
+3. Customer Org Users (phase-1 broad in-org access):
+   - operational roles such as DM engineer, architect, DQ lead, clinical reviewer, release manager
+   - execute and govern lifecycle tasks in own org context only
+
+## 2.3 Ownership by stage
 
 1. Discovery and profiling: Mapping Analyst
 2. Contract design and ETL build: ETL Engineer + Mapping Analyst
 3. Quality and safety checks: Data Quality Lead + Clinical Safety
 4. Release decision: Cutover Manager + Delivery Lead
+
+## 2.4 Acute Trust real-world operating example
+
+Example: an acute Trust running a major PAS to EPR migration programme:
+1. Org Admin creates workspace `EPR Programme` and projects:
+   - `Patient Administration Migration`
+   - `Outpatients Migration`
+   - `Inpatient/ADT Migration`
+2. Data Architect validates schema onboarding and mapping contract coverage.
+3. DM Engineers execute lifecycle rehearsals using `pre_production` profile.
+4. DQ Lead and Clinical Reviewer assess KPI/issue evidence and mapping approvals.
+5. Release Manager runs final readiness checks and decides promotion or rollback.
+6. Super Admin oversees cross-Trust governance and audit traceability.
 
 ## 3. What the platform does
 

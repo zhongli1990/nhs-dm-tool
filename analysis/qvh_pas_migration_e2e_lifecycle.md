@@ -1,6 +1,6 @@
 ﻿# QVH PAS Migration E2E Dry Run Lifecycle
 
-Date: 2026-02-26  
+Date: 2026-02-27  
 Scope: `c:\Zhong\Windsurf\data_migration`
 
 ## Objective
@@ -13,6 +13,18 @@ Document the complete data migration lifecycle dry run from scratch for QVH PAS 
 - ETL execution
 - quality gates
 - UI/API operational control-plane parity
+
+## SaaS role alignment for this lifecycle
+
+1. Super Admin:
+- platform oversight and cross-tenant governance
+2. QVH Org Admin:
+- onboarding and tenant/project administration
+3. QVH delivery roles:
+- DM Engineer: execution
+- Data Architect: mapping governance
+- DQ Lead + Clinical Reviewer: quality/safety assurance
+- Release Manager: final gate decision
 
 ## Lifecycle prerequisites
 
@@ -149,12 +161,14 @@ Pending hardening:
 ## UI-first lifecycle execution sequence
 
 1. `Connectors`: configure source/target profile and preview metadata.
-2. `Schemas`: verify catalog completeness.
-3. `ERD`: validate key relationship chains and cardinality inferences.
-4. `Mappings`: review Contract Rows and execute Edit/Approve workflow.
-5. `Lifecycle`: run step-by-step or rerun from selected stage.
-6. `Runs`: verify run outcome and gate status.
-7. `Quality`: review KPI widgets and issue triage outputs.
+2. `Onboarding`: confirm organization/workspace/project context for the programme.
+3. `Schemas`: verify catalog completeness.
+4. `ERD`: validate key relationship chains and cardinality inferences.
+5. `Mappings`: review Contract Rows and execute Edit/Approve workflow.
+6. `Lifecycle`: run step-by-step or rerun from selected stage.
+7. `Runs`: verify run outcome and gate status.
+8. `Quality`: review KPI widgets and issue triage outputs.
+9. `Settings`: verify runtime defaults and version history for governance traceability.
 
 ## Sign-off artifacts for governance board
 

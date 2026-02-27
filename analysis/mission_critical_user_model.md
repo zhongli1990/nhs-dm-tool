@@ -1,6 +1,6 @@
 ﻿# Mission-Critical User Model and Lifecycle Ownership
 
-Date: 2026-02-26
+Date: 2026-02-27
 
 ## Product vision context
 
@@ -12,15 +12,20 @@ Both modes must produce the same governed artifacts and gate decisions.
 
 ## Primary user groups
 
-SaaS uplift target tiers (approval draft):
+SaaS uplift target tiers (implemented baseline v0.2.0):
 1. Super Admin
 2. Customer Org Admin
 3. Customer Org Users (analysts/engineers/managers; phase-1 broad in-org access)
 
-SaaS tenancy hierarchy (approval draft):
+SaaS tenancy hierarchy (implemented baseline):
 1. Organization
 2. Workspaces
 3. Projects
+
+Access boundary:
+1. Super Admin can span all tenants.
+2. Org Admin and Org Users are restricted to their organization context.
+3. All lifecycle operations are scoped by organization + workspace + project.
 
 Current operational roles:
 1. DM Engineer
@@ -65,6 +70,22 @@ Current operational roles:
 5. Release-gate and cutover decisions
 - Owner: Programme / Release Manager
 - Inputs: Architect, Clinical Lead, DBA
+
+## Acute Trust programme role map (example)
+
+1. Super Admin:
+- cross-organization policy baseline and approval oversight
+2. QVH Org Admin:
+- creates `PAS EPR` workspace and migration projects
+- manages org users and approvals
+3. QVH DM Engineer:
+- configures connectors, runs lifecycle, triages execution issues
+4. QVH Data Architect:
+- resolves mapping gaps and approves structural transforms
+5. QVH DQ Lead + Clinical Reviewer:
+- validate DQ KPIs, rejects, and safety-critical code behavior
+6. QVH Release Manager:
+- confirms gate evidence and approves progression/cutover readiness
 
 ## UI support expectations by role
 

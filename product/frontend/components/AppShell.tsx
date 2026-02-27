@@ -7,6 +7,7 @@ import AppNav from "./AppNav";
 import ThemeModeSwitch from "./ThemeModeSwitch";
 import AuthToolbar from "./AuthToolbar";
 import { API_BASE, getTokenFromBrowser } from "../lib/api";
+import { APP_VERSION } from "../lib/version";
 
 export default function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -74,11 +75,12 @@ export default function AppShell({ children }: { children: ReactNode }) {
       <header className="app-topbar">
         <div>
           <div className="title">OpenLI DMM</div>
-          <div className="subtitle">Data Migration Manager - Enterprise PAS to EPR Lifecycle</div>
+          <div className="subtitle">Data Migration Manager - Enterprise EPR Migration Lifecycle Management</div>
         </div>
         <div className="topbar-actions">
           <ThemeModeSwitch />
           <AuthToolbar />
+          <div className="topbar-meta">v{APP_VERSION}</div>
           <div className="topbar-meta">Mission-critical mode</div>
         </div>
       </header>

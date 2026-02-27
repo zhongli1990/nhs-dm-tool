@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { API_BASE } from "../../lib/api";
 import ThemeModeSwitch from "../../components/ThemeModeSwitch";
+import { APP_VERSION } from "../../lib/version";
 
 export default function LoginPage() {
   const [usernameOrEmail, setUsernameOrEmail] = useState("superadmin");
@@ -114,6 +115,7 @@ export default function LoginPage() {
                   {debug.join("\n")}
                 </div>
               ) : null}
+              <div className="muted" style={{ marginTop: 10 }}>Version {APP_VERSION}</div>
             </form>
           </section>
         </div>

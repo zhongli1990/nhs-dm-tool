@@ -1,0 +1,21 @@
+record_number,loadowl_record_number,system_code,external_system_id,deferral_start,deferral_end,deferral_reason,deferral_comment
+1,1,SRC_PAS_V83,MRN10001,01/01/2024,08/01/2024,,Auto-derived value
+2,2,SRC_PAS_V83,MRN10002,01/01/2024,08/01/2024,,Auto-derived value
+3,3,SRC_PAS_V83,MRN10003,01/01/2024,08/01/2024,,Auto-derived value
+4,4,SRC_PAS_V83,MRN10004,01/01/2024,08/01/2024,,Auto-derived value
+5,5,SRC_PAS_V83,MRN10005,01/01/2024,08/01/2024,,Auto-derived value
+6,6,SRC_PAS_V83,MRN10006,01/01/2024,08/01/2024,,Auto-derived value
+7,7,SRC_PAS_V83,MRN10007,01/01/2024,08/01/2024,,Auto-derived value
+8,8,SRC_PAS_V83,MRN10008,01/01/2024,08/01/2024,,Auto-derived value
+9,9,SRC_PAS_V83,MRN10009,01/01/2024,08/01/2024,,Auto-derived value
+10,10,SRC_PAS_V83,MRN10010,01/01/2024,08/01/2024,,Auto-derived value
+11,11,SRC_PAS_V83,MRN10011,01/01/2024,08/01/2024,,Auto-derived value
+12,12,SRC_PAS_V83,MRN10012,01/01/2024,08/01/2024,,Auto-derived value
+13,13,SRC_PAS_V83,MRN10013,01/01/2024,08/01/2024,,Auto-derived value
+14,14,SRC_PAS_V83,MRN10014,01/01/2024,08/01/2024,,Auto-derived value
+15,15,SRC_PAS_V83,MRN10015,01/01/2024,08/01/2024,,Auto-derived value
+16,16,SRC_PAS_V83,MRN10016,01/01/2024,08/01/2024,,Auto-derived value
+17,17,SRC_PAS_V83,MRN10017,01/01/2024,08/01/2024,,Auto-derived value
+18,18,SRC_PAS_V83,MRN10018,01/01/2024,08/01/2024,,Auto-derived value
+19,19,SRC_PAS_V83,MRN10019,01/01/2024,08/01/2024,,Auto-derived value
+20,20,SRC_PAS_V83,MRN10020,01/01/2024,08/01/2024,,Auto-derived value
