@@ -1,6 +1,6 @@
 {
   "product_name": "OpenLI DMM",
-  "current_version": "0.2.2",
+  "current_version": "0.2.4",
   "released_on": "2026-02-27",
   "history": [
     {
@@ -27,6 +27,16 @@
       "version": "0.2.2",
       "released_on": "2026-02-27",
       "summary": "Dockerized enterprise full-stack architecture, postgres integration, and merged 0.2.1 feature line into services runtime."
+    },
+    {
+      "version": "0.2.3",
+      "released_on": "2026-02-27",
+      "summary": "PostgreSQL-backed identity/RBAC and runtime state hardening for mapping and quality control-plane data."
+    },
+    {
+      "version": "0.2.4",
+      "released_on": "2026-02-27",
+      "summary": "Alembic migration governance and immutable audit-event trail for mission-critical enterprise operations."
     }
   ]
 }

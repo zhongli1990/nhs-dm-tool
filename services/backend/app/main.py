@@ -34,7 +34,7 @@ from .state_store import RuntimeStateStore
 
 app = FastAPI(
     title="OpenLI DMM API",
-    version="0.2.2",
+    version="0.2.4",
     description="OpenLI DMM multi-tenant migration API for schema, mapping, quality, lifecycle, and enterprise onboarding.",
 )
 
@@ -81,7 +81,7 @@ DEFAULT_QUALITY_KPIS = [
 
 DEFAULT_VERSION_MANIFEST = {
     "product_name": "OpenLI DMM",
-    "current_version": "0.2.2",
+    "current_version": "0.2.4",
     "released_on": "2026-02-27",
     "history": [
         {"version": "0.0.1", "released_on": "2026-02-26", "summary": "Baseline lifecycle control plane and migration pipeline."},
@@ -89,6 +89,8 @@ DEFAULT_VERSION_MANIFEST = {
         {"version": "0.2.0", "released_on": "2026-02-27", "summary": "SaaS baseline: auth, tenancy model, onboarding/settings, compact context UX."},
         {"version": "0.2.1", "released_on": "2026-02-27", "summary": "Connector preview UX fix, table pagination default 10, version metadata display, lifecycle doc alignment."},
         {"version": "0.2.2", "released_on": "2026-02-27", "summary": "Dockerized enterprise full-stack architecture, postgres integration, and merged 0.2.1 feature line into services runtime."},
+        {"version": "0.2.3", "released_on": "2026-02-27", "summary": "PostgreSQL-backed identity/RBAC and runtime state hardening for mapping and quality control-plane data."},
+        {"version": "0.2.4", "released_on": "2026-02-27", "summary": "Alembic migration governance and immutable audit-event trail for mission-critical enterprise operations."},
     ],
 }
 

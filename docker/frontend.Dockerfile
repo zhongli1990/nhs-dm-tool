@@ -8,7 +8,7 @@ RUN npm ci --production=false
 FROM node:20-alpine AS builder
 ARG NEXT_PUBLIC_DM_API_BASE=http://localhost:9134
 ARG DM_INTERNAL_API_BASE=http://backend:9134
-ARG NEXT_PUBLIC_DMM_VERSION=0.2.2
+ARG NEXT_PUBLIC_DMM_VERSION=0.2.4
 
 WORKDIR /app
 
@@ -33,7 +33,7 @@ RUN npm run build
 FROM node:20-alpine AS runner
 ARG NEXT_PUBLIC_DM_API_BASE=http://localhost:9134
 ARG DM_INTERNAL_API_BASE=http://backend:9134
-ARG NEXT_PUBLIC_DMM_VERSION=0.2.2
+ARG NEXT_PUBLIC_DMM_VERSION=0.2.4
 
 LABEL maintainer="OpenLI DMM <support@openli.local>"
 LABEL description="OpenLI DMM Frontend - Next.js migration control plane"

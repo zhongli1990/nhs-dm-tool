@@ -61,14 +61,14 @@ services:
       args:
         - NEXT_PUBLIC_DM_API_BASE=${NEXT_PUBLIC_DM_API_BASE:-http://localhost:9134}
         - DM_INTERNAL_API_BASE=${DM_INTERNAL_API_BASE:-http://backend:9134}
-        - NEXT_PUBLIC_DMM_VERSION=${NEXT_PUBLIC_DMM_VERSION:-0.2.2}
+        - NEXT_PUBLIC_DMM_VERSION=${NEXT_PUBLIC_DMM_VERSION:-0.2.4}
     container_name: dmm-frontend
     env_file: .env
     environment:
       - DM_DATA_ROOT=/app
       - NEXT_PUBLIC_DM_API_BASE=${NEXT_PUBLIC_DM_API_BASE:-http://localhost:9134}
       - DM_INTERNAL_API_BASE=${DM_INTERNAL_API_BASE:-http://backend:9134}
-      - NEXT_PUBLIC_DMM_VERSION=${NEXT_PUBLIC_DMM_VERSION:-0.2.2}
+      - NEXT_PUBLIC_DMM_VERSION=${NEXT_PUBLIC_DMM_VERSION:-0.2.4}
       - NODE_ENV=production
     ports:
       - "${DMM_FRONTEND_PORT:-9133}:3000"

@@ -157,7 +157,7 @@ python pipeline/run_product_lifecycle.py --rows 20 --seed 42 \
 
 Or via the UI: Navigate to `/lifecycle` and execute steps interactively.
 
-## Current Status (v0.2.2)
+## Current Status (v0.2.4)
 
 - Schema extraction: **PASS** (417 source / 38 target tables)
 - Contract-driven ETL: **PASS** (38 tables, 0 crosswalk rejects)
