@@ -1,5 +1,14 @@
 const API_BASE = process.env.NEXT_PUBLIC_DM_API_BASE || "http://127.0.0.1:9134";
 
+function buildApiUrl(path: string): string {
+  const base = API_BASE.replace(/\/+$/, "");
+  let p = path.startsWith("/") ? path : `/${path}`;
+  if (base.endsWith("/api") && p.startsWith("/api/")) {
+    p = p.slice(4);
+  }
+  return `${base}${p}`;
+}
+
 function getTokenFromBrowser(): string | null {
   if (typeof window === "undefined") return null;
   const fromStorage = localStorage.getItem("dmm_access_token");
@@ -21,7 +30,7 @@ function authHeaders(base?: HeadersInit): HeadersInit {
 }
 
 export async function apiGet<T>(path: string): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`, { cache: "no-store", headers: authHeaders() });
+  const res = await fetch(buildApiUrl(path), { cache: "no-store", headers: authHeaders() });
   if (!res.ok) {
     throw new Error(`GET ${path} failed: ${res.status}`);
   }
@@ -29,7 +38,7 @@ export async function apiGet<T>(path: string): Promise<T> {
 }
 
 export async function apiPost<T>(path: string): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`, { method: "POST", headers: authHeaders() });
+  const res = await fetch(buildApiUrl(path), { method: "POST", headers: authHeaders() });
   if (!res.ok) {
     const payload = await res.json().catch(() => ({}));
     throw new Error(payload?.detail || `POST ${path} failed: ${res.status}`);
@@ -38,7 +47,7 @@ export async function apiPost<T>(path: string): Promise<T> {
 }
 
 export async function apiPostJson<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`, {
+  const res = await fetch(buildApiUrl(path), {
     method: "POST",
     headers: authHeaders({ "Content-Type": "application/json" }),
     body: JSON.stringify(body),
@@ -50,4 +59,4 @@ export async function apiPostJson<T>(path: string, body: unknown): Promise<T> {
   return res.json();
 }
 
-export { API_BASE, getTokenFromBrowser };
+export { API_BASE, buildApiUrl, getTokenFromBrowser };

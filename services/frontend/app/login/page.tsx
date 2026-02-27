@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { API_BASE } from "../../lib/api";
+import { buildApiUrl } from "../../lib/api";
 import ThemeModeSwitch from "../../components/ThemeModeSwitch";
 import { APP_VERSION } from "../../lib/version";
 
@@ -26,8 +26,9 @@ export default function LoginPage() {
     setError("");
     setDebug([]);
     try {
-      pushDebug(`POST ${API_BASE}/api/auth/login`);
-      const res = await fetch(`${API_BASE}/api/auth/login`, {
+      const loginUrl = buildApiUrl("/api/auth/login");
+      pushDebug(`POST ${loginUrl}`);
+      const res = await fetch(loginUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username_or_email: usernameOrEmail, password }),
@@ -46,7 +47,7 @@ export default function LoginPage() {
       const cookieSet = document.cookie.includes("dmm_access_token=");
       pushDebug(`cookie set=${cookieSet}`);
 
-      const meRes = await fetch(`${API_BASE}/api/auth/me`, {
+      const meRes = await fetch(buildApiUrl("/api/auth/me"), {
         cache: "no-store",
         headers: { Authorization: `Bearer ${token}` },
       });
