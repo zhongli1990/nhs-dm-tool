@@ -33,6 +33,8 @@ services:
       - DM_DATABASE_URL=${DM_DATABASE_URL:-postgresql://dmm_app:change_me_postgres_password@postgres:5432/dmm}
       - DM_AUTH_BACKEND=${DM_AUTH_BACKEND:-postgres}
       - DM_STATE_BACKEND=${DM_STATE_BACKEND:-postgres}
+      - DM_AUDIT_BACKEND=${DM_AUDIT_BACKEND:-postgres}
+      - DM_AUDIT_ENABLED=${DM_AUDIT_ENABLED:-true}
       - DM_RUN_MIGRATIONS=${DM_RUN_MIGRATIONS:-true}
       - DM_SCHEMA_AUTOCREATE=${DM_SCHEMA_AUTOCREATE:-false}
       - DMM_BOOTSTRAP_ADMIN_USERNAME=${DMM_BOOTSTRAP_ADMIN_USERNAME:-superadmin}

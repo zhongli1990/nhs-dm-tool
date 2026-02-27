@@ -120,6 +120,7 @@ bash scripts/healthcheck.sh
 | `dmm-postgres` | PostgreSQL data files |
 
 Runtime state (`mapping_workbench`, `quality_kpi_config`, `quality_history`) is persisted in PostgreSQL when `DM_STATE_BACKEND=postgres` (default).
+Immutable audit events are persisted in PostgreSQL when `DM_AUDIT_BACKEND=postgres` and `DM_AUDIT_ENABLED=true` (default).
 
 ### Schema Migration Control
 
@@ -188,6 +189,9 @@ alembic -c alembic.ini upgrade head
 # Production deployment with resource limits
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 ```
+
+Audit review API (org admin / super admin):
+- `GET /api/audit/events?limit=200`
 
 ## Key Documentation
 

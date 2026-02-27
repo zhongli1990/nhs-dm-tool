@@ -3,6 +3,7 @@ import os
 import re
 import subprocess
 import random
+import uuid
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 import shutil
@@ -24,6 +25,7 @@ from .models import (
     MappingWorkbenchUpdate,
     RegistrationReviewRequest,
 )
+from .audit_store import AuditStore
 from .saas_store import DEFAULT_DMM_PERMISSIONS, SaaSStore
 from .security import create_token, decode_token, parse_bearer_token
 from .services.artifact_service import profile_schema, read_csv, read_json
@@ -58,6 +60,10 @@ state_store = RuntimeStateStore(
     mapping_workbench_file=MAPPING_WORKBENCH_FILE,
     quality_history_file=QUALITY_HISTORY_FILE,
     quality_kpi_config_file=QUALITY_KPI_CONFIG_FILE,
+)
+audit_store = AuditStore(
+    backend=os.environ.get("DM_AUDIT_BACKEND", "postgres"),
+    database_url=os.environ.get("DM_DATABASE_URL", ""),
 )
 PUBLIC_API_PATHS = {
     "/api/auth/login",
@@ -121,6 +127,45 @@ def _require_permission(request: Request, permission: str) -> Dict[str, object]:
     if "*" in perms or permission in perms:
         return actor
     raise HTTPException(status_code=403, detail=f"missing permission: {permission}")
+
+
+def _request_context(request: Optional[Request]) -> Dict[str, str]:
+    if request is None:
+        return {"request_id": str(uuid.uuid4()), "request_ip": "", "user_agent": ""}
+    rid = request.headers.get("x-request-id", "").strip() or str(uuid.uuid4())
+    xff = request.headers.get("x-forwarded-for", "").strip()
+    request_ip = xff.split(",")[0].strip() if xff else (request.client.host if request.client else "")
+    user_agent = request.headers.get("user-agent", "")
+    return {"request_id": rid, "request_ip": request_ip, "user_agent": user_agent}
+
+
+def _audit_event(
+    request: Optional[Request],
+    *,
+    event_type: str,
+    outcome: str,
+    target_type: str = "",
+    target_id: str = "",
+    details: Optional[Dict[str, object]] = None,
+    actor_override: Optional[Dict[str, object]] = None,
+) -> None:
+    actor = actor_override or (getattr(request.state, "actor", None) if request else None) or {}
+    ctx = _request_context(request)
+    audit_store.record(
+        event_type=event_type,
+        outcome=outcome,
+        actor_user_id=str(actor.get("sub", "")),
+        actor_role=str(actor.get("role", "")),
+        actor_org_id=str(actor.get("org_id", "")),
+        actor_workspace_id=str(actor.get("workspace_id", "")),
+        actor_project_id=str(actor.get("project_id", "")),
+        target_type=target_type,
+        target_id=target_id,
+        request_id=ctx["request_id"],
+        request_ip=ctx["request_ip"],
+        user_agent=ctx["user_agent"],
+        details=details or {},
+    )
 
 
 @app.middleware("http")
@@ -596,9 +641,17 @@ def api_meta_version(request: Request):
 
 
 @app.post("/api/auth/login")
-def auth_login(payload: AuthLoginRequest):
+def auth_login(payload: AuthLoginRequest, request: Request):
     user = saas_store.authenticate(payload.username_or_email, payload.password)
     if not user:
+        _audit_event(
+            request,
+            event_type="AUTH_LOGIN",
+            outcome="DENIED",
+            target_type="user",
+            target_id=payload.username_or_email,
+            details={"reason": "invalid_credentials"},
+        )
         raise HTTPException(status_code=401, detail="invalid credentials")
     memberships = saas_store.list_user_memberships(str(user.get("id")))
     role = "super_admin" if user.get("is_super_admin") else (memberships[0]["role"] if memberships else "org_dm_engineer")
@@ -625,6 +678,21 @@ def auth_login(payload: AuthLoginRequest):
             "permissions": permissions,
         }
     )
+    _audit_event(
+        request,
+        event_type="AUTH_LOGIN",
+        outcome="SUCCESS",
+        target_type="user",
+        target_id=str(user.get("id", "")),
+        details={"username": str(user.get("username", "")), "role": role},
+        actor_override={
+            "sub": user.get("id", ""),
+            "role": role,
+            "org_id": org_id,
+            "workspace_id": workspace_id or "",
+            "project_id": project_id or "",
+        },
+    )
     return {
         "access_token": token,
         "token_type": "bearer",
@@ -644,7 +712,7 @@ def auth_login(payload: AuthLoginRequest):
 
 
 @app.post("/api/auth/register")
-def auth_register(payload: AuthRegisterRequest):
+def auth_register(payload: AuthRegisterRequest, request: Request):
     try:
         req = saas_store.create_registration_request(
             username=payload.username,
@@ -654,7 +722,23 @@ def auth_register(payload: AuthRegisterRequest):
             requested_org_id=payload.requested_org_id,
         )
     except ValueError as ex:
+        _audit_event(
+            request,
+            event_type="AUTH_REGISTER",
+            outcome="DENIED",
+            target_type="registration_request",
+            target_id=payload.username,
+            details={"reason": str(ex), "requested_org_id": payload.requested_org_id},
+        )
         raise HTTPException(status_code=400, detail=str(ex))
+    _audit_event(
+        request,
+        event_type="AUTH_REGISTER",
+        outcome="SUCCESS",
+        target_type="registration_request",
+        target_id=str(req.get("id", "")),
+        details={"username": payload.username, "requested_org_id": payload.requested_org_id},
+    )
     return {"status": "PENDING_APPROVAL", "request": req}
 
 
@@ -678,10 +762,34 @@ def auth_switch_context(payload: ContextSwitchRequest, request: Request):
         raise HTTPException(status_code=401, detail="authentication required")
     user_id = str(actor.get("sub", ""))
     if not saas_store.user_has_org(user_id, payload.org_id):
+        _audit_event(
+            request,
+            event_type="AUTH_SWITCH_CONTEXT",
+            outcome="DENIED",
+            target_type="org",
+            target_id=payload.org_id,
+            details={"reason": "org_access_denied"},
+        )
         raise HTTPException(status_code=403, detail="org access denied")
     if not saas_store.workspace_belongs_to_org(payload.workspace_id, payload.org_id):
+        _audit_event(
+            request,
+            event_type="AUTH_SWITCH_CONTEXT",
+            outcome="DENIED",
+            target_type="workspace",
+            target_id=payload.workspace_id,
+            details={"reason": "workspace_not_in_org", "org_id": payload.org_id},
+        )
         raise HTTPException(status_code=400, detail="workspace does not belong to org")
     if not saas_store.project_belongs_to_workspace(payload.project_id, payload.workspace_id):
+        _audit_event(
+            request,
+            event_type="AUTH_SWITCH_CONTEXT",
+            outcome="DENIED",
+            target_type="project",
+            target_id=payload.project_id,
+            details={"reason": "project_not_in_workspace", "workspace_id": payload.workspace_id},
+        )
         raise HTTPException(status_code=400, detail="project does not belong to workspace")
     next_payload = dict(actor)
     next_payload["org_id"] = payload.org_id
@@ -689,6 +797,15 @@ def auth_switch_context(payload: ContextSwitchRequest, request: Request):
     next_payload["project_id"] = payload.project_id
     next_payload["permissions"] = sorted(_permissions_for_actor(next_payload))
     token = create_token(next_payload)
+    _audit_event(
+        request,
+        event_type="AUTH_SWITCH_CONTEXT",
+        outcome="SUCCESS",
+        target_type="project",
+        target_id=payload.project_id,
+        details={"org_id": payload.org_id, "workspace_id": payload.workspace_id},
+        actor_override=next_payload,
+    )
     return {"access_token": token, "token_type": "bearer", "user": next_payload}
 
 
@@ -704,7 +821,23 @@ def registration_approve(request_id: str, payload: RegistrationReviewRequest, re
     try:
         result = saas_store.approve_registration(request_id=request_id, reviewer_user_id=str(actor.get("sub", "")), role=payload.role)
     except ValueError as ex:
+        _audit_event(
+            request,
+            event_type="REGISTRATION_APPROVE",
+            outcome="DENIED",
+            target_type="registration_request",
+            target_id=request_id,
+            details={"reason": str(ex), "requested_role": payload.role},
+        )
         raise HTTPException(status_code=400, detail=str(ex))
+    _audit_event(
+        request,
+        event_type="REGISTRATION_APPROVE",
+        outcome="SUCCESS",
+        target_type="registration_request",
+        target_id=request_id,
+        details={"approved_user_id": str(result.get("user", {}).get("id", "")), "assigned_role": payload.role},
+    )
     return {"status": "APPROVED", "result": result}
 
 
@@ -714,7 +847,23 @@ def registration_reject(request_id: str, payload: RegistrationReviewRequest, req
     try:
         result = saas_store.reject_registration(request_id=request_id, reviewer_user_id=str(actor.get("sub", "")), reason=payload.reason or "")
     except ValueError as ex:
+        _audit_event(
+            request,
+            event_type="REGISTRATION_REJECT",
+            outcome="DENIED",
+            target_type="registration_request",
+            target_id=request_id,
+            details={"reason": str(ex)},
+        )
         raise HTTPException(status_code=400, detail=str(ex))
+    _audit_event(
+        request,
+        event_type="REGISTRATION_REJECT",
+        outcome="SUCCESS",
+        target_type="registration_request",
+        target_id=request_id,
+        details={"review_reason": payload.reason or ""},
+    )
     return {"status": "REJECTED", "result": result}
 
 
@@ -731,7 +880,23 @@ def create_org(payload: CreateNameRequest, request: Request):
     try:
         row = saas_store.create_org(payload.name)
     except ValueError as ex:
+        _audit_event(
+            request,
+            event_type="ORG_CREATE",
+            outcome="DENIED",
+            target_type="organization",
+            target_id=payload.name,
+            details={"reason": str(ex)},
+        )
         raise HTTPException(status_code=400, detail=str(ex))
+    _audit_event(
+        request,
+        event_type="ORG_CREATE",
+        outcome="SUCCESS",
+        target_type="organization",
+        target_id=str(row.get("id", "")),
+        details={"name": payload.name},
+    )
     return {"row": row}
 
 
@@ -747,7 +912,23 @@ def create_workspace(org_id: str, payload: CreateNameRequest, request: Request):
     try:
         row = saas_store.create_workspace(org_id=org_id, name=payload.name)
     except ValueError as ex:
+        _audit_event(
+            request,
+            event_type="WORKSPACE_CREATE",
+            outcome="DENIED",
+            target_type="workspace",
+            target_id=payload.name,
+            details={"reason": str(ex), "org_id": org_id},
+        )
         raise HTTPException(status_code=400, detail=str(ex))
+    _audit_event(
+        request,
+        event_type="WORKSPACE_CREATE",
+        outcome="SUCCESS",
+        target_type="workspace",
+        target_id=str(row.get("id", "")),
+        details={"name": payload.name, "org_id": org_id},
+    )
     return {"row": row}
 
 
@@ -763,7 +944,23 @@ def create_project(workspace_id: str, payload: CreateNameRequest, request: Reque
     try:
         row = saas_store.create_project(workspace_id=workspace_id, name=payload.name)
     except ValueError as ex:
+        _audit_event(
+            request,
+            event_type="PROJECT_CREATE",
+            outcome="DENIED",
+            target_type="project",
+            target_id=payload.name,
+            details={"reason": str(ex), "workspace_id": workspace_id},
+        )
         raise HTTPException(status_code=400, detail=str(ex))
+    _audit_event(
+        request,
+        event_type="PROJECT_CREATE",
+        outcome="SUCCESS",
+        target_type="project",
+        target_id=str(row.get("id", "")),
+        details={"name": payload.name, "workspace_id": workspace_id},
+    )
     return {"row": row}
 
 
@@ -771,6 +968,28 @@ def create_project(workspace_id: str, payload: CreateNameRequest, request: Reque
 def list_org_users(org_id: str, request: Request):
     _require_permission(request, "org.manage")
     return {"rows": saas_store.list_org_users(org_id)}
+
+
+@app.get("/api/audit/events")
+def list_audit_events(
+    request: Request,
+    limit: int = Query(default=200, ge=1, le=2000),
+    event_type: Optional[str] = Query(default=None),
+    outcome: Optional[str] = Query(default=None),
+    org_id: Optional[str] = Query(default=None),
+):
+    actor = _require_permission(request, "org.manage")
+    requested_org = (org_id or "").strip()
+    if str(actor.get("role", "")) != "super_admin":
+        requested_org = str(actor.get("org_id", "")).strip()
+
+    rows = audit_store.list_events(
+        limit=limit,
+        event_type=(event_type or "").strip(),
+        outcome=(outcome or "").strip(),
+        actor_org_id=requested_org,
+    )
+    return {"row_count": len(rows), "limit": limit, "rows": rows}
 
 
 @app.get("/api/schema/source")
