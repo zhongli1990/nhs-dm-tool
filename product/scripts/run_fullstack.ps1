@@ -1,7 +1,7 @@
 param(
   [string]$ScriptsDir = "c:\Zhong\Windsurf\data_migration\product\scripts",
-  [int]$BackendPort = 8099,
-  [int]$FrontendPort = 3133
+  [int]$BackendPort = 9134,
+  [int]$FrontendPort = 9133
 )
 
 $ErrorActionPreference = "Stop"

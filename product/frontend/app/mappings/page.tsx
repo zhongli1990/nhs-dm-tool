@@ -1,11 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { apiGet, apiPostJson } from "../../lib/api";
 import DataTable from "../../components/DataTable";
 import SectionTabs from "../../components/SectionTabs";
-
-const API_BASE = process.env.NEXT_PUBLIC_DM_API_BASE || "http://localhost:8099";
 
 export default function MappingsPage() {
   const [summary, setSummary] = useState<any>({});
@@ -106,30 +104,22 @@ export default function MappingsPage() {
 
   async function updateRow(workbenchId: string, patch: any) {
     setMessage("");
-    const res = await fetch(`${API_BASE}/api/mappings/workbench/upsert`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ workbench_id: workbenchId, updated_by: "ui_editor", ...patch }),
+    await apiPostJson("/api/mappings/workbench/upsert", {
+      workbench_id: workbenchId,
+      updated_by: "ui_editor",
+      ...patch,
     });
-    if (!res.ok) {
-      const p = await res.json().catch(() => ({}));
-      throw new Error(p?.detail || "update failed");
-    }
     await loadWorkbench();
     setMessage(`Updated ${workbenchId}`);
   }
 
   async function transitionRow(workbenchId: string, status: string) {
     setMessage("");
-    const res = await fetch(`${API_BASE}/api/mappings/workbench/transition`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ workbench_id: workbenchId, status, updated_by: "ui_approver" }),
+    await apiPostJson("/api/mappings/workbench/transition", {
+      workbench_id: workbenchId,
+      status,
+      updated_by: "ui_approver",
     });
-    if (!res.ok) {
-      const p = await res.json().catch(() => ({}));
-      throw new Error(p?.detail || "transition failed");
-    }
     await loadWorkbench();
     setMessage(`Status changed to ${status} for ${workbenchId}`);
   }
@@ -434,3 +424,4 @@ export default function MappingsPage() {
     </main>
   );
 }
+

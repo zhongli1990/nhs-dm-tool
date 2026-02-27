@@ -1,6 +1,6 @@
-﻿# QVH Data Migration Product Deployment Guide
+# QVH Data Migration Product Deployment Guide
 
-Date: 2026-02-26  
+Date: 2026-02-27  
 Scope: `c:\Zhong\Windsurf\data_migration`
 
 ## 1. Deployment objective
@@ -39,8 +39,8 @@ This deployment supports the current product vision:
 
 ## 3.3 Port plan
 
-1. Backend API: `8099`
-2. Frontend UI: `3133`
+1. Backend API: `9134`
+2. Frontend UI: `9133`
 
 ## 4. One-time setup
 
@@ -81,13 +81,13 @@ DM_ENV=local
 DM_LOG_LEVEL=INFO
 DM_ALLOW_ORIGINS=*
 DM_API_HOST=127.0.0.1
-DM_API_PORT=8099
+DM_API_PORT=9134
 ```
 
 Frontend (`product/frontend/.env.local`):
 
 ```env
-NEXT_PUBLIC_DM_API_BASE=http://localhost:8099
+NEXT_PUBLIC_DM_API_BASE=http://127.0.0.1:9134
 ```
 
 ## 5. Full lifecycle data pipeline deployment
@@ -115,7 +115,7 @@ Expected artifacts:
 ## 6.1 Clean restart
 
 ```powershell
-$ports=@(3133,8099)
+$ports=@(9133,9134)
 foreach($p in $ports){
   $conns=Get-NetTCPConnection -State Listen -LocalPort $p -ErrorAction SilentlyContinue
   if($conns){
@@ -128,15 +128,15 @@ foreach($p in $ports){
 ## 6.2 Start services
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\product\scripts\run_fullstack.ps1 -BackendPort 8099 -FrontendPort 3133
+powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\product\scripts\run_fullstack.ps1 -BackendPort 9134 -FrontendPort 9133
 ```
 
 ## 6.3 Health checks
 
 ```powershell
-Invoke-WebRequest http://127.0.0.1:8099/health -UseBasicParsing
-Invoke-WebRequest http://127.0.0.1:3133 -UseBasicParsing
-Invoke-WebRequest http://127.0.0.1:8099/api/connectors/types -UseBasicParsing
+Invoke-WebRequest http://127.0.0.1:9134/health -UseBasicParsing
+Invoke-WebRequest http://127.0.0.1:9133 -UseBasicParsing
+Invoke-WebRequest http://127.0.0.1:9134/api/connectors/types -UseBasicParsing
 ```
 
 Success criteria:
@@ -172,6 +172,10 @@ Validate these operational pages after startup:
    - dynamic connector type selection and previews
 9. `/users`:
    - role model and lifecycle ownership reference
+10. `/onboarding`:
+   - enterprise tenant/workspace/project onboarding flow
+11. `/settings`:
+   - runtime defaults and connectivity checks
 
 UI and CLI synchronization rule:
 
@@ -202,7 +206,7 @@ UI and CLI synchronization rule:
 
 ## 8. Manual E2E validation protocol
 
-1. Open UI: `http://127.0.0.1:3133`.
+1. Open UI: `http://127.0.0.1:9133`.
 2. Validate schema table counts against catalogs.
 3. Validate mappings pagination and edit/approve workbench behavior.
 4. Trigger run from `/runs` or POST `/api/runs/execute`.
@@ -218,11 +222,11 @@ UI and CLI synchronization rule:
 ## 9. Troubleshooting
 
 1. Port already in use:
-   - stop listeners on `3133` and `8099`, restart.
+   - stop listeners on `9133` and `9134`, restart.
 2. Backend not starting:
    - run `run_backend.ps1` and inspect traceback.
 3. Frontend cannot call backend:
-   - verify `NEXT_PUBLIC_DM_API_BASE=http://localhost:8099`.
+   - verify `NEXT_PUBLIC_DM_API_BASE=http://127.0.0.1:9134`.
 4. Lifecycle fails:
    - inspect `reports/product_lifecycle_run.json` step return codes.
 5. Gate fails:
@@ -236,3 +240,4 @@ UI and CLI synchronization rule:
 4. Authentication/authorization for all control-plane APIs.
 5. Audit logging to SIEM and immutable run ledger.
 6. Blue/green deployment for backend/frontend services.
+

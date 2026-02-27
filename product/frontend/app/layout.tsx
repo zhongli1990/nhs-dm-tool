@@ -1,33 +1,17 @@
 import "./globals.css";
 import type { ReactNode } from "react";
-import AppNav from "../components/AppNav";
-import ThemeModeSwitch from "../components/ThemeModeSwitch";
+import AppShell from "../components/AppShell";
 
 export const metadata = {
-  title: "NHS Data Migration Control Plane",
-  description: "PAS/EPR migration engineering workspace"
+  title: "OpenLI DMM",
+  description: "OpenLI Data Migration Manager for NHS enterprise PAS/EPR migrations"
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <div className="app-shell">
-          <header className="app-topbar">
-            <div>
-              <div className="title">NHS Migration Control Plane</div>
-              <div className="subtitle">Enterprise PAS to EPR Data Migration Lifecycle</div>
-            </div>
-            <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-              <ThemeModeSwitch />
-              <div className="topbar-meta">Mission-critical mode</div>
-            </div>
-          </header>
-          <div className="app-main">
-            <AppNav />
-            <section className="content">{children}</section>
-          </div>
-        </div>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

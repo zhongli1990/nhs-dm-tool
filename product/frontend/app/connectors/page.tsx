@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { apiGet } from "../../lib/api";
@@ -58,9 +58,13 @@ export default function ConnectorsPage() {
     setError("");
     setResult(null);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_DM_API_BASE || "http://localhost:8099"}/api/connectors/explore`, {
+      const token = typeof window !== "undefined" ? localStorage.getItem("dmm_access_token") : "";
+      const res = await fetch(`${process.env.NEXT_PUBLIC_DM_API_BASE || "http://localhost:9134"}/api/connectors/explore`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({
           connector_type: connectorType,
           connection_string: connectionString,
@@ -164,3 +168,4 @@ export default function ConnectorsPage() {
     </main>
   );
 }
+

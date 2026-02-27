@@ -6,9 +6,28 @@ Date: 2026-02-26
 
 Define the product roadmap for onboarding any NHS PAS/EPR estate (different schemas/vendors) and add a high-clarity data quality experience with KPI cards and trend charts.
 
-## Current implementation status (v0.0.5)
+## SaaS uplift status
+
+Implemented baseline (v0.2.0):
+1. OpenLI DMM SaaS uplift with authentication, multi-tenancy, and RBAC.
+2. Tenancy hierarchy:
+- organization -> workspaces -> projects
+3. Three user tiers:
+- super admin
+- customer organization admin
+- customer organization users (phase-1 broad in-org access)
+4. Approval documents:
+- `analysis/saas_product_uplift_requirements.md`
+- `analysis/saas_multitenancy_rbac_design.md`
+
+## Current implementation status (v0.2.0)
 
 Implemented now:
+1. SaaS phase-1 foundation:
+- login/register/approval
+- tenant-scoped context and API authorization
+- compact top-bar context popover UX
+- onboarding and settings pages
 1. Mapping workbench approval model and bulk workflow controls.
 2. ERD visual explorer with inferred relationships and cardinality labels.
 3. Quality command centre with KPI widgets, trend controls, and KPI config persistence.
@@ -17,7 +36,7 @@ Implemented now:
 6. Enterprise-scale pagination patterns in mappings workflows.
 
 In-progress/pending hardening:
-1. Full production security controls (RBAC/SSO, secret vault, audit hardening).
+1. Full production security controls (fine-grained RBAC/SSO, secret vault, audit hardening).
 2. Rich ERD interaction (zoom/pan/minimap/drag pinning).
 3. Production-grade async execution engine for long-running jobs.
 

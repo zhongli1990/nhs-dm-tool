@@ -12,6 +12,17 @@ Both modes must produce the same governed artifacts and gate decisions.
 
 ## Primary user groups
 
+SaaS uplift target tiers (approval draft):
+1. Super Admin
+2. Customer Org Admin
+3. Customer Org Users (analysts/engineers/managers; phase-1 broad in-org access)
+
+SaaS tenancy hierarchy (approval draft):
+1. Organization
+2. Workspaces
+3. Projects
+
+Current operational roles:
 1. DM Engineer
 - configures connectors
 - runs migration pipelines
@@ -80,3 +91,7 @@ The control plane should allow each role to:
 2. execute approved actions with audit traces.
 3. export decision artifacts for governance boards.
 4. operate consistently across UI, API, and CLI channels.
+
+SaaS design references:
+1. `analysis/saas_product_uplift_requirements.md`
+2. `analysis/saas_multitenancy_rbac_design.md`

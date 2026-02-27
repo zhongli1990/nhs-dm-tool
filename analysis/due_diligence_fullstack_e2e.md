@@ -1,6 +1,6 @@
-﻿# Full-Stack Due Diligence Report (Mission-Critical Readiness)
+# Full-Stack Due Diligence Report (Mission-Critical Readiness)
 
-Date: 2026-02-26  
+Date: 2026-02-27  
 Scope: QVH PAS/EPR DM lifecycle across backend pipelines, emulated connectors, runtime config, and Next.js control plane.
 
 ## Executive outcome
@@ -11,8 +11,8 @@ Current state is **not yet production-safe** for mission-critical deployment wit
 ## Runtime verification baseline
 
 1. Full stack launch verified:
-- Backend on `127.0.0.1:8099`
-- Frontend on `127.0.0.1:3133`
+- Backend on `127.0.0.1:9134`
+- Frontend on `127.0.0.1:9133`
 
 2. Live endpoint checks:
 - `GET /health` -> `200`
@@ -65,6 +65,7 @@ Current state is **not yet production-safe** for mission-critical deployment wit
 ## UX readiness observations
 
 Implemented now:
+1. SaaS auth baseline (login/register/approval + tenant context guard)
 1. theme modes (light/dark/system) with improved readability fixes
 2. mappings workbench high-volume operations (pagination, bulk actions)
 3. ERD improved auto-layout with relationship list IDs and filters
@@ -97,7 +98,7 @@ Residual UX backlog:
 ## Mission-critical go-live checklist (remaining)
 
 1. Security:
-- auth/RBAC/session controls
+- fine-grained RBAC hardening and federated auth (OIDC/SAML)
 - strict CORS/headers/rate limits
 - secrets vault integration
 
@@ -118,3 +119,4 @@ Residual UX backlog:
 
 Engineering due diligence status: **PASS for pre-production simulation**  
 Production due diligence status: **CONDITIONAL** pending hardening actions above.
+

@@ -7,19 +7,31 @@ from pathlib import Path
 import shutil
 from typing import Dict, List, Optional
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from .config import MOCK_SOURCE_DIR, MOCK_TARGET_CONTRACT_DIR, REPORTS_DIR, SCHEMAS_DIR, DATA_MIGRATION_ROOT
 from .connectors.registry import build_connector
-from .models import ConnectorSpec, MappingWorkbenchTransition, MappingWorkbenchUpdate
+from .models import (
+    AuthLoginRequest,
+    AuthRegisterRequest,
+    ConnectorSpec,
+    ContextSwitchRequest,
+    CreateNameRequest,
+    MappingWorkbenchTransition,
+    MappingWorkbenchUpdate,
+    RegistrationReviewRequest,
+)
+from .saas_store import SaaSStore
+from .security import create_token, decode_token, parse_bearer_token
 from .services.artifact_service import profile_schema, read_csv, read_json
 
 
 app = FastAPI(
-    title="NHS Data Migration Control Plane API",
-    version="0.1.0",
-    description="Enterprise migration API for schema, mapping, quality, and connector-driven exploration.",
+    title="OpenLI DMM API",
+    version="0.2.0",
+    description="OpenLI DMM multi-tenant migration API for schema, mapping, quality, lifecycle, and enterprise onboarding.",
 )
 
 app.add_middleware(
@@ -34,6 +46,22 @@ MAPPING_WORKBENCH_FILE = REPORTS_DIR / "mapping_workbench.json"
 QUALITY_HISTORY_FILE = REPORTS_DIR / "quality_history.json"
 QUALITY_KPI_CONFIG_FILE = REPORTS_DIR / "quality_kpi_config.json"
 SNAPSHOT_DIR = REPORTS_DIR / "snapshots"
+SAAS_STORE_FILE = DATA_MIGRATION_ROOT / "product" / "backend" / "data" / "saas_store.json"
+saas_store = SaaSStore(SAAS_STORE_FILE)
+PUBLIC_API_PATHS = {
+    "/api/auth/login",
+    "/api/auth/register",
+    "/api/auth/orgs",
+}
+DEFAULT_DMM_PERMISSIONS = {
+    "super_admin": {"*"},
+    "org_admin": {"org.manage", "workspace.manage", "project.manage", "project.execute", "project.design", "project.quality", "registration.review"},
+    "org_dm_engineer": {"project.execute", "project.design", "project.quality"},
+    "org_data_architect": {"project.execute", "project.design", "project.quality"},
+    "org_dq_lead": {"project.execute", "project.design", "project.quality"},
+    "org_clinical_reviewer": {"project.execute", "project.design", "project.quality"},
+    "org_release_manager": {"project.execute", "project.design", "project.quality"},
+}
 
 DEFAULT_QUALITY_KPIS = [
     {"id": "error_count", "label": "DQ Errors", "threshold": 0, "direction": "max", "enabled": True, "format": "int"},
@@ -43,6 +71,40 @@ DEFAULT_QUALITY_KPIS = [
     {"id": "tables_written", "label": "Tables Written", "threshold": 38, "direction": "min", "enabled": True, "format": "int"},
     {"id": "unresolved_mapping", "label": "Unresolved Mapping", "threshold": 10, "direction": "max", "enabled": True, "format": "int"},
 ]
+
+
+def _permissions_for_actor(actor: Dict[str, object]) -> set:
+    role = str(actor.get("role", "org_dm_engineer"))
+    return set(DEFAULT_DMM_PERMISSIONS.get(role, set()))
+
+
+def _require_permission(request: Request, permission: str) -> Dict[str, object]:
+    actor = getattr(request.state, "actor", None)
+    if not actor:
+        raise HTTPException(status_code=401, detail="authentication required")
+    perms = _permissions_for_actor(actor)
+    if "*" in perms or permission in perms:
+        return actor
+    raise HTTPException(status_code=403, detail=f"missing permission: {permission}")
+
+
+@app.middleware("http")
+async def auth_middleware(request: Request, call_next):
+    # Let CORS preflight pass through without bearer enforcement.
+    if request.method.upper() == "OPTIONS":
+        return await call_next(request)
+
+    path = request.url.path
+    if path.startswith("/api") and path not in PUBLIC_API_PATHS:
+        token = parse_bearer_token(request.headers.get("Authorization", ""))
+        if not token:
+            return JSONResponse(status_code=401, content={"detail": "missing bearer token"})
+        try:
+            payload = decode_token(token)
+        except ValueError as ex:
+            return JSONResponse(status_code=401, content={"detail": str(ex)})
+        request.state.actor = payload
+    return await call_next(request)
 
 
 def _lifecycle_steps(rows: int, seed: int, min_patients: int, release_profile: str) -> List[Dict[str, object]]:
@@ -512,6 +574,180 @@ def health() -> Dict[str, str]:
     return {"status": "ok"}
 
 
+@app.post("/api/auth/login")
+def auth_login(payload: AuthLoginRequest):
+    user = saas_store.authenticate(payload.username_or_email, payload.password)
+    if not user:
+        raise HTTPException(status_code=401, detail="invalid credentials")
+    memberships = saas_store.list_user_memberships(str(user.get("id")))
+    role = "super_admin" if user.get("is_super_admin") else (memberships[0]["role"] if memberships else "org_dm_engineer")
+    org_id = payload.org_id or (memberships[0]["org_id"] if memberships else "")
+    workspace_id = payload.workspace_id
+    project_id = payload.project_id
+    if not workspace_id and org_id:
+        workspaces = saas_store.list_workspaces_for_org(org_id)
+        workspace_id = workspaces[0]["id"] if workspaces else ""
+    if not project_id and workspace_id:
+        projects = saas_store.list_projects_for_workspace(workspace_id)
+        project_id = projects[0]["id"] if projects else ""
+    token = create_token(
+        {
+            "sub": user["id"],
+            "username": user.get("username"),
+            "email": user.get("email"),
+            "display_name": user.get("display_name", ""),
+            "role": role,
+            "org_id": org_id,
+            "workspace_id": workspace_id or "",
+            "project_id": project_id or "",
+        }
+    )
+    return {
+        "access_token": token,
+        "token_type": "bearer",
+        "user": {
+            "id": user["id"],
+            "username": user.get("username"),
+            "email": user.get("email"),
+            "display_name": user.get("display_name"),
+            "role": role,
+            "org_id": org_id,
+            "workspace_id": workspace_id or "",
+            "project_id": project_id or "",
+        },
+        "memberships": memberships,
+    }
+
+
+@app.post("/api/auth/register")
+def auth_register(payload: AuthRegisterRequest):
+    try:
+        req = saas_store.create_registration_request(
+            username=payload.username,
+            email=payload.email,
+            display_name=payload.display_name,
+            password=payload.password,
+            requested_org_id=payload.requested_org_id,
+        )
+    except ValueError as ex:
+        raise HTTPException(status_code=400, detail=str(ex))
+    return {"status": "PENDING_APPROVAL", "request": req}
+
+
+@app.get("/api/auth/orgs")
+def auth_orgs():
+    return {"rows": saas_store.list_orgs_for_user({"id": "", "is_super_admin": True})}
+
+
+@app.get("/api/auth/me")
+def auth_me(request: Request):
+    actor = getattr(request.state, "actor", None)
+    if not actor:
+        raise HTTPException(status_code=401, detail="authentication required")
+    return {"user": actor}
+
+
+@app.post("/api/auth/switch-context")
+def auth_switch_context(payload: ContextSwitchRequest, request: Request):
+    actor = getattr(request.state, "actor", None)
+    if not actor:
+        raise HTTPException(status_code=401, detail="authentication required")
+    user_id = str(actor.get("sub", ""))
+    if not saas_store.user_has_org(user_id, payload.org_id):
+        raise HTTPException(status_code=403, detail="org access denied")
+    if not saas_store.workspace_belongs_to_org(payload.workspace_id, payload.org_id):
+        raise HTTPException(status_code=400, detail="workspace does not belong to org")
+    if not saas_store.project_belongs_to_workspace(payload.project_id, payload.workspace_id):
+        raise HTTPException(status_code=400, detail="project does not belong to workspace")
+    next_payload = dict(actor)
+    next_payload["org_id"] = payload.org_id
+    next_payload["workspace_id"] = payload.workspace_id
+    next_payload["project_id"] = payload.project_id
+    token = create_token(next_payload)
+    return {"access_token": token, "token_type": "bearer", "user": next_payload}
+
+
+@app.get("/api/registration-requests")
+def registration_requests(request: Request, status: Optional[str] = Query(default=None)):
+    _require_permission(request, "registration.review")
+    return {"rows": saas_store.list_registration_requests(status=status)}
+
+
+@app.post("/api/registration-requests/{request_id}/approve")
+def registration_approve(request_id: str, payload: RegistrationReviewRequest, request: Request):
+    actor = _require_permission(request, "registration.review")
+    try:
+        result = saas_store.approve_registration(request_id=request_id, reviewer_user_id=str(actor.get("sub", "")), role=payload.role)
+    except ValueError as ex:
+        raise HTTPException(status_code=400, detail=str(ex))
+    return {"status": "APPROVED", "result": result}
+
+
+@app.post("/api/registration-requests/{request_id}/reject")
+def registration_reject(request_id: str, payload: RegistrationReviewRequest, request: Request):
+    actor = _require_permission(request, "registration.review")
+    try:
+        result = saas_store.reject_registration(request_id=request_id, reviewer_user_id=str(actor.get("sub", "")), reason=payload.reason or "")
+    except ValueError as ex:
+        raise HTTPException(status_code=400, detail=str(ex))
+    return {"status": "REJECTED", "result": result}
+
+
+@app.get("/api/orgs")
+def list_orgs(request: Request):
+    actor = _require_permission(request, "project.design")
+    user = {"id": actor.get("sub"), "is_super_admin": actor.get("role") == "super_admin"}
+    return {"rows": saas_store.list_orgs_for_user(user)}
+
+
+@app.post("/api/orgs")
+def create_org(payload: CreateNameRequest, request: Request):
+    _require_permission(request, "org.manage")
+    try:
+        row = saas_store.create_org(payload.name)
+    except ValueError as ex:
+        raise HTTPException(status_code=400, detail=str(ex))
+    return {"row": row}
+
+
+@app.get("/api/orgs/{org_id}/workspaces")
+def list_workspaces(org_id: str, request: Request):
+    _require_permission(request, "project.design")
+    return {"rows": saas_store.list_workspaces_for_org(org_id)}
+
+
+@app.post("/api/orgs/{org_id}/workspaces")
+def create_workspace(org_id: str, payload: CreateNameRequest, request: Request):
+    _require_permission(request, "workspace.manage")
+    try:
+        row = saas_store.create_workspace(org_id=org_id, name=payload.name)
+    except ValueError as ex:
+        raise HTTPException(status_code=400, detail=str(ex))
+    return {"row": row}
+
+
+@app.get("/api/workspaces/{workspace_id}/projects")
+def list_projects(workspace_id: str, request: Request):
+    _require_permission(request, "project.design")
+    return {"rows": saas_store.list_projects_for_workspace(workspace_id)}
+
+
+@app.post("/api/workspaces/{workspace_id}/projects")
+def create_project(workspace_id: str, payload: CreateNameRequest, request: Request):
+    _require_permission(request, "project.manage")
+    try:
+        row = saas_store.create_project(workspace_id=workspace_id, name=payload.name)
+    except ValueError as ex:
+        raise HTTPException(status_code=400, detail=str(ex))
+    return {"row": row}
+
+
+@app.get("/api/orgs/{org_id}/users")
+def list_org_users(org_id: str, request: Request):
+    _require_permission(request, "org.manage")
+    return {"rows": saas_store.list_org_users(org_id)}
+
+
 @app.get("/api/schema/source")
 def source_schema():
     rows = read_csv(SCHEMAS_DIR / "source_schema_catalog.csv")
@@ -588,7 +824,8 @@ def mapping_workbench(
 
 
 @app.post("/api/mappings/workbench/upsert")
-def mapping_workbench_upsert(payload: MappingWorkbenchUpdate):
+def mapping_workbench_upsert(payload: MappingWorkbenchUpdate, request: Request):
+    _require_permission(request, "project.design")
     rows = _read_workbench()
     found = False
     now = datetime.now(timezone.utc).isoformat()
@@ -615,7 +852,8 @@ def mapping_workbench_upsert(payload: MappingWorkbenchUpdate):
 
 
 @app.post("/api/mappings/workbench/transition")
-def mapping_workbench_transition(payload: MappingWorkbenchTransition):
+def mapping_workbench_transition(payload: MappingWorkbenchTransition, request: Request):
+    _require_permission(request, "project.design")
     allowed = {"DRAFT", "IN_REVIEW", "APPROVED", "REJECTED"}
     next_status = payload.status.upper()
     if next_status not in allowed:
@@ -685,7 +923,8 @@ def quality_trends(limit: int = Query(default=60, ge=1, le=300)):
 
 
 @app.post("/api/quality/trends/seed")
-def quality_trends_seed(weeks: int = Query(default=12, ge=4, le=104), replace: bool = Query(default=True)):
+def quality_trends_seed(request: Request, weeks: int = Query(default=12, ge=4, le=104), replace: bool = Query(default=True)):
+    _require_permission(request, "project.quality")
     now = datetime.now(timezone.utc)
     base = _snapshot_payload()
     rng = random.Random(f"quality_seed:{weeks}:{base.get('error_count', 0)}:{base.get('warning_count', 0)}")
@@ -719,7 +958,8 @@ def quality_kpis():
 
 
 @app.post("/api/quality/kpis")
-def quality_kpis_upsert(payload: Dict[str, object]):
+def quality_kpis_upsert(payload: Dict[str, object], request: Request):
+    _require_permission(request, "project.quality")
     rows = payload.get("rows")
     if not isinstance(rows, list):
         raise HTTPException(status_code=400, detail="rows must be a list")
@@ -835,7 +1075,8 @@ def schema_erd(domain: str, table_filter: str = Query(default="")):
 
 
 @app.post("/api/connectors/explore")
-def connector_explore(spec: ConnectorSpec):
+def connector_explore(spec: ConnectorSpec, request: Request):
+    _require_permission(request, "project.design")
     try:
         connector = build_connector(
             spec.connector_type,
@@ -907,11 +1148,13 @@ def default_csv_target_contract():
 
 @app.post("/api/runs/execute")
 def execute_lifecycle(
+    request: Request,
     rows: int = Query(default=20, ge=1, le=100000),
     seed: int = Query(default=42, ge=0, le=999999),
     min_patients: int = Query(default=20, ge=1, le=100000),
     release_profile: str = Query(default="pre_production"),
 ):
+    _require_permission(request, "project.execute")
     cmd = [
         "python",
         "pipeline/run_product_lifecycle.py",
@@ -958,12 +1201,14 @@ def lifecycle_steps(
 
 @app.post("/api/lifecycle/steps/{step_id}/execute")
 def execute_lifecycle_step(
+    request: Request,
     step_id: str,
     rows: int = Query(default=20, ge=1, le=100000),
     seed: int = Query(default=42, ge=0, le=999999),
     min_patients: int = Query(default=20, ge=1, le=100000),
     release_profile: str = Query(default="pre_production"),
 ):
+    _require_permission(request, "project.execute")
     steps = {s["id"]: s for s in _lifecycle_steps(rows, seed, min_patients, release_profile)}
     if step_id not in steps:
         raise HTTPException(status_code=404, detail=f"Unknown lifecycle step: {step_id}")
@@ -989,12 +1234,14 @@ def execute_lifecycle_step(
 
 @app.post("/api/lifecycle/execute-from/{step_id}")
 def execute_lifecycle_from(
+    request: Request,
     step_id: str,
     rows: int = Query(default=20, ge=1, le=100000),
     seed: int = Query(default=42, ge=0, le=999999),
     min_patients: int = Query(default=20, ge=1, le=100000),
     release_profile: str = Query(default="pre_production"),
 ):
+    _require_permission(request, "project.execute")
     steps = _lifecycle_steps(rows, seed, min_patients, release_profile)
     ids = [s["id"] for s in steps]
     if step_id not in ids:
@@ -1035,7 +1282,8 @@ def lifecycle_snapshots(limit: int = Query(default=50, ge=1, le=200)):
 
 
 @app.post("/api/lifecycle/snapshots/{snapshot_id}/restore")
-def lifecycle_restore(snapshot_id: str):
+def lifecycle_restore(snapshot_id: str, request: Request):
+    _require_permission(request, "project.execute")
     try:
         _restore_snapshot(snapshot_id)
     except FileNotFoundError:

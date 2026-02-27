@@ -1,6 +1,6 @@
-﻿# Enterprise User Guide: QVH PAS Migration Control Plane
+# Enterprise User Guide: QVH PAS Migration Control Plane
 
-Date: 2026-02-26  
+Date: 2026-02-27  
 Audience: NHS migration program teams running mission-critical PAS/EPR migrations.
 
 ## 1. Product vision for users
@@ -44,21 +44,27 @@ Core outcomes:
 
 1. `/` Dashboard:
    - migration health snapshot (schema, ETL, quality, gates).
-2. `/schemas`:
+2. `/login` and `/register`:
+   - secure sign-in and approval-driven onboarding request flow.
+3. `/onboarding`:
+   - enterprise setup for organization/workspace/project lifecycle context.
+4. `/settings`:
+   - runtime defaults and environment connectivity checks.
+5. `/schemas`:
    - source/target table and column views.
-3. `/erd`:
+6. `/erd`:
    - interactive relationship graph with table search and density control.
-4. `/mappings`:
+7. `/mappings`:
    - contract review plus edit/approve workbench.
-5. `/lifecycle`:
+8. `/lifecycle`:
    - stage-by-stage execution, rerun from selected step, snapshot restore.
-6. `/runs`:
+9. `/runs`:
    - run execution and gate/reject evidence review.
-7. `/quality`:
+10. `/quality`:
    - Dashboard, KPI Widgets, Issue Explorer.
-8. `/connectors`:
+11. `/connectors`:
    - connector type selection/configuration and schema discovery.
-9. `/users`:
+12. `/users`:
    - mission-critical role ownership model.
 
 ## 5. UI operation model
@@ -68,9 +74,12 @@ Core outcomes:
    - Design
    - Execution
    - Ops
-2. Dynamic rendering:
+2. Top bar context operations:
+   - compact `Context` popover for org/workspace/project switching
+   - quick links for onboarding and settings
+3. Dynamic rendering:
    - tables, columns, mapping rows, ERD links, and gate checks are API-driven.
-3. Enterprise-scale controls:
+4. Enterprise-scale controls:
    - server-side pagination in mappings views
    - bulk status/field actions in edit/approve workbench
    - searchable filters for schema and ERD exploration
@@ -121,27 +130,29 @@ python .\pipeline\run_product_lifecycle.py --rows 20 --seed 42 --min-patients 20
 ## 7.1 Start platform
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\product\scripts\run_fullstack.ps1 -BackendPort 8099 -FrontendPort 3133
+powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\product\scripts\run_fullstack.ps1 -BackendPort 9134 -FrontendPort 9133
 ```
 
 Open:
-1. UI: `http://127.0.0.1:3133`
-2. API docs: `http://127.0.0.1:8099/docs`
+1. UI: `http://127.0.0.1:9133`
+2. API docs: `http://127.0.0.1:9134/docs`
 
 ## 7.2 Typical operator workflow in UI
 
 1. `/connectors`: verify source/target connector config and preview.
-2. `/schemas`: validate source/target catalogs and key tables.
-3. `/erd`: inspect inferred FK chains and table relationship coverage.
-4. `/mappings`:
+2. `/onboarding`: ensure org/workspace/project are set for the current migration programme.
+3. `/schemas`: validate source/target catalogs and key tables.
+4. `/erd`: inspect inferred FK chains and table relationship coverage.
+5. `/mappings`:
    - review Contract Rows with filters and pagination
    - perform bulk edit/status changes in Edit and Approve tab
-5. `/lifecycle`: run stage-by-stage or rerun from selected step.
-6. `/runs`: check return code, gate status, rejects and reports.
-7. `/quality`:
+6. `/lifecycle`: run stage-by-stage or rerun from selected step.
+7. `/runs`: check return code, gate status, rejects and reports.
+8. `/quality`:
    - monitor dashboard KPIs
    - tune widget window/refresh
    - triage issues in Issue Explorer
+9. `/settings`: validate runtime defaults and API connectivity.
 
 ## 8. Connector operation model
 
@@ -192,3 +203,4 @@ Policy:
 2. Lock mapping contract version per release candidate.
 3. Maintain domain owners for high-risk table families (PMI, ADT, OPD, IWL, MH).
 4. Enforce sign-off sequence: technical QA -> DQ -> clinical safety -> governance board.
+

@@ -1,6 +1,6 @@
 # NHS PAS Migration Productization Blueprint
 
-Date: 2026-02-26
+Date: 2026-02-27
 
 ## Product objective
 
@@ -8,6 +8,7 @@ Evolve this migration workspace into a reusable NHS migration product:
 - enterprise-grade migration engine
 - auditable governance and release controls
 - full-stack UI control plane for DM engineers and stakeholders
+- SaaS-operational UX for onboarding, context switching, and settings governance
 - pluggable data connectors (CSV now, ODBC/JDBC next)
 
 ## Product vision pillars
@@ -53,6 +54,8 @@ Evolve this migration workspace into a reusable NHS migration product:
 - Dynamic rendering from generated artifacts
 - Views:
   - Dashboard
+  - Onboarding
+  - Settings
   - Schemas
   - Visual ERD
   - Mappings
@@ -115,7 +118,12 @@ Planned:
 Current outcome:
 - pre-production profile: PASS
 - cutover-ready profile: intentionally stricter for final governance readiness
-- v0.0.5 UX/state hardening delivered:
+- v0.2.0 SaaS + UX uplift delivered:
+  - auth/register approval workflow live
+  - multi-tenant context model live (`org -> workspace -> project`)
+  - compact top-bar context selector (popover)
+  - onboarding and settings pages live
+- v0.0.5 UX/state hardening retained:
   - workbench JSON recovery
   - paged mapping workbench and contract rows
   - ERD density controls and improved filtering
@@ -123,15 +131,22 @@ Current outcome:
 
 ## Recommended next iteration
 
-1. Enable ODBC connector with read-only policies and query limits.
-2. Add role-based access control in backend/API.
+1. Complete SaaS phase-2 governance:
+- role-scoped permission matrix
+- admin policy screens
+- approval segregation for clinical/release checkpoints
+2. Enable ODBC connector with read-only policies and query limits.
 3. Add API-triggered pipeline job queue (async runs + run state tracking).
 4. Add table-level reconciliation UI:
 - source count vs target count
 - null-rate
 - reject-rate
 - FK chain completeness
-5. Add interactive schema ERD UI:
+5. Add advanced interactive schema ERD UI:
 - PK/FK and inferred relationship graph
 - domain filter and lineage tracing
 - deep links from ERD node to schema/mapping/dq views
+
+Related approval docs:
+- `analysis/saas_product_uplift_requirements.md`
+- `analysis/saas_multitenancy_rbac_design.md`

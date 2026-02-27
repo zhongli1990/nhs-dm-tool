@@ -43,10 +43,9 @@ v0.0.5 focuses on runtime stability and operator UX quality for enterprise data 
 
 ## Runtime verification
 
-- Backend health: `200` on `http://127.0.0.1:8099/health`
-- Frontend health: `200` on `http://127.0.0.1:3133`
+- Backend health: `200` on `http://127.0.0.1:3134/health`
+- Frontend health: `200` on `http://127.0.0.1:9133`
 - Key pages validated after rebuild/restart:
   - `/erd`
   - `/mappings`
   - `/lifecycle`
-

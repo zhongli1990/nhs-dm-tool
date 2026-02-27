@@ -1,6 +1,6 @@
 # QVH PAS Migration Deliverables Summary
 
-Date: 2026-02-26  
+Date: 2026-02-27  
 Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
 
 ## 1. Delivered capability summary
@@ -39,6 +39,12 @@ Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
    - contract rows pagination with configurable page size
    - ERD force-layout density controls and ID in relationship list
    - dark/light visibility fixes for controls and logs
+7. SaaS uplift and operator UX expansion:
+   - login/register with approval workflow
+   - tenant context hierarchy (`org -> workspace -> project`)
+   - compact top-bar `Context` popover
+   - onboarding page (`/onboarding`)
+   - settings page (`/settings`)
 
 ## 2. Code structure
 
@@ -118,12 +124,12 @@ Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
 
 ## 4. Current runtime topology
 
-1. Backend API host/port: `127.0.0.1:8099`
-2. Frontend host/port: `127.0.0.1:3133`
+1. Backend API host/port: `127.0.0.1:9134`
+2. Frontend host/port: `127.0.0.1:9133`
 3. Frontend uses backend API base:
-   - `NEXT_PUBLIC_DM_API_BASE=http://localhost:8099`
+   - `NEXT_PUBLIC_DM_API_BASE=http://127.0.0.1:9134`
 
-## 4.1 UI lifecycle uplift (v0.0.5)
+## 4.1 UI lifecycle uplift (v0.2.0)
 
 1. Sidebar-based workflow navigation for mission-critical operations.
 2. Lifecycle orchestration page with parameter controls and stage execution.
@@ -147,6 +153,10 @@ Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
    - searchable table selector
    - layout density control (`compact`, `normal`, `sparse`)
    - relationship list row ID and cardinality labels
+10. SaaS controls:
+   - auth-first protected routes
+   - tenant-aware context switching in compact popover
+   - onboarding and settings flows
 
 ## 4.2 Feature uplift status matrix
 
@@ -199,3 +209,4 @@ Program: NHS QVH PAS to PAS 18.4 migration control-plane and pipeline stack.
 
 1. [deployment_guide.md](c:/Zhong/Windsurf/data_migration/analysis/deployment_guide.md)
 2. [enterprise_user_guide.md](c:/Zhong/Windsurf/data_migration/analysis/enterprise_user_guide.md)
+

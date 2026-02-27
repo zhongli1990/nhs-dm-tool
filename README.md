@@ -1,4 +1,4 @@
-# NHS QVH PAS Data Migration Workspace
+﻿# NHS QVH PAS Data Migration Workspace
 
 Metadata-driven migration tooling for Queen Victoria Hospital PAS migration:
 - Source: PC60/V83 legacy PAS
@@ -83,9 +83,12 @@ python .\pipeline\run_product_lifecycle.py --rows 20 --seed 42 --min-patients 20
 - Runtime strategy: `analysis/fullstack_runtime_strategy.md`
 - Full-stack due diligence: `analysis/due_diligence_fullstack_e2e.md`
 - Deliverables summary index: `analysis/deliverables_summary.md`
-- Deployment guide: `analysis/deployment_guide.md`
+- Deployment guide (Windows): `analysis/deployment_guide.md`
+- Deployment guide (Ubuntu/AWS): `analysis/deployment_guide_ubuntu.md`
 - Enterprise user guide: `analysis/enterprise_user_guide.md`
 - Enterprise onboarding and DQ roadmap: `analysis/enterprise_onboarding_and_dq_roadmap.md`
+- SaaS uplift requirements (approval draft): `analysis/saas_product_uplift_requirements.md`
+- SaaS multitenancy/RBAC design (approval draft): `analysis/saas_multitenancy_rbac_design.md`
 
 ## Implementation notes
 
@@ -103,6 +106,9 @@ See `product/README.md` for running:
 - Next.js dynamic UI (`product/frontend`)
 
 UI lifecycle uplift (v0.0.5):
+- OpenLI DMM branding in control plane shell
+- SaaS foundation with login/register and admin approval flow
+- tenant context model (`organization -> workspace -> project`)
 - step-by-step execution console at `/lifecycle`
 - dynamic schema/table/field explorer
 - visual schema ERD page at `/erd` (PK/FK/inferred lineage graph MVP)
@@ -124,3 +130,4 @@ Connector modes currently exposed in API/UI:
 - `csv` (real file connector, active)
 - `json_dummy` (dummy placeholder, active)
 - `odbc` / `jdbc` (experimental introspection connectors)
+

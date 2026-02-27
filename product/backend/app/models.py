@@ -32,3 +32,34 @@ class MappingWorkbenchTransition(BaseModel):
     status: str
     updated_by: str = "ui_user"
     notes: Optional[str] = None
+
+
+class AuthLoginRequest(BaseModel):
+    username_or_email: str
+    password: str
+    org_id: Optional[str] = None
+    workspace_id: Optional[str] = None
+    project_id: Optional[str] = None
+
+
+class AuthRegisterRequest(BaseModel):
+    username: str
+    email: str
+    display_name: str
+    password: str
+    requested_org_id: str
+
+
+class RegistrationReviewRequest(BaseModel):
+    role: str = "org_dm_engineer"
+    reason: Optional[str] = None
+
+
+class CreateNameRequest(BaseModel):
+    name: str
+
+
+class ContextSwitchRequest(BaseModel):
+    org_id: str
+    workspace_id: str
+    project_id: str

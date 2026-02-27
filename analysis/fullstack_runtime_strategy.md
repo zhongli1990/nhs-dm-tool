@@ -1,6 +1,6 @@
-﻿# Full-Stack Runtime Strategy (FastAPI + Next.js)
+# Full-Stack Runtime Strategy (FastAPI + Next.js)
 
-Date: 2026-02-26
+Date: 2026-02-27
 
 ## Direct answer
 
@@ -12,12 +12,12 @@ This remains the correct baseline for reliability and reproducibility.
 1. Backend isolation
 - create `product/backend/.venv`
 - install pinned dependencies from `requirements.txt`
-- run `uvicorn app.main:app --host 127.0.0.1 --port 8099`
+- run `uvicorn app.main:app --host 127.0.0.1 --port 9134`
 
 2. Frontend isolation
 - keep `product/frontend/node_modules` local
-- run Next.js on `3133`
-- set `NEXT_PUBLIC_DM_API_BASE=http://localhost:8099`
+- run Next.js on `9133`
+- set `NEXT_PUBLIC_DM_API_BASE=http://127.0.0.1:9134`
 
 3. Controlled startup model
 - backend and frontend as separate managed processes
@@ -37,7 +37,7 @@ This remains the correct baseline for reliability and reproducibility.
 - lifecycle UI supports step execution, rerun-from-step, and snapshot restore
 
 6. Security posture for production scale-up
-- introduce API auth and RBAC
+- API auth and RBAC baseline is implemented (v0.2.0)
 - move connector credentials to secret vault
 - enforce read-only DB users for source connectivity
 - maintain immutable run/audit logs
@@ -48,5 +48,6 @@ This remains the correct baseline for reliability and reproducibility.
 ```powershell
 powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\product\scripts\setup_backend.ps1
 powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\product\scripts\setup_frontend.ps1
-powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\product\scripts\run_fullstack.ps1 -BackendPort 8099 -FrontendPort 3133
+powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\product\scripts\run_fullstack.ps1 -BackendPort 9134 -FrontendPort 9133
 ```
+

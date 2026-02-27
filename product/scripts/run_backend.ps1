@@ -1,7 +1,7 @@
 param(
   [string]$BackendDir = "c:\Zhong\Windsurf\data_migration\product\backend",
   [string]$BindHost = "127.0.0.1",
-  [int]$Port = 8099
+  [int]$Port = 9134
 )
 
 $ErrorActionPreference = "Stop"
