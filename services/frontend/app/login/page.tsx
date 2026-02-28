@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { buildApiUrl } from "../../lib/api";
 import ThemeModeSwitch from "../../components/ThemeModeSwitch";
 import { APP_VERSION } from "../../lib/version";
@@ -12,6 +12,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [debug, setDebug] = useState<string[]>([]);
+  const [version, setVersion] = useState(APP_VERSION);
 
   function pushDebug(message: string) {
     const ts = new Date().toISOString();
@@ -19,6 +20,16 @@ export default function LoginPage() {
     setDebug((prev) => [...prev.slice(-8), line]);
     console.info("[login-debug]", line);
   }
+
+  useEffect(() => {
+    fetch(buildApiUrl("/api/meta/version"))
+      .then((r) => r.json())
+      .then((p) => {
+        const v = String(p?.current_version || "").trim();
+        if (v) setVersion(v);
+      })
+      .catch(() => undefined);
+  }, []);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -116,7 +127,7 @@ export default function LoginPage() {
                   {debug.join("\n")}
                 </div>
               ) : null}
-              <div className="muted" style={{ marginTop: 10 }}>Version {APP_VERSION}</div>
+              <div className="muted" style={{ marginTop: 10 }}>Version {version}</div>
             </form>
           </section>
         </div>

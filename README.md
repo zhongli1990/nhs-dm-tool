@@ -157,14 +157,16 @@ python pipeline/run_product_lifecycle.py --rows 20 --seed 42 \
 
 Or via the UI: Navigate to `/lifecycle` and execute steps interactively.
 
-## Current Status (v0.2.4)
+## Current Status (v0.2.5)
 
 - Schema extraction: **PASS** (417 source / 38 target tables)
 - Contract-driven ETL: **PASS** (38 tables, 0 crosswalk rejects)
 - Enterprise quality gate: **PASS** (0 errors, 0 warnings)
 - Release gates: **pre_production PASS**
 - SaaS foundation: Multi-tenant auth, RBAC, org/workspace/project context (PostgreSQL-backed)
-- UI: Dashboard, Schemas, ERD, Mappings, Lifecycle, Runs, Quality, Connectors
+- UI: Dashboard, Schemas, ERD, Mappings, Lifecycle, Runs, Quality, Connectors, Documents, Users & RBAC, Admin
+- Enterprise controls: user lifecycle lock/unlock/session reset, role-permission matrix, audit explorer/export
+- Versioning: manifest-driven source of truth (`services/version_manifest.json`) used by API and UI surfaces
 
 ## Operations
 
@@ -206,6 +208,10 @@ Audit review API (org admin / super admin):
 | Gap register | `docs/analysis/gap_register.md` |
 | E2E lifecycle | `docs/analysis/qvh_pas_migration_e2e_lifecycle.md` |
 | SaaS RBAC design | `docs/analysis/saas_multitenancy_rbac_design.md` |
+| Enterprise user/RBAC design (v0.2.5 baseline) | `docs/analysis/enterprise_user_management_rbac_design_v0.2.5.md` |
+| Enterprise user/RBAC implementation plan | `docs/analysis/enterprise_user_management_rbac_implementation_plan.md` |
+| Enterprise user/RBAC implementation status | `docs/analysis/enterprise_user_management_rbac_implementation_status_v0.2.5.md` |
+| Release notes v0.2.5 | `docs/release-notes/v0.2.5.md` |
 | Due diligence report | `docs/analysis/due_diligence_fullstack_e2e.md` |
 
 ## Licensing and IP

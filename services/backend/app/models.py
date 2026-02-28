@@ -63,3 +63,32 @@ class ContextSwitchRequest(BaseModel):
     org_id: str
     workspace_id: str
     project_id: str
+
+
+class UserStatusUpdateRequest(BaseModel):
+    status: str
+    reason: Optional[str] = None
+
+
+class MembershipRoleUpdateRequest(BaseModel):
+    role: str
+    reason: Optional[str] = None
+
+
+class MembershipCreateRequest(BaseModel):
+    org_id: str
+    role: str
+    reason: Optional[str] = None
+
+
+class RoleCreateRequest(BaseModel):
+    role: str
+    permissions: list[str] = []
+
+
+class RolePermissionsUpdateRequest(BaseModel):
+    permissions: list[str] = []
+
+
+class UserActionRequest(BaseModel):
+    reason: Optional[str] = None

@@ -18,6 +18,7 @@ export default function RegisterPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [version, setVersion] = useState(APP_VERSION);
 
   useEffect(() => {
     fetch(buildApiUrl("/api/auth/orgs"))
@@ -28,6 +29,14 @@ export default function RegisterPage() {
         if (rows.length > 0) setRequestedOrgId(rows[0].id);
       })
       .catch(() => setOrgs([]));
+
+    fetch(buildApiUrl("/api/meta/version"))
+      .then((r) => r.json())
+      .then((p) => {
+        const v = String(p?.current_version || "").trim();
+        if (v) setVersion(v);
+      })
+      .catch(() => undefined);
   }, []);
 
   async function onSubmit(e: FormEvent) {
@@ -123,7 +132,7 @@ export default function RegisterPage() {
                   {error}
                 </p>
               ) : null}
-              <div className="muted" style={{ marginTop: 10 }}>Version {APP_VERSION}</div>
+              <div className="muted" style={{ marginTop: 10 }}>Version {version}</div>
             </form>
           </section>
         </div>

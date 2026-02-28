@@ -108,6 +108,8 @@ class AuditStore:
         event_type: str = "",
         outcome: str = "",
         actor_org_id: str = "",
+        target_type: str = "",
+        actor_user_id: str = "",
     ) -> List[Dict[str, object]]:
         if not self.enabled or self.backend != "postgres":
             return []
@@ -121,6 +123,10 @@ class AuditStore:
                 stmt = stmt.where(AuditEvent.outcome == outcome.upper())
             if actor_org_id:
                 stmt = stmt.where(AuditEvent.actor_org_id == actor_org_id)
+            if target_type:
+                stmt = stmt.where(AuditEvent.target_type == target_type)
+            if actor_user_id:
+                stmt = stmt.where(AuditEvent.actor_user_id == actor_user_id)
             rows = session.scalars(stmt).all()
             return [self._row(r) for r in rows]
 

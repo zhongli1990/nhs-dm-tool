@@ -1,6 +1,6 @@
 ﻿# QVH PAS Migration E2E Dry Run Lifecycle
 
-Date: 2026-02-27  
+Date: 2026-02-28  
 Scope: `c:\Zhong\Windsurf\data_migration`
 
 ## Objective
@@ -151,9 +151,11 @@ Implemented:
 - mappings workbench with pagination and bulk actions
 - ERD visual explorer with inferred relationships and density control
 - quality command centre (Dashboard, KPI Widgets, Issue Explorer)
+- enterprise user lifecycle and RBAC operations (users directory, role matrix, session reset)
+- documents module for lifecycle/deployment/design artifact browsing and controlled download/upload
 
 Pending hardening:
-- production auth/RBAC and secret vault
+- federated SSO integration (OIDC/SAML) with managed identity providers
 - async job orchestration with durable run state
 - deeper connector hardening for ODBC/JDBC
 - final cutover-ready governance sign-off
@@ -168,7 +170,14 @@ Pending hardening:
 6. `Lifecycle`: run step-by-step or rerun from selected stage.
 7. `Runs`: verify run outcome and gate status.
 8. `Quality`: review KPI widgets and issue triage outputs.
-9. `Settings`: verify runtime defaults and version history for governance traceability.
+9. `Documents`: review lifecycle runbooks/deployment guides/design records.
+10. `Settings`: verify runtime defaults and version history for governance traceability.
+
+## Versioning and evidence alignment
+
+1. Manifest source of truth: `services/version_manifest.json`.
+2. API version endpoint: `GET /api/meta/version`.
+3. Release notes location: `docs/release-notes/`.
 
 ## Sign-off artifacts for governance board
 

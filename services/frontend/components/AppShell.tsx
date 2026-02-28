@@ -14,6 +14,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
   const authOnly = pathname === "/login" || pathname === "/register";
   const [authChecked, setAuthChecked] = useState(authOnly);
   const [authorized, setAuthorized] = useState(authOnly);
+  const [version, setVersion] = useState(APP_VERSION);
 
   useEffect(() => {
     if (authOnly) {
@@ -56,6 +57,16 @@ export default function AppShell({ children }: { children: ReactNode }) {
     };
   }, [authOnly, pathname]);
 
+  useEffect(() => {
+    fetch(buildApiUrl("/api/meta/version"))
+      .then((r) => r.json())
+      .then((payload) => {
+        const current = String(payload?.current_version || "").trim();
+        if (current) setVersion(current);
+      })
+      .catch(() => undefined);
+  }, []);
+
   if (authOnly) {
     return <>{children}</>;
   }
@@ -80,7 +91,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
         <div className="topbar-actions">
           <ThemeModeSwitch />
           <AuthToolbar />
-          <div className="topbar-meta">v{APP_VERSION}</div>
+          <div className="topbar-meta">v{version}</div>
         </div>
       </header>
       <div className="app-main">

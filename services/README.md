@@ -24,8 +24,10 @@ Enterprise NHS migration control plane for PAS/EPR transitions:
 - title bar subtitle: `Data Migration Manager - Enterprise EPR Migration Lifecycle Management`
 
 3. Version configuration
-- single-source version manifest: `product/version_manifest.json`
-- frontend version string: `NEXT_PUBLIC_DMM_VERSION` (fallbacks to manifest default)
+- single-source version manifest: `services/version_manifest.json`
+- frontend version string:
+  - primary source: `GET /api/meta/version` (manifest-backed)
+  - optional build override: `NEXT_PUBLIC_DMM_VERSION`
 - API endpoint: `GET /api/meta/version`
 
 ## Run backend
@@ -90,6 +92,7 @@ powershell -ExecutionPolicy Bypass -File c:\Zhong\Windsurf\data_migration\produc
   - Issue Explorer
 - `/connectors` connector strategy and dynamic connector config/test/preview console
 - `/users` mission-critical user roles and lifecycle task ownership
+- `/documents` SaaS platform documentation browser/uploader/downloader
 - `/admin` organization/workspace/project and registration approval console
 
 ## Default seed users (development bootstrap)
@@ -140,7 +143,7 @@ Production hardening still required:
 - timeout/query governance
 - audit and telemetry
 
-## Current maturity snapshot (v0.2.0)
+## Current maturity snapshot (v0.2.5)
 
 Implemented:
 - SaaS phase-1 foundation:
@@ -158,6 +161,13 @@ Implemented:
 - quality command centre with KPI widgets and trend controls
 - lifecycle rerun-from-step and snapshot restore
 - enterprise pagination and UI rendering hardening
+- enterprise user lifecycle controls (lockout, unlock, session reset)
+- role catalog and permission matrix management
+- audit explorer filters and CSV export
+- documents module:
+  - folder tree browsing
+  - markdown rendering
+  - controlled upload/download with RBAC and audit trail
 
 Pending for production-grade cutover:
 - fine-grained RBAC policy matrix by role and function
@@ -172,4 +182,3 @@ Pending for production-grade cutover:
 2. Use pinned Python and Node versions in CI.
 3. Run backend and frontend as separate services with health checks.
 4. Treat `pre_production` gate as engineering readiness, `cutover_ready` as governance readiness.
-

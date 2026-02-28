@@ -22,7 +22,7 @@ const MENU = [
       { href: "/quality", label: "Quality" },
     ],
   },
-  { header: "Ops", items: [{ href: "/users", label: "Roles" }, { href: "/admin", label: "Admin" }, { href: "/onboarding", label: "Onboarding" }, { href: "/settings", label: "Settings" }] },
+  { header: "Ops", items: [{ href: "/documents", label: "Documents" }, { href: "/users", label: "Users & RBAC" }, { href: "/admin", label: "Admin" }, { href: "/onboarding", label: "Onboarding" }, { href: "/settings", label: "Settings" }] },
 ];
 
 export default function AppNav() {

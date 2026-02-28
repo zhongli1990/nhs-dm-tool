@@ -1,7 +1,7 @@
 {
   "product_name": "OpenLI DMM",
-  "current_version": "0.2.4",
-  "released_on": "2026-02-27",
+  "current_version": "0.2.5",
+  "released_on": "2026-02-28",
   "history": [
     {
       "version": "0.0.1",
@@ -37,6 +37,11 @@
       "version": "0.2.4",
       "released_on": "2026-02-27",
       "summary": "Alembic migration governance and immutable audit-event trail for mission-critical enterprise operations."
+    },
+    {
+      "version": "0.2.5",
+      "released_on": "2026-02-28",
+      "summary": "Enterprise docs module, user lifecycle controls, role-permission matrix UX, and consolidated manifest-driven versioning."
     }
   ]
 }

@@ -15,10 +15,12 @@ COPY services/backend/requirements.txt /app/services/backend/requirements.txt
 RUN pip install --no-cache-dir -r /app/services/backend/requirements.txt
 
 COPY services/backend/ /app/services/backend/
+COPY services/version_manifest.json /app/services/version_manifest.json
 COPY pipeline/ /app/pipeline/
 COPY schemas/ /app/schemas/
 COPY mock_data/ /app/mock_data/
 COPY reports/ /app/reports/
+COPY docs/ /app/docs/
 COPY docs/specs/ /app/requirement_spec/
 
 RUN mkdir -p /app/services/backend/data \

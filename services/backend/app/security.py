@@ -28,6 +28,7 @@ def verify_password(password: str, password_hash: str) -> bool:
 
 def create_token(payload: Dict[str, object], ttl_seconds: int = TOKEN_TTL_SECONDS) -> str:
     body = dict(payload)
+    body["iat"] = int(time.time())
     body["exp"] = int(time.time()) + ttl_seconds
     raw = json.dumps(body, separators=(",", ":"), sort_keys=True).encode("utf-8")
     data = base64.urlsafe_b64encode(raw).decode("utf-8").rstrip("=")

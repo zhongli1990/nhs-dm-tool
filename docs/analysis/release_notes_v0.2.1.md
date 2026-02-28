@@ -14,7 +14,7 @@ Type: Patch release (`+0.0.1` from `0.2.0`)
 2. Versioning surfaced in UI and settings:
 - top bar version badge
 - version history table in Settings
-- centralized version manifest (`product/version_manifest.json`)
+- centralized version manifest (`services/version_manifest.json`)
 
 3. Documentation alignment uplift:
 - lifecycle/user model updated for SaaS role tiers

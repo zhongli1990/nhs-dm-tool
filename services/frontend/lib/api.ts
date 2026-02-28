@@ -59,4 +59,42 @@ export async function apiPostJson<T>(path: string, body: unknown): Promise<T> {
   return res.json();
 }
 
+export async function apiPatchJson<T>(path: string, body: unknown): Promise<T> {
+  const res = await fetch(buildApiUrl(path), {
+    method: "PATCH",
+    headers: authHeaders({ "Content-Type": "application/json" }),
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const payload = await res.json().catch(() => ({}));
+    throw new Error(payload?.detail || `PATCH ${path} failed: ${res.status}`);
+  }
+  return res.json();
+}
+
+export async function apiDelete<T>(path: string): Promise<T> {
+  const res = await fetch(buildApiUrl(path), {
+    method: "DELETE",
+    headers: authHeaders(),
+  });
+  if (!res.ok) {
+    const payload = await res.json().catch(() => ({}));
+    throw new Error(payload?.detail || `DELETE ${path} failed: ${res.status}`);
+  }
+  return res.json();
+}
+
+export async function apiPutJson<T>(path: string, body: unknown): Promise<T> {
+  const res = await fetch(buildApiUrl(path), {
+    method: "PUT",
+    headers: authHeaders({ "Content-Type": "application/json" }),
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const payload = await res.json().catch(() => ({}));
+    throw new Error(payload?.detail || `PUT ${path} failed: ${res.status}`);
+  }
+  return res.json();
+}
+
 export { API_BASE, buildApiUrl, getTokenFromBrowser };

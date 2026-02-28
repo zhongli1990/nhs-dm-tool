@@ -80,15 +80,23 @@ export default function AdminPage() {
   }
 
   async function approveRequest(requestId: string) {
-    await apiPostJson(`/api/registration-requests/${requestId}/approve`, { role: "org_dm_engineer" });
-    setMessage("Registration approved.");
-    await load();
+    try {
+      await apiPostJson(`/api/registration-requests/${requestId}/approve`, { role: "org_dm_engineer" });
+      setMessage("Registration approved.");
+      await load();
+    } catch (ex: any) {
+      setMessage(`Approval failed: ${ex?.message || "unknown error"}`);
+    }
   }
 
   async function rejectRequest(requestId: string) {
-    await apiPostJson(`/api/registration-requests/${requestId}/reject`, { reason: "rejected by administrator" });
-    setMessage("Registration rejected.");
-    await load();
+    try {
+      await apiPostJson(`/api/registration-requests/${requestId}/reject`, { reason: "rejected by administrator" });
+      setMessage("Registration rejected.");
+      await load();
+    } catch (ex: any) {
+      setMessage(`Reject failed: ${ex?.message || "unknown error"}`);
+    }
   }
 
   return (
@@ -197,10 +205,12 @@ export default function AdminPage() {
                   <td>{r.requested_org_id}</td>
                   <td>{r.created_at_utc}</td>
                   <td style={{ display: "flex", gap: 6 }}>
-                    <button className="primary" onClick={() => approveRequest(r.id)}>
+                    <button type="button" className="primary" onClick={() => approveRequest(r.id)}>
                       Approve
                     </button>
-                    <button onClick={() => rejectRequest(r.id)}>Reject</button>
+                    <button type="button" onClick={() => rejectRequest(r.id)}>
+                      Reject
+                    </button>
                   </td>
                 </tr>
               ))}

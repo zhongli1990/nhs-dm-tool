@@ -1,6 +1,6 @@
 # Enterprise User Guide: QVH PAS Migration Control Plane
 
-Date: 2026-02-27  
+Date: 2026-02-28  
 Audience: NHS migration program teams running mission-critical PAS/EPR migrations.
 
 ## 1. Product vision for users
@@ -91,6 +91,10 @@ Example: an acute Trust running a major PAS to EPR migration programme:
    - connector type selection/configuration and schema discovery.
 12. `/users`:
    - mission-critical role ownership model.
+13. `/admin`:
+   - enterprise user lifecycle, registration approvals, and role-permission operations.
+14. `/documents`:
+   - controlled document browsing/upload/download and markdown rendering.
 
 ## 5. UI operation model
 
@@ -177,7 +181,10 @@ Open:
    - monitor dashboard KPIs
    - tune widget window/refresh
    - triage issues in Issue Explorer
-9. `/settings`: validate runtime defaults and API connectivity.
+9. `/users`: review user directory, role assignments, and account lifecycle state.
+10. `/admin`: process approvals, role updates, and audit-backed privileged actions.
+11. `/documents`: browse lifecycle/deployment/design docs and download controlled artifacts.
+12. `/settings`: validate runtime defaults and API connectivity.
 
 ## 8. Connector operation model
 
@@ -222,10 +229,15 @@ Policy:
 7. `reports/contract_migration_rejects.csv`
 8. `reports/mapping_contract.csv`
 
+## 13. Version governance and release traceability
+
+1. Product version source of truth is `services/version_manifest.json`.
+2. Login/register/top-bar/settings version labels are API-driven from `GET /api/meta/version`.
+3. Release notes are maintained under `docs/release-notes/` and must align with manifest history.
+
 ## 12. Best practices for heavy migration programs
 
 1. Use fixed seed and cohort for rehearsal comparability.
 2. Lock mapping contract version per release candidate.
 3. Maintain domain owners for high-risk table families (PMI, ADT, OPD, IWL, MH).
 4. Enforce sign-off sequence: technical QA -> DQ -> clinical safety -> governance board.
-
