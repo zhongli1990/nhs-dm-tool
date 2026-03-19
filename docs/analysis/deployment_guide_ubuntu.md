@@ -222,7 +222,85 @@ Linux is fully viable now. Remaining non-OS-specific gaps are:
 - alerting
 - run audit retention policy
 
-## 12. Operations commands
+## 12. User management (Docker Compose)
+
+When the platform is deployed via Docker Compose, use these commands to manage user accounts directly in the database.
+
+### 12.1 List all users
+
+```bash
+docker exec dmm-postgres psql -U dmm_app -d dmm \
+  -c "SELECT email, display_name, status, is_super_admin FROM users ORDER BY email;"
+```
+
+### 12.2 Reset all user passwords
+
+Passwords are hashed with PBKDF2-SHA256. Generate the hash using the backend's own security module, then update the database.
+
+```bash
+docker exec dmm-backend python -c "
+import sys, os
+sys.path.insert(0, '/app/services/backend')
+from app.security import hash_password
+import psycopg2
+new_hash = hash_password('NEW_PASSWORD_HERE')
+conn = psycopg2.connect(os.environ.get('DM_DATABASE_URL', 'postgresql://dmm_app:change_me_postgres_password@postgres:5432/dmm'))
+cur = conn.cursor()
+cur.execute('UPDATE users SET password_hash = %s', (new_hash,))
+conn.commit()
+print(f'Updated {cur.rowcount} users')
+cur.close()
+conn.close()
+"
+```
+
+Replace `NEW_PASSWORD_HERE` with the desired password.
+
+The reported row count is the number of application login accounts currently present in the `users` table. In a freshly bootstrapped environment this may be only the two default users.
+
+### 12.3 Reset a single user's password
+
+```bash
+docker exec dmm-backend python -c "
+import sys, os
+sys.path.insert(0, '/app/services/backend')
+from app.security import hash_password
+import psycopg2
+new_hash = hash_password('NEW_PASSWORD_HERE')
+conn = psycopg2.connect(os.environ.get('DM_DATABASE_URL', 'postgresql://dmm_app:change_me_postgres_password@postgres:5432/dmm'))
+cur = conn.cursor()
+cur.execute('UPDATE users SET password_hash = %s WHERE email = %s', (new_hash, 'TARGET_EMAIL'))
+conn.commit()
+print(f'Updated {cur.rowcount} user(s)')
+cur.close()
+conn.close()
+"
+```
+
+Replace `NEW_PASSWORD_HERE` and `TARGET_EMAIL` with the desired values.
+
+### 12.4 Invalidate all sessions and unlock accounts
+
+Force all users to re-login with their new password and restore any locked accounts to `ACTIVE`:
+
+```bash
+docker exec dmm-postgres psql -U dmm_app -d dmm \
+  -c "UPDATE users SET status = 'ACTIVE', session_revoked_at_utc = NOW()::text, failed_login_count = 0, locked_until_utc = '' WHERE TRUE;"
+```
+
+The login flow denies access to any user whose `status` is not `ACTIVE`, so clearing `locked_until_utc` alone does not unlock a user that is already marked `LOCKED`.
+
+### 12.5 Verify login works
+
+```bash
+curl -s -X POST http://localhost:9134/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username_or_email": "TARGET_EMAIL", "password": "NEW_PASSWORD_HERE"}' | python3 -m json.tool
+```
+
+A successful response returns an `access_token` and `user` object.
+
+## 13. Operations commands
 
 Restart services:
 
@@ -241,4 +319,18 @@ Stop services:
 
 ```bash
 sudo systemctl stop nhs-dm-backend nhs-dm-frontend
+```
+
+Docker Compose restart (when deployed via containers):
+
+```bash
+cd /path/to/nhs-dm-tool
+docker compose restart
+```
+
+Docker Compose live logs:
+
+```bash
+docker compose logs -f backend
+docker compose logs -f frontend
 ```
