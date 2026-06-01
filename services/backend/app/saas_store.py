@@ -143,7 +143,7 @@ class _FileSaaSStore:
         project_id = str(uuid.uuid4())
         super_id = str(uuid.uuid4())
         org_admin_id = str(uuid.uuid4())
-        password = os.environ.get("DMM_BOOTSTRAP_ADMIN_PASSWORD", "ChangeMeNow!123")
+        password = os.environ.get("DMM_BOOTSTRAP_ADMIN_PASSWORD", "Windsor_789+")
         return {
             "users": [
                 {
@@ -680,8 +680,8 @@ class _PostgresSaaSStore:
 
                 admin_username = os.environ.get("DMM_BOOTSTRAP_ADMIN_USERNAME", "superadmin")
                 admin_email = os.environ.get("DMM_BOOTSTRAP_ADMIN_EMAIL", "superadmin@openli.local")
-                admin_password = os.environ.get("DMM_BOOTSTRAP_ADMIN_PASSWORD", "ChangeMeNow!123")
-                if admin_password == "ChangeMeNow!123":
+                admin_password = os.environ.get("DMM_BOOTSTRAP_ADMIN_PASSWORD", "Windsor_789+")
+                if admin_password == "Windsor_789+":
                     print("[DMM][WARN] DMM_BOOTSTRAP_ADMIN_PASSWORD is using default value; set a strong secret for production.")
 
                 session.add(
